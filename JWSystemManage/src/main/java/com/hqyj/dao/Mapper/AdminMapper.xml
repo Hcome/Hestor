@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hqyj.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.hqyj.entity.Admin">
+    <id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    <result column="admin_num" jdbcType="INTEGER" property="adminNum" />
+    <result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    <result column="admin_age" jdbcType="INTEGER" property="adminAge" />
+    <result column="admin_tel" jdbcType="VARCHAR" property="adminTel" />
+    <result column="admin_gender" jdbcType="VARCHAR" property="adminGender" />
+    <result column="admin_email" jdbcType="VARCHAR" property="adminEmail" />
+    <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
+  </resultMap>
+  
+  <!-- 增加管理员用户 -->
+  <insert id="insertAdmin" parameterType="com.hqyj.entity.Admin">
+  	INSERT INTO t_admin VALUES(null,#{adminNum},#{adminName},#{adminAge},#{adminTel},
+  									#{adminGender},#{adminEmail},#{fkUserId})
+  </insert>
+  <!-- 查询所有的管理员 -->
+  <select id="queryAdminAll" resultMap="BaseResultMap">
+  	select *from t_admin
+  </select>
+</mapper>

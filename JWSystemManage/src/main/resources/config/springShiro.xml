@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   	<!-- shiro相关配置 -->
+	
+	<!-- 配置自定义数据源myRealm -->
+	<bean id="myRealm" class="com.hqyj.realm.MyRealm">
+		<!-- 注入凭证匹配 -->
+		<property name="credentialsMatcher" ref="credentialsMatcher"></property>
+	</bean>
+	<!-- 配置安全管理器 -->
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<property name="realm" ref="myRealm"></property>
+		<property name="rememberMeManager" ref="rememberMeManager"></property>
+		<property name="sessionManager" ref="sessionManager"></property>
+		<!-- <property name="cacheManager" ref="cacheManager"></property> -->
+	</bean>
+	<!-- 会话管理器 -->
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+        <!-- session的失效时长，单位毫秒 -->
+        <property name="globalSessionTimeout" value="600000"/>
+        <!-- 删除失效的session -->
+        <property name="deleteInvalidSessions" value="true"/>
+        <!-- 去除重定向后地址栏后面的jsessionid -->
+        <property name="sessionIdUrlRewritingEnabled" value="false"></property>
+    </bean>
+    <!-- 配置缓存管理器 -->
+    <!-- <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+    	<property name="cacheManagerConfigFile" value="classpath:shiro-ehcache.xml"/>
+    </bean> -->
+	<!-- 凭证匹配器 -->
+	<bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<property name="hashAlgorithmName" value="md5" />
+		<property name="hashIterations" value="1024" />
+	</bean>
+	<!-- rememberMeMangger -->
+	<bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">
+		<property name="cookie" ref="rememberMeCookie" />
+	</bean>
+	<!-- 记住我cookie -->
+	<bean id="rememberMeCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
+		<constructor-arg value="rememberMe" />
+		<!-- 记住我cookie生效时间30天 -->
+		<property name="maxAge" value="2592000" />
+	</bean>
+	<!-- 配置authc，默认表单的用户名和密码必须是：username，password -->
+	<bean id="authc" class="org.apache.shiro.web.filter.authc.FormAuthenticationFilter">
+		<property name="usernameParam" value="userName"></property>
+		<property name="passwordParam" value="userPassword"></property>
+	</bean>
+	<!-- shiro生命周期处理器 -->
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"></bean>
+	<!-- 配置shiro过滤器 -->
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<!-- loginUrl认证提交地址，如果没有认证将会请求此地址进行认证，请求此地址将由formAuthenticationFilter进行表单认证 -->
+		<property name="loginUrl" value="/sys/gologin" />
+		<property name="successUrl" value="/sys/main"></property>
+		<!-- 授权不通过（不具备相应权限） 走该地址--> 
+		<property name="unauthorizedUrl" value="/sys/error"></property>
+		<!-- 过虑器链定义，从上向下顺序执行，一般将/**放在最下边 -->
+		<property name="filterChainDefinitions">
+			<value>
+				/sys/index=anon
+				/sys/login=anon
+				/sys/gologin=anon
+				/sys/error=anon
+				/sys/register=anon
+				/sys/goregister=anon
+				/sys/loginOut=logout
+				/user/addStu=anon
+				/user/addTeacher=anon
+				/user/addAdminAndTeacher=anon
+				/student/goAdd=anon
+				/student/goQueryStudent=anon
+				/student/queryStudent=anon
+				/teacher/goQueryTeacher=anon
+				/teacher/queryTeacher=anon
+				/static/**=anon
+				<!-- user表示身份认证通过或通过记住我认证通过的可以访问 -->
+				/**=user
+				<!-- 所有请求都要认证 -->
+				<!-- /**=authc -->
+			</value>
+		</property>
+	</bean>
+   	
+</beans>

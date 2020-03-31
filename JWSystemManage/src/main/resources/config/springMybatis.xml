@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+   	
+   	<!-- 配置mybatis工厂 -->
+   	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
+   		<!-- 数据源 -->
+   		<property name="dataSource" ref="dataSource"></property>
+   		<property name="typeAliasesPackage" value="com.hqyj.entity"></property>
+   		<!-- 配置MyBatis的核心配置文件所在位置 -->
+		<property name="configLocation" value="classpath:config/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath:com/hqyj/dao/Mapper/*.xml"/>
+		<!-- 分页插件 -->
+		<!-- 注意其他配置 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<!--使用下面的方式配置参数，一行配置一个 -->
+						<value>helperDialect=mysql</value>												
+					</property>
+				</bean>
+			</array>
+		</property>
+   	</bean>
+   		<!-- 接口开发,扫描 com.hqyj.dao包 ，写在此包下的接口即可被扫描到 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.hqyj.dao" />
+	</bean>
+</beans>
