@@ -47,7 +47,7 @@ public class UserController {
 		PageInfo<User> info = us.selectUserAll(searchInfo.getCurrentPage());
 		return info;
 	}
-
+	
 	@RequestMapping("/goQueryUser")
 	public String goQueryUser() {
 		return "userList";
