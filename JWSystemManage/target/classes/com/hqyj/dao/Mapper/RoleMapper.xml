@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.RoleMapper">
+  <resultMap id="BaseResultMap" type="com.hqyj.entity.Role">
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    <collection property="menus" ofType="Menu">	
+    	<id column="menu_id" jdbcType="INTEGER" property="menuId" />
+    	<result column="menu_desc" jdbcType="VARCHAR" property="menuDesc" />
+    	<result column="menu_link" jdbcType="VARCHAR" property="menuLink" />
+    </collection>
+  </resultMap>
+  <resultMap id="selectRole" type="com.hqyj.entity.Role">
+    <id column="role_id" jdbcType="INTEGER" property="roleId" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    role_id, role_name, role_desc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    *
+    from t_role r,t_menu m,t_role_menu t
+    where t.fk_menu_id=m.menu_id and t.fk_role_id=r.role_id and r.role_id=#{roleId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_role
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hqyj.entity.Role">
+    update t_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null">
+        role_desc = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hqyj.entity.Role">
+    update t_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_desc = #{roleDesc,jdbcType=VARCHAR}
+    where role_id = #{roleId,jdbcType=INTEGER}
+  </update>
+  <select id="selectRoleById" resultMap="selectRole">
+  	select 
+    *
+    from t_role where role_id=#{roleId}
+  </select>
+  
+  <select id="selecRoleAll" resultMap="selectRole">
+  	select*from t_role
+  </select>
+</mapper>

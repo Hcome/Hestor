@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.DivisionMapper">
+  <resultMap id="BaseResultMap" type="com.hqyj.entity.Division">
+    <id column="university_division_id" jdbcType="INTEGER" property="universityDivisionId" />
+    <result column="division_name" jdbcType="VARCHAR" property="divisionName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    university_division_id, division_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_division
+    where university_division_id = #{universityDivisionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_division
+    where university_division_id = #{universityDivisionId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hqyj.entity.Division">
+    update t_division
+    <set>
+      <if test="divisionName != null">
+        division_name = #{divisionName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where university_division_id = #{universityDivisionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hqyj.entity.Division">
+    update t_division
+    set division_name = #{divisionName,jdbcType=VARCHAR}
+    where university_division_id = #{universityDivisionId,jdbcType=INTEGER}
+  </update>
+</mapper>

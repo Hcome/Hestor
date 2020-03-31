@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.TeacherMapper">
+  <resultMap id="BaseResultMap" type="com.hqyj.entity.Teacher">
+    <id column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    <result column="teacher_num" jdbcType="INTEGER" property="teacherNum" />
+    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    <result column="teacher_age" jdbcType="INTEGER" property="teacherAge" />
+    <result column="teacher_tel" jdbcType="VARCHAR" property="teacherTel" />
+    <result column="teacher_gender" jdbcType="VARCHAR" property="teacherGender" />
+    <result column="teacher_email" jdbcType="VARCHAR" property="teacherEmail" />
+    <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    teacher_id, teacher_num, teacher_name, teacher_age, teacher_tel, teacher_gender, 
+    teacher_email, fk_user_id
+  </sql>
+  <!-- 增加老师用户 -->
+  <insert id="insertTeacher" parameterType="com.hqyj.entity.Teacher">
+  	INSERT INTO t_teacher VALUES(null,#{teacherNum},#{teacherName},#{teacherAge},#{teacherTel},#{teacherGender},#{teacherEmail},#{fkUserId})
+  </insert>
+  <!-- 查询所有的老师 -->
+  <select id="queryTeacherAll" resultMap="BaseResultMap">
+  	select *from t_teacher
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_teacher
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_teacher
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hqyj.entity.Teacher">
+    update t_teacher
+    <set>
+      <if test="teacherNum != null">
+        teacher_num = #{teacherNum,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null">
+        teacher_name = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherAge != null">
+        teacher_age = #{teacherAge,jdbcType=INTEGER},
+      </if>
+      <if test="teacherTel != null">
+        teacher_tel = #{teacherTel,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherGender != null">
+        teacher_gender = #{teacherGender,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEmail != null">
+        teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hqyj.entity.Teacher">
+    update t_teacher
+    set teacher_num = #{teacherNum,jdbcType=INTEGER},
+      teacher_name = #{teacherName,jdbcType=VARCHAR},
+      teacher_age = #{teacherAge,jdbcType=INTEGER},
+      teacher_tel = #{teacherTel,jdbcType=VARCHAR},
+      teacher_gender = #{teacherGender,jdbcType=VARCHAR},
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
+      fk_user_id = #{fkUserId,jdbcType=INTEGER}
+    where teacher_id = #{teacherId,jdbcType=INTEGER}
+  </update>
+</mapper>

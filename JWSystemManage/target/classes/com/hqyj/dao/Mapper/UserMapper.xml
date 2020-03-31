@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hqyj.entity.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+  </resultMap>
+  
+  <resultMap id="selectUser" type="com.hqyj.entity.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <collection property="roles" ofType="Role">
+    	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+    	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    	<result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    </collection>
+  </resultMap>
+  
+  <!-- 查询用户是管理员全部信息的结果集 -->
+   <resultMap id="findUserIsAdminAllInfo" type="com.hqyj.entity.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <collection property="roles" ofType="Role">
+    	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+    	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    	<result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    </collection>
+    <collection property="admin" ofType="Admin">
+    	<id column="admin_id" jdbcType="INTEGER" property="adminId" />
+    	<result column="admin_num" jdbcType="VARCHAR" property="adminNum" />
+    	<result column="admin_name" jdbcType="VARCHAR" property="adminName" />
+    	<result column="admin_age" jdbcType="VARCHAR" property="adminAge" />
+    	<result column="admin_tel" jdbcType="VARCHAR" property="adminTel" />
+    	<result column="admin_gender" jdbcType="VARCHAR" property="adminGender" />
+    	<result column="admin_email" jdbcType="VARCHAR" property="adminEmail" />
+    	<result column="fk_user_id" jdbcType="VARCHAR" property="fkUserId" />
+    </collection>
+  </resultMap>
+  <!-- 查询用户是老师全部信息的结果集 -->
+   <resultMap id="findUserIsTeacherAllInfo" type="com.hqyj.entity.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <collection property="roles" ofType="Role">
+    	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+    	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    	<result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    </collection>
+    <collection property="admin" ofType="Admin">
+    	<id column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+    	<result column="teacher_num" jdbcType="VARCHAR" property="teacherNum" />
+    	<result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+    	<result column="teacher_age" jdbcType="VARCHAR" property="teacherAge" />
+    	<result column="teacher_tel" jdbcType="VARCHAR" property="teacherTel" />
+    	<result column="teacher_gender" jdbcType="VARCHAR" property="teacherGender" />
+    	<result column="teacher_email" jdbcType="VARCHAR" property="teacherEmail" />
+    	<result column="fk_user_id" jdbcType="VARCHAR" property="fkUserId" />
+    </collection>
+  </resultMap>
+  <!-- 查询用户是学生全部信息的结果集 -->
+   <resultMap id="findUserIsStudentAllInfo" type="com.hqyj.entity.User">
+    <id column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <collection property="roles" ofType="Role">
+    	<id column="role_id" jdbcType="INTEGER" property="roleId" />
+    	<result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    	<result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    </collection>
+    <collection property="admin" ofType="Admin">
+    	<id column="student_id" jdbcType="INTEGER" property="studentId" />
+    	<result column="student_num" jdbcType="VARCHAR" property="studentNum" />
+    	<result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    	<result column="student_gender" jdbcType="VARCHAR" property="studentAge" />
+    	<result column="student_age" jdbcType="VARCHAR" property="studentTel" />
+    	<result column="student_tel" jdbcType="VARCHAR" property="studentGender" />
+    	<result column="student_email" jdbcType="VARCHAR" property="studentEmail" />
+    	<result column="fk_user_id" jdbcType="VARCHAR" property="fkUserId" />
+    </collection>
+  </resultMap>
+  <!-- sql片段 -->
+  <sql id="Base_Column_List">
+    user_id, user_name, user_password
+  </sql>
+  <!-- 根据id查询user -->
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByPrimaryKey1" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_user
+    where user_name = #{userName}
+  </select>
+  <!-- 根据账号查询user -->
+  <select id="selectUserByUserName" parameterType="java.lang.String" resultMap="selectUser" >
+    select 
+ 	*
+    from t_user u,t_role r,t_user_role t
+    where u.user_id=t.fk_user_id and r.role_id = t.fk_role_id and u.user_name=#{userName}
+  </select>
+  <select id="selectUserByUserId" parameterType="int" resultMap="selectUser" >
+    select 
+ 	*
+    from t_user u,t_role r,t_user_role t
+    where u.user_id=t.fk_user_id and r.role_id = t.fk_role_id and u.user_id=#{userId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_user
+    where user_id = #{userId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteUserAndRole" parameterType="java.lang.Integer">
+    delete from t_user_role
+    where fk_user_id = #{userId}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hqyj.entity.User">
+    update t_user
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hqyj.entity.User">
+    update t_user
+    set user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=INTEGER}
+  </update>
+  <!-- 添加用户 -->
+  <insert id="adduser" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+  	INSERT INTO t_user values (null,#{userName},#{userPassword})
+  </insert>
+  <!-- 查询用户 -->
+  <select id="queryUserAll" resultMap="BaseResultMap">
+  	select user_id,user_name from t_user
+  </select>
+  
+  <!-- 查询用户是管理员的的全部信息 -->
+  <select id="queryUserIsAdminAllInfo" resultMap="findUserIsAdminAllInfo">
+  	SELECT *FROM t_user u,t_role r,t_user_role ro,t_admin ad
+	WHERE u.user_id=ro.fk_user_id AND r.role_id=ro.fk_role_id and u.user_id=ad.fk_user_id AND u.user_name=#{useName}
+  </select>
+  <!-- 查询用户是老师的的全部信息 -->
+  <select id="queryUserIsTeacherAllInfo" resultMap="findUserIsTeacherAllInfo">
+  	SELECT *FROM t_user u,t_role r,t_user_role ro,t_teacher t
+	WHERE u.user_id=ro.fk_user_id AND r.role_id=ro.fk_role_id and u.user_id=t.fk_user_id AND u.user_name=#{useName}
+  </select>
+  <!-- 查询用户是学生的的全部信息 -->
+  <select id="queryUserIsStudentAllInfo" resultMap="findUserIsStudentAllInfo">
+  	SELECT *FROM t_user u,t_role r,t_user_role ro,t_student s
+	WHERE u.user_id=ro.fk_user_id AND r.role_id=ro.fk_role_id and u.user_id=s.fk_user_id AND u.user_name=#{useName}
+  </select>
+  
+  <resultMap type="com.hqyj.model.vo.UserAndRole" id="queryUserAndRole">
+    <result column="fk_user_id"  property="userId" />
+    <result column="fk_role_id"  property="roleId" />
+  </resultMap>
+  <select id="queryUserAndRoleByUserId" resultMap="queryUserAndRole">
+  	SELECT*from t_user_role where fk_user_id=#{userId}
+  </select>
+<insert id="insertUserAndRole" parameterType="com.hqyj.model.vo.UserAndRole">
+	INSERT into t_user_role values (null,#{userId},#{roleId})
+</insert>
+</mapper>
