@@ -31,15 +31,34 @@ public interface UserMapper {
 	 * @return
 	 */
 	User selectUserByUserName(String userName);
-
+	/**
+	 * 根据用户的id去查询用户
+	 * @param userId
+	 * @return
+	 */
 	User selectUserByUserId(int userId);
-
+	/**
+	 * 添加用户
+	 * @param user
+	 * @return
+	 */
 	int adduser(User user);
-
+	/**
+	 * 查询所用的用户
+	 * @return
+	 */
 	List<User> queryUserAll();
-
+	/**
+	 * 通过用户的id去查询用户所对应的角色
+	 * @param userId
+	 * @return
+	 */
 	List<UserAndRole> queryUserAndRoleByUserId(Integer userId);
-
+	/**
+	 * 如果新增用户，可以增加对应角色信息
+	 * @param userAndRole
+	 * @return
+	 */
 	int insertUserAndRole(UserAndRole userAndRole);
 	/**
 	 * 根据用户名去查询当前用户的角色
@@ -65,7 +84,15 @@ public interface UserMapper {
 	 * @return
 	 */
 	User queryUserIsStudentAllInfo(String userName);
-
-
-
+	/**
+	 * 查询第三方表的所有角色对应的信息
+	 * @return
+	 */
+	List<UserAndRole> queryRole();
+	/**
+	 * 查询所用的用户以及对应的角色
+	 * @return
+	 */
+	List<User>  queryUsersAndRoles();
+	
 }

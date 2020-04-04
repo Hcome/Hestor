@@ -38,7 +38,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 		            <div class="media media-y margin-big-bottom"></div>         
 		            <form method="post">
 			            <div class="panel loginbox">
-			                <div class="text-center margin-big padding-big-top"><h1>后台管理中心</h1></div>
+			                <div class="text-center margin-big padding-big-top"><h1>英语考试系统后台管理中心</h1></div>
 			                <div id="errorMessage" class="text-center" style="color: red;"></div>
 			                <div class="panel-body" style="padding:30px; padding-bottom:10px; padding-top:10px;">
 			                    <div class="form-group">

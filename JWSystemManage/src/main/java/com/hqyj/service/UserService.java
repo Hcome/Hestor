@@ -1,5 +1,7 @@
 package com.hqyj.service;
 
+import java.util.List;
+
 import com.github.pagehelper.PageInfo;
 import com.hqyj.entity.User;
 import com.hqyj.model.vo.Result;
@@ -21,6 +23,7 @@ public interface UserService {
 	Result login(User user);
 	//用户注册功能
 	Result registerUser(User user);
+	
 	//查询所有的用户
 	PageInfo<User> selectUserAll(int pageNum);
 	//通过用户的id去删除用户
@@ -33,4 +36,8 @@ public interface UserService {
 	int deleteUserAndRole(int userId);
 	//新增用户对应的角色信息
 	int insertUserAndRole(UserAndRole userAndRole);
+	//查询所用的用户以及所用的角色信息
+	PageInfo<User> selectUsersAndRoles(int pageNum);
+	//查询用户和角色的对应信息
+	List<UserAndRole> selectUserAndRole();
 }

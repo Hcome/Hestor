@@ -185,4 +185,21 @@ public class UserController {
 		}
 		return "addStudent";	
 	}
+	//查询所用用户以及对应的角色
+	@RequestMapping(value = "/goQueryUsersAndRoles")
+	public String goQueryUsersAndRoles() {
+		return "unKownUserList";
+	}
+	@RequestMapping(value = "/queryUsersAndRoles")
+	@ResponseBody
+	public PageInfo<User> queryUsersAndRoles(SearchInfo searchInfo) {
+		List<UserAndRole> roles = us.selectUserAndRole();
+		for (UserAndRole userAndRole : roles) {
+			if (userAndRole.getRoleId() == 4) {
+				PageInfo<User> pageInfo = us.selectUsersAndRoles(searchInfo.getCurrentPage());
+				return pageInfo;
+			}
+		}
+		return null;
+	}
 }

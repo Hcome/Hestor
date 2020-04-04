@@ -152,4 +152,19 @@ public class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	@Override
+	public PageInfo<User> selectUsersAndRoles(int pageNum) {
+		PageHelper pageHelper = new PageHelper();
+		pageHelper.startPage(pageNum,3);
+		List<User> list = um.queryUsersAndRoles();
+		PageInfo<User> userInfo = new PageInfo<User>(list);
+		return userInfo;
+	}
+
+	@Override
+	public List<UserAndRole> selectUserAndRole() {
+		List<UserAndRole> list = um.queryRole();
+		return list;
+	}
+
 }

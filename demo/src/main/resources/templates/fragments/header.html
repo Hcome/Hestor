@@ -1,0 +1,30 @@
+<section th:fragment="header">
+	<!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/account/dashboard">Account Manage System</a>
+        </div>
+        
+        <ul class="nav navbar-nav navbar-left">
+			<li>
+			    <a href="/account/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+			</li>
+			<li shiro:hasAnyRoles="admin,manager">
+			<!-- <li> -->
+			    <a href="/account/users"><i class="fa fa-fw fa-bar-chart-o"></i> Users</a>
+			</li>
+			<li shiro:hasAnyRoles="admin,manager">
+			<!-- <li> -->
+			    <a href="/account/roles"><i class="fa fa-fw fa-file"></i> Roles</a>
+			</li>
+			<li shiro:hasAnyRoles="admin,manager">
+			<!-- <li> -->
+			    <a href="/account/resources"><i class="fa fa-fw fa-table"></i> Resources</a>
+			</li>
+		</ul>
+		
+		<ul class="nav navbar-nav navbar-right">
+			<li><a href="/account/logout"><span class="glyphicon glyphicon-user"></span>Logout</a></li>
+		</ul>
+    </nav>
+</section>

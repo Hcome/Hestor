@@ -22,7 +22,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">
-    <h1><img src="<%=basePath%>static/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />教务系统后台管理中心</h1>
+    <h1><img src="<%=basePath%>static/images/y.jpg" class="radius-circle rotate-hover" height="50" alt="" />英语考试系统后台管理中心</h1>
   </div>
   <div class="head-l"><a class="button button-little bg-green" href="" target="_blank"><span class="icon-home"></span> 前台首页</a> &nbsp;&nbsp;<a href="##" class="button button-little bg-blue"><span class="icon-wrench"></span> 清除缓存</a> &nbsp;&nbsp;<a class="button button-little bg-red" href="<%=basePath%>sys/gologin"><span class="icon-power-off"></span> 退出登录</a> </div>
 </div>
@@ -31,14 +31,19 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   <shiro:hasAnyRoles name="student,admin,teacher">
   <h2><span class="icon-user"></span>用户信息中心</h2>
   <ul style="display:block">
-    <li><a href="<%=basePath%>sys/goQueryUserIsAdminInfo" target="right"><span class="icon-caret-right"></span>个人信息查询</a></li>
+  	<shiro:hasAnyRoles name="admin,teacher,student">
+  		<li><a href="<%=basePath%>sys/goQueryUserIsAdminInfo" target="right"><span class="icon-caret-right"></span>个人信息查询</a></li>
+  	</shiro:hasAnyRoles>
     <shiro:hasAnyRoles name="admin">
-    <li><a href="<%=basePath%>user/goQueryUser" target="right"><span class="icon-caret-right"></span>查看用户信息</a></li>
+    	<li><a href="<%=basePath%>user/goQueryUser" target="right"><span class="icon-caret-right"></span>查看用户信息</a></li>
+    </shiro:hasAnyRoles>
+    <shiro:hasAnyRoles name="admin">
+       <li><a href="<%=basePath%>user/goQueryUsersAndRoles" target="right"><span class="icon-caret-right"></span>未分配角色列表</a></li> 
     </shiro:hasAnyRoles>
   </ul>
   </shiro:hasAnyRoles>
   <shiro:hasAnyRoles name="admin,teacher">   
-  <h2><span class="icon-pencil-square-o"></span>管理员信息中心</h2>
+  <h2><span class="icon-user"></span>管理员信息中心</h2>
   <ul>
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>admin/goQueryAdmin" target="right"><span class="icon-caret-right"></span>管理员列表</a></li>
@@ -47,7 +52,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   </ul>
   </shiro:hasAnyRoles>
   <shiro:hasAnyRoles name="admin,teacher">   
-  <h2><span class="icon-pencil-square-o"></span>教师信息中心</h2>
+  <h2><span class="icon-user"></span>教师信息中心</h2>
   <ul>
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>查看老师</a></li>
@@ -56,7 +61,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   </ul>
   </shiro:hasAnyRoles>
   <shiro:hasAnyRoles name="admin">
-  	<h2><span class="icon-pencil-square-o"></span>学生信息中心</h2>
+  	<h2><span class="icon-user"></span>学生信息中心</h2>
   <ul>
   	<!-- 给查看学生赋予权限 -->
   	<shiro:hasAnyRoles name="admin,teacher,student">
