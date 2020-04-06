@@ -1,4 +1,19 @@
 <section>
-this is test module
-
+	<p>=================================================</p>
+	<p th:text="${message}"></p>
+	<p>上传文件，使用multipart/form-data类型</p>
+	<form action="/first/upLoad" method="post" enctype="multipart/form-data">
+		<input type="file" name="file">
+		<button type="submit">上传</button>
+	</form>
+	<br>
+	
+	<form action="/first/upBatchLoad" method="post" enctype="multipart/form-data">
+		<input type="file" name="files">
+		<input type="file" name="files">
+		<button type="submit">上传</button>
+	</form>
+	<p>=================================================</p>
+	
+	this is test module
 </section>

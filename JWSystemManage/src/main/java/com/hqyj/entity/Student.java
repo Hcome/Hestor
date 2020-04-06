@@ -15,16 +15,29 @@ public class Student {
     private String studentTel;
 
     private String studentEmail;
-
-    private Integer fkUserId;
-
-    private Integer fkDivisionId;
     
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentNum=" + studentNum + ", studentName=" + studentName
-				+ ", studentGender=" + studentGender + ", studentAge=" + studentAge + ", studentTel=" + studentTel
-				+ ", studentEmail=" + studentEmail + ", fkUserId=" + fkUserId + ", fkDivisionId=" + fkDivisionId + "]";
+    private String studentDepartClass;
+    
+    private Integer fkUserId;
+    
+    private Integer fkClassId;
+    
+    private Score score;
+    
+	public Score getScore() {
+		return score;
+	}
+
+	public void setScore(Score score) {
+		this.score = score;
+	}
+
+	public String getStudentDepartClass() {
+		return studentDepartClass;
+	}
+
+	public void setStudentDepartClass(String studentDepartClass) {
+		this.studentDepartClass = studentDepartClass;
 	}
 
 	public Integer getStudentId() {
@@ -91,11 +104,13 @@ public class Student {
         this.fkUserId = fkUserId;
     }
 
-    public Integer getFkDivisionId() {
-        return fkDivisionId;
-    }
+	public Integer getFkClassId() {
+		return fkClassId;
+	}
 
-    public void setFkDivisionId(Integer fkDivisionId) {
-        this.fkDivisionId = fkDivisionId;
-    }
+	public void setFkClassId(Integer fkClassId) {
+		this.fkClassId = fkClassId;
+	}
+
+	
 }

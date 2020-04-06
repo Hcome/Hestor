@@ -15,5 +15,5 @@ public interface StudentService {
 	 * @return
 	 */
 	PageInfo<Student> selectStudentAll(int pageNum);
-
+	
 }

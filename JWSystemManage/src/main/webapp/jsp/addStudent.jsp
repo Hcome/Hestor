@@ -79,7 +79,15 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
           <div class="tips"></div>
         </div>
       </div>  
-
+	<div class="form-group">
+        <div class="label">
+          <label>学生行政班级：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="" name="studentDepartClass" />
+          <div class="tips"></div>
+        </div>
+      </div>  
       <div class="form-group">
         <div class="label">
           <label></label>

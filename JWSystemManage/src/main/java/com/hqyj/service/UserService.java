@@ -36,8 +36,8 @@ public interface UserService {
 	int deleteUserAndRole(int userId);
 	//新增用户对应的角色信息
 	int insertUserAndRole(UserAndRole userAndRole);
-	//查询所用的用户以及所用的角色信息
-	PageInfo<User> selectUsersAndRoles(int pageNum);
 	//查询用户和角色的对应信息
 	List<UserAndRole> selectUserAndRole();
+	//查询没有分配身份的user
+	PageInfo<User> queryUsersAndRoles(int pageNum);
 }

@@ -37,7 +37,6 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
       <tr>
         <th width="100" style="text-align:left; padding-left:20px;">编号</th>
         <th width="10%">用户名</th>
-        <th width="10%">角色</th>
         <th width="310">操作</th>
       </tr>
       </thead>
@@ -100,7 +99,6 @@ function showPage(n) {
 				    str+="<tr>";
 				    str+="<td>"+n+"</td>"
 				    str+="<td>"+val.userName+"</td>"
-				    str+="<td>"+val.roleDesc+"</td>"
 				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>分配角色</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#users").append(str);

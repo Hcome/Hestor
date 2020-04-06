@@ -18,7 +18,6 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 <link rel="stylesheet" href="<%=basePath%>static/css/admin.css">
 <script src="<%=basePath%>static/js/jquery.js"></script>
 <script src="<%=basePath%>static/js/pintuer.js"></script>
-<!-- 前端分页插件 -->
 <script src="<%=basePath%>static/js/jqPaginator.js" type="text/javascript"></script>
 </head>
 <body>
@@ -36,18 +35,12 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <table class="table table-hover text-center">
     	<thead>
       <tr>
-        <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
-        <th width="10%">学生学号</th>
-        <th width="10%">学生姓名</th>
-        <th width="5%">性别</th>
-        <th width="5%">年龄</th>
-        <th width="10%">学生电话</th>
-        <th width="10%">学生邮件</th>
-        <th width="20%">学生行政班级</th>
-        <th width="20%">操作</th>
+        <th width="100" style="text-align:left; padding-left:20px;">编号</th>
+        <th width="10%">教学班级名</th>
+        <th width="310">操作</th>
       </tr>
       </thead>
-      <tbody id="students"></tbody>
+      <tbody id="clazzs"></tbody>
       <tr>
         <td colspan="8">
         <ul class="pagination" id="pagination1"></ul>
@@ -86,39 +79,32 @@ function showPage(n) {
 		type : "POST",
 		async:false,
 		data : {
-			//当前页是第几页
 			currentPage:n
 		},
 		dataType : "text",
-		url : "<%=basePath%>student/queryStudent",
+		url : "<%=basePath%>clazz/queryClazzAll",
 		success : function(result) {
-			console.log("这个对象是"+result);
+			console.log(result);
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total = tl.total;
 				totalPages = tl.pages;
 				currentPage = tl.pageNum;
 			}
-			$("#students").html("");
+			$("#clazzs").html("");
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
 					console.log(n);
 					var str="";
 				    str+="<tr>";
 				    str+="<td>"+n+"</td>"
-				    str+="<td>"+val.studentNum+"</td>"
-				    str+="<td>"+val.studentName+"</td>"
-				    str+="<td>"+val.studentGender+"</td>"
-				    str+="<td>"+val.studentAge+"</td>"
-				    str+="<td>"+val.studentTel+"</td>"
-				    str+="<td>"+val.studentEmail+"</td>"
-				    str+="<td>"+val.studentDepartClass+"</td>"
+				    str+="<td>"+val.clazzNema+"</td>"
 				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
-					$("#students").append(str);
+					$("#clazzs").append(str);
 				})
 			}else{
-				$("#students").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+				$("#clazzs").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
 			}
 		},
 		error : function() {

@@ -89,10 +89,6 @@ public interface UserMapper {
 	 * @return
 	 */
 	List<UserAndRole> queryRole();
-	/**
-	 * 查询所用的用户以及对应的角色
-	 * @return
-	 */
-	List<User>  queryUsersAndRoles();
+	
 	
 }

@@ -193,13 +193,8 @@ public class UserController {
 	@RequestMapping(value = "/queryUsersAndRoles")
 	@ResponseBody
 	public PageInfo<User> queryUsersAndRoles(SearchInfo searchInfo) {
-		List<UserAndRole> roles = us.selectUserAndRole();
-		for (UserAndRole userAndRole : roles) {
-			if (userAndRole.getRoleId() == 4) {
-				PageInfo<User> pageInfo = us.selectUsersAndRoles(searchInfo.getCurrentPage());
-				return pageInfo;
-			}
-		}
-		return null;
+		
+		PageInfo<User> pageInfo = us.queryUsersAndRoles(searchInfo.getCurrentPage());
+		return pageInfo;
 	}
 }

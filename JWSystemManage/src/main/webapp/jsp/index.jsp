@@ -14,7 +14,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>后台管理中心</title>  
+    <title>英语考试系统后台管理中心</title>  
     <link rel="stylesheet" href="<%=basePath%>static/css/pintuer.css">
     <link rel="stylesheet" href="<%=basePath%>static/css/admin.css">
     <script src="<%=basePath%>static/js/jquery.js"></script>   
@@ -29,12 +29,13 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 <div class="leftnav">
   <div class="leftnav-title"><strong><span class="icon-list"></span>菜单列表</strong></div>
   <shiro:hasAnyRoles name="student,admin,teacher">
+  
   <h2><span class="icon-user"></span>用户信息中心</h2>
   <ul style="display:block">
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>sys/goQueryUserIsAdminInfo" target="right"><span class="icon-caret-right"></span>个人信息查询</a></li>
   	</shiro:hasAnyRoles>
-    <shiro:hasAnyRoles name="admin">
+    <shiro:hasAnyRoles name="admin,teacher,student">
     	<li><a href="<%=basePath%>user/goQueryUser" target="right"><span class="icon-caret-right"></span>查看用户信息</a></li>
     </shiro:hasAnyRoles>
     <shiro:hasAnyRoles name="admin">
@@ -42,24 +43,29 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     </shiro:hasAnyRoles>
   </ul>
   </shiro:hasAnyRoles>
+  
   <shiro:hasAnyRoles name="admin,teacher">   
   <h2><span class="icon-user"></span>管理员信息中心</h2>
   <ul>
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>admin/goQueryAdmin" target="right"><span class="icon-caret-right"></span>管理员列表</a></li>
   	</shiro:hasAnyRoles>
-    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>添加老师</a></li>        
+  	<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>考试配置</a></li>
+  	<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>考场管理</a></li>       
   </ul>
   </shiro:hasAnyRoles>
+  
   <shiro:hasAnyRoles name="admin,teacher">   
   <h2><span class="icon-user"></span>教师信息中心</h2>
   <ul>
   	<shiro:hasAnyRoles name="admin,teacher,student">
-  		<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>查看老师</a></li>
-  	</shiro:hasAnyRoles>
-    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>添加老师</a></li>        
+  		<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>老师列表</a></li>
+  	</shiro:hasAnyRoles>   
+  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>已修改试卷</a></li>
+    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>未修改试卷</a></li>                   
   </ul>
   </shiro:hasAnyRoles>
+  
   <shiro:hasAnyRoles name="admin">
   	<h2><span class="icon-user"></span>学生信息中心</h2>
   <ul>
@@ -67,11 +73,25 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>student/goQueryStudent" target="right"><span class="icon-caret-right"></span>查看学生</a></li> 
   	</shiro:hasAnyRoles>
-  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>添加学生</a></li> 
+  	<shiro:hasAnyRoles name="admin,teacher">
+  		<li><a href="<%=basePath%>clazz/goQueryStudentScoreAll" target="right"><span class="icon-caret-right"></span>成绩列表</a></li>
+  	</shiro:hasAnyRoles> 
   </ul> 
   </shiro:hasAnyRoles>
+  
+   <shiro:hasAnyRoles name="admin">
+  	<h2><span class="icon-user"></span>班级管理中心</h2>
+  <ul>
+  	<!-- 给查看学生赋予权限 -->
+  	<shiro:hasAnyRoles name="admin,teacher,student">
+  		<li><a href="<%=basePath%>clazz/goQueryClazzAll" target="right"><span class="icon-caret-right"></span>班级列表</a></li> 
+  	</shiro:hasAnyRoles>
+  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>教室列表</a></li> 
+  </ul> 
+  </shiro:hasAnyRoles>
+  
   <shiro:hasAnyRoles name="admin">
-  	<h2><span class="icon-pencil-square-o"></span>题库管理中心</h2>
+  	<h2><span class="icon-pencil-square-o"></span>题库中心</h2>
   <ul>
   	<!-- 给查看学生赋予权限 -->
   	<shiro:hasAnyRoles name="admin,teacher">

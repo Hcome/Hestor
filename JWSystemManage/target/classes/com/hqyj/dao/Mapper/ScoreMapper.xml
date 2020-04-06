@@ -3,7 +3,9 @@
 <mapper namespace="com.hqyj.dao.ScoreMapper">
   <resultMap id="BaseResultMap" type="com.hqyj.entity.Score">
     <id column="score_id" jdbcType="INTEGER" property="scoreId" />
-    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="score_number" jdbcType="INTEGER" property="scoreNunber" />
+    <result column="score_ispass" jdbcType="INTEGER" property="isPass" />
+    <result column="fk_student_id" jdbcType="INTEGER" property="fkStudentId" />
   </resultMap>
   <sql id="Base_Column_List">
     score_id, score

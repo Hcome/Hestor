@@ -34,20 +34,18 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
       </ul>
     </div>
     <table class="table table-hover text-center">
-    	<thead>
+    <thead>
       <tr>
         <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
-        <th width="10%">学生学号</th>
+        <th width="10%">班级名称</th>
         <th width="10%">学生姓名</th>
-        <th width="5%">性别</th>
-        <th width="5%">年龄</th>
-        <th width="10%">学生电话</th>
-        <th width="10%">学生邮件</th>
+        <th width="5%">学生学号</th>
         <th width="20%">学生行政班级</th>
+        <th width="5%">分数</th>
         <th width="20%">操作</th>
       </tr>
       </thead>
-      <tbody id="students"></tbody>
+      <tbody id="scores"></tbody>
       <tr>
         <td colspan="8">
         <ul class="pagination" id="pagination1"></ul>
@@ -90,35 +88,33 @@ function showPage(n) {
 			currentPage:n
 		},
 		dataType : "text",
-		url : "<%=basePath%>student/queryStudent",
+		url : "<%=basePath%>clazz/queryStudentScoreAll",
 		success : function(result) {
-			console.log("这个对象是"+result);
+			console.log(result);
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total = tl.total;
 				totalPages = tl.pages;
 				currentPage = tl.pageNum;
 			}
-			$("#students").html("");
+			$("#scores").html("");
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
 					console.log(n);
 					var str="";
 				    str+="<tr>";
 				    str+="<td>"+n+"</td>"
+				    str+="<td>"+val.clazzName+"</td>"
 				    str+="<td>"+val.studentNum+"</td>"
 				    str+="<td>"+val.studentName+"</td>"
-				    str+="<td>"+val.studentGender+"</td>"
-				    str+="<td>"+val.studentAge+"</td>"
-				    str+="<td>"+val.studentTel+"</td>"
-				    str+="<td>"+val.studentEmail+"</td>"
 				    str+="<td>"+val.studentDepartClass+"</td>"
+				    str+="<td>"+val.scoreNumber+"</td>"				    
 				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
-					$("#students").append(str);
+					$("#scores").append(str);
 				})
 			}else{
-				$("#students").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+				$("#scores").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
 			}
 		},
 		error : function() {

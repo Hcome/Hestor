@@ -7,12 +7,6 @@
     <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
   </resultMap>
   
-  <resultMap type="findUserAndRole" id="com.hqyj.entity.UserAndRole">
- 	<id column="user_role_id" jdbcType="INTEGER" property="userRoleId" />  	
- 	<result column="fk_user_id" jdbcType="VARCHAR" property="fkUserId" />
-    <result column="fk_role_id" jdbcType="VARCHAR" property="kfRoleId" />
-  </resultMap>
-  
   <resultMap id="selectUser" type="com.hqyj.entity.User">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
@@ -168,16 +162,12 @@
 	WHERE u.user_id=ro.fk_user_id AND r.role_id=ro.fk_role_id and u.user_id=s.fk_user_id AND u.user_name=#{useName}
   </select>
   <!-- 查询所有已经对应角色身份的角色信息 -->
-  <select id="queryUserAndRoles" resultMap="findUserAndRole">
+  <select id="queryRole" resultMap="queryUserAndRole">
   	select *from t_user_role
   </select>
   
-  <!-- 查询所用的用户以及用户对应的角色 -->
-  <select id="queryUsersAndRoles" resultMap="selectUser">
-  	SELECT *FROM t_user u,t_role r,t_user_role ro
-	WHERE u.user_id=ro.fk_user_id AND r.role_id=ro.fk_role_id	
-  </select>
   <resultMap type="com.hqyj.model.vo.UserAndRole" id="queryUserAndRole">
+  	<id column="user_role_id" jdbcType="INTEGER" property="userRoleId" />  
     <result column="fk_user_id"  property="userId" />
     <result column="fk_role_id"  property="roleId" />
   </resultMap>

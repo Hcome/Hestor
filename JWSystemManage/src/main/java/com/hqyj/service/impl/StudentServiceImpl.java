@@ -35,5 +35,4 @@ public class StudentServiceImpl implements StudentService{
 		PageInfo<Student> pageInfo = new PageInfo<>(list);
 		return pageInfo;
 	}
-
 }
