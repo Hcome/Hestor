@@ -1,12 +1,24 @@
 package com.heshouyang.springboot.Modules.test.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.nio.file.Paths;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -72,7 +84,53 @@ public class ControllerTest {
 		return "index";
 		
 	}
+	@RequestMapping(value = "/download")
+	@ResponseBody
+	public ResponseEntity<Resource> downloadFile(@RequestParam String fileName) {
+		try {
+			Resource resource = new UrlResource(
+					Paths.get(String.format("E:\\\\upLoad\\\\%s", fileName)).toUri());
+			//判断文件是否存在或者是否可读
+			if (resource.exists() && resource.isReadable()) {
+				ResponseEntity responseEntity = ResponseEntity.ok()
+						.header(HttpHeaders.CONTENT_TYPE,"application/octet-stream")
+						.header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=\"%s\"", 
+								resource.getFilename()))
+						.body(resource);
+				return responseEntity;
+			}
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			LOGGER.debug(e.getMessage());
+		}
+		return null;
+	}
 	
+	/**
+	 * 以包装类 IOUtils 输出文件
+	 */
+	@RequestMapping("/download2")
+	public void downloadFile2(HttpServletRequest request, 
+			HttpServletResponse response, @RequestParam String fileName) {
+		String filePath = "D:/upload" + File.separator + fileName;
+		File downloadFile = new File(filePath);
+		
+		try {
+			if (downloadFile.exists()) {
+				response.setContentType("application/octet-stream");
+				response.setContentLength((int)downloadFile.length());
+				response.setHeader(HttpHeaders.CONTENT_DISPOSITION, 
+						String.format("attachment; filename=\"%s\"", fileName));
+				
+				InputStream is = new FileInputStream(downloadFile);
+				IOUtils.copy(is, response.getOutputStream());
+				response.flushBuffer();
+			}
+		} catch (Exception e) {
+			LOGGER.debug(e.getMessage());
+			e.printStackTrace();
+		}
+	}
 	@RequestMapping(value = "/upBatchLoad",consumes = "multipart/form-data")
 	//接收文件类型的参数,RedirectAttribute解决重定向页面之间的跳转的问题。虽然是form表单的形式，modelAndAttribute是以键值对的形式传递参数
 	public String upBatchFile(@RequestParam MultipartFile[] files,RedirectAttributes redirectAttributes) {
