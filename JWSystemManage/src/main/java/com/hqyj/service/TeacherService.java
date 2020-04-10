@@ -2,6 +2,7 @@ package com.hqyj.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hqyj.entity.Teacher;
+import com.hqyj.model.vo.Result;
 
 public interface TeacherService {
 	/**
@@ -19,4 +20,6 @@ public interface TeacherService {
 	Teacher selectByPrimaryKey(Integer teacherId);
 
 	int updateByPrimaryKey(Teacher record);
+	
+	Result deleteByPrimaryKey(Integer teacherId);
 }

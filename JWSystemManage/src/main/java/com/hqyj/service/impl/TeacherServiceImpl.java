@@ -9,6 +9,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqyj.dao.TeacherMapper;
 import com.hqyj.entity.Teacher;
+import com.hqyj.model.vo.Result;
 import com.hqyj.service.TeacherService;
 
 @Service
@@ -46,5 +47,13 @@ public class TeacherServiceImpl implements TeacherService{
 		System.out.println("受影响的行数"+key);
 		return 0;
 	}
-
+	@Override
+	public Result deleteByPrimaryKey(Integer teacherId) {
+		int num = tm.deleteByPrimaryKey(teacherId);
+		if (num > 0) {
+			return new Result("200", "success");
+		}else {
+			return new Result("500", "删除失败！");			
+		}
+	}
 }

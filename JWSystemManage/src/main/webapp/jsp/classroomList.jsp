@@ -39,7 +39,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
         <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
         <th width="20%">教室位置</th>
         <th width="20%">教室容纳人数</th>
-        <th width="20%">教师容纳人数</th>
+        <th width="20%">教师空闲状态</th>
         <th width="30%">操作</th>
       </tr>
       </thead>

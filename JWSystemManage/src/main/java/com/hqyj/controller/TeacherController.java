@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.hqyj.entity.Teacher;
+import com.hqyj.model.vo.Result;
 import com.hqyj.model.vo.SearchInfo;
 import com.hqyj.service.TeacherService;
 
@@ -49,6 +50,10 @@ public class TeacherController {
 		return "teacherList";
 		
 	}
-	
-	
+	@RequestMapping(value = "/deleteByPrimaryKey")
+	@ResponseBody
+	public Result deleteByPrimaryKey(Teacher teacher) {
+		Result result = ts.deleteByPrimaryKey(teacher.getTeacherId());
+		return result;	
+	}
 }

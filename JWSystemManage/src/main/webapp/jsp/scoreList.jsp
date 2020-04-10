@@ -39,6 +39,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
         <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
         <th width="20%">学生姓名</th>
         <th width="20%">分数</th>
+        <th width="20%">班级</th>
         <th width="30%">操作</th>
       </tr>
       </thead>

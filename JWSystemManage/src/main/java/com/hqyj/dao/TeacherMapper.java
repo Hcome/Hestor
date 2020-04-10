@@ -15,9 +15,12 @@ public interface TeacherMapper {
 	 * 查询所有老师老师
 	 * @return
 	 */
-	
 	List<Teacher> queryTeacherAll();
-	
+	 /**
+     * 根据id删除老师
+     * @param id
+     * @return
+     */
     int deleteByPrimaryKey(Integer teacherId);
     /**
      *根据id查询老师
