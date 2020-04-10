@@ -35,5 +35,16 @@ public class TeacherServiceImpl implements TeacherService{
 		PageInfo<Teacher> info = new PageInfo<>(teachers);
 		return info;
 	}
+	@Override
+	public Teacher selectByPrimaryKey(Integer teacherId) {
+		Teacher teacher = tm.selectByPrimaryKey(teacherId);
+		return teacher;
+	}
+	@Override
+	public int updateByPrimaryKey(Teacher record) {
+		int key = tm.updateByPrimaryKey(record);
+		System.out.println("受影响的行数"+key);
+		return 0;
+	}
 
 }

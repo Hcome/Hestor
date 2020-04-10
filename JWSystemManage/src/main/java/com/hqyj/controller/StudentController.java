@@ -1,5 +1,7 @@
 package com.hqyj.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,7 +9,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
+import com.hqyj.entity.Clazz;
 import com.hqyj.entity.Student;
+import com.hqyj.model.vo.Result;
 import com.hqyj.model.vo.SearchInfo;
 import com.hqyj.service.StudentService;
 import com.hqyj.service.UserService;
@@ -35,4 +39,38 @@ public class StudentController {
 		
 	}
 	
+	@RequestMapping(value = "/goQueryStudentScoreAll")
+	public String goQueryStudentScoreAll() {
+		return "scoreList";
+	}
+	@RequestMapping(value = "/queryStudentScoreAll")
+	@ResponseBody
+	public PageInfo<Student> queryStudentScoreAll(SearchInfo searchInfo) {
+		
+		PageInfo<Student> pageInfo = ss.queryStudentScoreAll(searchInfo.getCurrentPage());
+		return pageInfo;	
+	}
+	
+	@RequestMapping(value = "/queryStudentById")
+	public String queryStudentById(Integer id,HttpServletRequest request) {
+		Student student = ss.selectByPrimaryKey(id);
+		System.out.println(student+"+++++++++++++++++++++++++++++");
+		request.getSession().setAttribute("student", student);
+		return "updateStudent";
+	}
+	@RequestMapping("/updateStudent")
+	public String updateStudent(Student student,HttpServletRequest request) {
+		
+		Student student1 = (Student) request.getSession().getAttribute("student");
+		student.setStudentId(student1.getStudentId());
+		int updateStudent = ss.updateStudent(student);
+		System.out.println("更新记录"+updateStudent);
+		return "studentList";
+	}
+	@RequestMapping("/deleteByPrimaryKey")
+	@ResponseBody
+	public Result deleteByPrimaryKey(Student student) {
+		Result result = ss.deleteByPrimaryKey(student.getStudentId());
+		return result;
+	}
 }

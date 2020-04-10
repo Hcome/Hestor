@@ -22,4 +22,24 @@
   <select id="queryAdminAll" resultMap="BaseResultMap">
   	select *from t_admin
   </select>
+  
+  <update id="updateAdmin" parameterType="com.hqyj.entity.Admin">
+  	UPDATE t_admin SET 
+  	admin_num=#{adminNum},
+  	admin_name=#{adminName},
+  	admin_age=#{adminAge},
+  	admin_tel=#{adminTel},
+  	admin_gender=#{adminGender},
+  	admin_email=#{adminEmail}
+  	WHERE admin_id =#{adminId}
+  </update>
+  <!-- 根据id查询信息 -->
+  <select id="queryAdminById" parameterType="int" resultMap="BaseResultMap">
+  	SELECT *FROM t_admin WHERE admin_id =#{adminId}
+  </select>
+  
+  <!-- 删除用户 -->
+  <delete id="deleteAdminById" parameterType="int">
+  	DELETE FROM t_admin WHERE admin_id=#{adminId}
+  </delete>
 </mapper>

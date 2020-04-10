@@ -2,6 +2,7 @@ package com.hqyj.service;
 
 import com.github.pagehelper.PageInfo;
 import com.hqyj.entity.Admin;
+import com.hqyj.model.vo.Result;
 
 public interface AdminService {
 	/**
@@ -16,5 +17,11 @@ public interface AdminService {
 	 * @return
 	 */
 	PageInfo<Admin> selectAdminAll(int pageNum);
+	
+	Admin queryAdminById(Integer id);
+	
+	int updateAdmin(Admin admin);
+	
+	Result deleteAdminById(Integer id);
 
 }

@@ -7,23 +7,23 @@ import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.hqyj.dao.ClazzMapper;
-import com.hqyj.entity.Clazz;
-import com.hqyj.entity.Student;
-import com.hqyj.service.ClazzService;
+import com.hqyj.dao.ClassroomMapper;
+import com.hqyj.entity.ClassRoom;
+import com.hqyj.service.ClassroomService;
+
 @Service
-public class ClazzServiceImpl implements ClazzService{
+public class ClassroomServiceImpl implements ClassroomService{
 	
 	@Autowired
-	private ClazzMapper cm;
-	
+	private ClassroomMapper cm;
+
 	@Override
-	public PageInfo<Clazz> selectClazzAll(int pageNum) {
+	public PageInfo<ClassRoom> queryClassRoomAll(int pageNum) {
 		PageHelper pageHelper = new PageHelper();
 		pageHelper.startPage(pageNum,3);
-		
-		List<Clazz> list = cm.queryClazzsAll();
-		PageInfo<Clazz> info = new PageInfo<Clazz>(list);
+		List<ClassRoom> list = cm.queryClassRoomAll();
+		PageInfo< ClassRoom> info = new PageInfo<ClassRoom>(list);
 		return info;
 	}
+
 }

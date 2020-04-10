@@ -68,8 +68,7 @@
       teacher_age = #{teacherAge,jdbcType=INTEGER},
       teacher_tel = #{teacherTel,jdbcType=VARCHAR},
       teacher_gender = #{teacherGender,jdbcType=VARCHAR},
-      teacher_email = #{teacherEmail,jdbcType=VARCHAR},
-      fk_user_id = #{fkUserId,jdbcType=INTEGER}
+      teacher_email = #{teacherEmail,jdbcType=VARCHAR}
     where teacher_id = #{teacherId,jdbcType=INTEGER}
   </update>
 </mapper>

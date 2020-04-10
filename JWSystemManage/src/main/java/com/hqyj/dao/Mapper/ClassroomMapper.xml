@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hqyj.dao.ClassroomMapper">
+
+	<resultMap type="com.hqyj.entity.ClassRoom" id="findClazzAll">
+		<id column="t_classroomid" property="classRoomId"/>
+		<result column="t_classroomname" property="classRoomName"/>
+		<result column="t_classroomnumber" property="classRoomNumber"/>
+		<result column="t_classroomstutas" property="classRoomStutas"/>
+	</resultMap>
+	
+	<!--查询全部班级  -->
+	<select id="queryClassRoomAll" resultMap="findClazzAll">
+		SELECT *FROM t_classroom 
+	</select>
+
+</mapper>

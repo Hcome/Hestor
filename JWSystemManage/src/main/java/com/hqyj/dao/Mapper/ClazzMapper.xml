@@ -8,36 +8,9 @@
 		<result column="fk_teacher_id" property="fkTeacherId"/>
 	</resultMap>
 	
-  	<resultMap type="com.hqyj.entity.Clazz" id="findAllStudentScore">
-		<id column="t_classid" property="clazzId"/>
-		<result column="t_classname" property="clazzNema"/>
-		<result column="fk_teacher_id" property="fkTeacherId"/>
-		<association property="student" javaType="Student">
-			<id column="student_id" jdbcType="INTEGER" property="studentId" />
-		    <result column="student_num" jdbcType="INTEGER" property="studentNum" />
-		    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
-		    <result column="student_gender" jdbcType="VARCHAR" property="studentGender" />
-		    <result column="student_age" jdbcType="INTEGER" property="studentAge" />
-		    <result column="student_tel" jdbcType="VARCHAR" property="studentTel" />
-		    <result column="student_email" jdbcType="VARCHAR" property="studentEmail" />
-		    <result column="student_departclass" jdbcType="VARCHAR" property="studentDepartClass" />
-		    <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
-		    <result column="fk_class_id" jdbcType="INTEGER" property="fkClassId" />
-    		<collection property="score" javaType="Score">
-		    	<id column="score_id" jdbcType="INTEGER" property="scoreId" />
-			    <result column="score_number" jdbcType="INTEGER" property="scoreNunber" />
-			    <result column="score_ispass" jdbcType="INTEGER" property="isPass" />
-			    <result column="fk_student_id" jdbcType="INTEGER" property="fkStudentId" />
-    		</collection>
-		</association>
-	</resultMap>
 	<!--查询全部班级  -->
 	<select id="queryClazzsAll" resultMap="findClazzAll">
 		SELECT *FROM t_class 
 	</select>
-	<!-- 查询全部学生的成绩 -->
-  <select id="queryStudentScoreAll" resultMap="findAllStudentScore">
-  	SELECT *FROM t_student stu,t_score s,t_class c
-	WHERE stu.student_id=s.fk_student_id AND c.t_classid=stu.fk_class_id
-  </select>
+	
 </mapper>

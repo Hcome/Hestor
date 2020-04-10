@@ -99,7 +99,7 @@ function showPage(n) {
 				    str+="<tr>";
 				    str+="<td>"+n+"</td>"
 				    str+="<td>"+val.userName+"</td>"
-				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
+				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a> <a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#users").append(str);
 				})

@@ -15,5 +15,8 @@ public interface TeacherService {
 	 * @return
 	 */
 	PageInfo<Teacher> selectTeacherAll(int pageNum);
+	
+	Teacher selectByPrimaryKey(Integer teacherId);
 
+	int updateByPrimaryKey(Teacher record);
 }

@@ -37,12 +37,9 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <thead>
       <tr>
         <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
-        <th width="10%">班级名称</th>
-        <th width="10%">学生姓名</th>
-        <th width="5%">学生学号</th>
-        <th width="20%">学生行政班级</th>
-        <th width="5%">分数</th>
-        <th width="20%">操作</th>
+        <th width="20%">学生姓名</th>
+        <th width="20%">分数</th>
+        <th width="30%">操作</th>
       </tr>
       </thead>
       <tbody id="scores"></tbody>
@@ -88,9 +85,10 @@ function showPage(n) {
 			currentPage:n
 		},
 		dataType : "text",
-		url : "<%=basePath%>clazz/queryStudentScoreAll",
+		url : "<%=basePath%>student/queryStudentScoreAll",
 		success : function(result) {
 			console.log(result);
+			//将返回对象转化成json对象
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total = tl.total;
@@ -101,14 +99,11 @@ function showPage(n) {
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
 					console.log(n);
-					var str="";
-				    str+="<tr>";
-				    str+="<td>"+n+"</td>"
-				    str+="<td>"+val.clazzName+"</td>"
-				    str+="<td>"+val.studentNum+"</td>"
-				    str+="<td>"+val.studentName+"</td>"
-				    str+="<td>"+val.studentDepartClass+"</td>"
-				    str+="<td>"+val.scoreNumber+"</td>"				    
+					var str = "";
+					str+="<tr>";
+					str+="<td>"+n+"</td>"
+					str+="<td>"+val.studentName+"</td>"
+					str+="<td>"+val.score.scoreNunber+"</td>"
 				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#scores").append(str);

@@ -34,19 +34,16 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
       </ul>
     </div>
     <table class="table table-hover text-center">
-    	<thead>
+    <thead>
       <tr>
-        <th width="100" style="text-align:left; padding-left:20px;">编号</th>
-        <th width="10%">教工号</th>
-        <th width="10%">老师姓名</th>
-        <th width="10%">年龄</th>
-        <th width="10%">老师电话</th>
-        <th width="10%">性别</th>
-        <th width="10%">老师邮箱</th>
-        <th width="20%">操作</th>
+        <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
+        <th width="20%">教室位置</th>
+        <th width="20%">教室容纳人数</th>
+        <th width="20%">教师容纳人数</th>
+        <th width="30%">操作</th>
       </tr>
       </thead>
-      <tbody id="teachers"></tbody>
+      <tbody id="scores"></tbody>
       <tr>
         <td colspan="8">
         <ul class="pagination" id="pagination1"></ul>
@@ -89,34 +86,32 @@ function showPage(n) {
 			currentPage:n
 		},
 		dataType : "text",
-		url : "<%=basePath%>teacher/queryTeacher",
+		url : "<%=basePath%>classroom/queryClassRoomAll",
 		success : function(result) {
 			console.log(result);
+			//将返回对象转化成json对象
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total = tl.total;
 				totalPages = tl.pages;
 				currentPage = tl.pageNum;
 			}
-			$("#teachers").html("");
+			$("#scores").html("");
 			if(tl.list.length>0){
 				$.each(tl.list, function(n,val){
 					console.log(n);
-					var str="";
-				    str+="<tr>";
-				    str+="<td>"+n+"</td>"
-				    str+="<td>"+val.teacherNum+"</td>"
-				    str+="<td>"+val.teacherName+"</td>"
-				    str+="<td>"+val.teacherAge+"</td>"
-				    str+="<td>"+val.teacherTel+"</td>"
-				    str+="<td>"+val.teacherGender+"</td>"
-				    str+="<td>"+val.teacherEmail+"</td>"
-				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>teacher/selectTeacherById?teacherId=" + val.teacherId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
+					var str = "";
+					str+="<tr>";
+					str+="<td>"+n+"</td>"
+					str+="<td>"+val.classRoomName+"</td>"
+					str+="<td>"+val.classRoomNumber+"</td>"
+					str+="<td>"+val.classRoomStutas+"</td>"
+				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
-					$("#teachers").append(str);
+					$("#scores").append(str);
 				})
 			}else{
-				$("#teachers").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+				$("#scores").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
 			}
 		},
 		error : function() {

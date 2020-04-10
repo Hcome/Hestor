@@ -111,7 +111,7 @@ function showPage(n) {
 				    str+="<td>"+val.adminTel+"</td>"
 				    str+="<td>"+val.adminGender+"</td>"
 				    str+="<td>"+val.adminEmail+"</td>"
-				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
+				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>admin/queryAdminById?id=" + val.adminId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.adminId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#admins").append(str);
 				})
@@ -138,10 +138,10 @@ function del(id){
 			type : "POST",
 			async:false,
 			data : {
-				userId:id
+				adminId:id
 			},
 			dataType : "text",
-			url : "<%=basePath%>/user/deleteUser",
+			url : "<%=basePath%>/admin/deleteAdminById",
 			success : function(data) {
 				var result = eval("(" + data + ")");
     			if (result.status == 200) {

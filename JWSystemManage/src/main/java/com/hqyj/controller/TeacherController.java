@@ -1,5 +1,7 @@
 package com.hqyj.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +33,22 @@ public class TeacherController {
 		return info;
 		
 	}
-
+	@RequestMapping("/selectTeacherById")
+	public String selectTeacherById(Integer teacherId,HttpServletRequest request) {
+		Teacher teacher = ts.selectByPrimaryKey(teacherId);
+		request.getSession().setAttribute("teacher", teacher);
+		return "updateTeacher";
+	}
+	
+	@RequestMapping(value = "/updateByPrimaryKey")
+	public String updateByPrimaryKey(Teacher teacher,HttpServletRequest request) {
+		Teacher teacher2 = (Teacher) request.getSession().getAttribute("teacher");
+		teacher.setTeacherId(teacher2.getTeacherId());
+		int num = ts.updateByPrimaryKey(teacher);
+		System.out.println(num+"受影响的行数");
+		return "teacherList";
+		
+	}
+	
+	
 }

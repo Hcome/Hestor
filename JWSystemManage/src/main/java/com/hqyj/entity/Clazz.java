@@ -1,5 +1,7 @@
 package com.hqyj.entity;
 
+import java.util.List;
+
 /**
  * 班级实体类
  * @author Administrator
@@ -10,16 +12,14 @@ public class Clazz {
 	private int clazzId;
 	private String clazzNema;
 	private String fkTeacherId;
-	private Student student;
+	private List<Student> students;
 	
-
-
-	public Student getStudent() {
-		return student;
+	public List<Student> getStudents() {
+		return students;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setStudents(List<Student> students) {
+		this.students = students;
 	}
 
 	public int getClazzId() {

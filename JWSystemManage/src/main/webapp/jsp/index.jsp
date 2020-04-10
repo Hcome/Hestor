@@ -74,7 +74,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   		<li><a href="<%=basePath%>student/goQueryStudent" target="right"><span class="icon-caret-right"></span>查看学生</a></li> 
   	</shiro:hasAnyRoles>
   	<shiro:hasAnyRoles name="admin,teacher">
-  		<li><a href="<%=basePath%>clazz/goQueryStudentScoreAll" target="right"><span class="icon-caret-right"></span>成绩列表</a></li>
+  		<li><a href="<%=basePath%>student/goQueryStudentScoreAll" target="right"><span class="icon-caret-right"></span>成绩列表</a></li>
   	</shiro:hasAnyRoles> 
   </ul> 
   </shiro:hasAnyRoles>
@@ -86,7 +86,9 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>clazz/goQueryClazzAll" target="right"><span class="icon-caret-right"></span>班级列表</a></li> 
   	</shiro:hasAnyRoles>
-  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>教室列表</a></li> 
+  	<shiro:hasAnyRoles name="admin,teacher,student">
+  		<li><a href="<%=basePath%>classroom/goQueryClassRoomAll" target="right"><span class="icon-caret-right"></span>教室列表</a></li> 
+  	</shiro:hasAnyRoles>
   </ul> 
   </shiro:hasAnyRoles>
   

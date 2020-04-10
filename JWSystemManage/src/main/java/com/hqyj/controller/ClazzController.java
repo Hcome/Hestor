@@ -30,15 +30,4 @@ public class ClazzController {
 		return clazzAll;
 	}
 	
-	@RequestMapping(value = "/goQueryStudentScoreAll")
-	public String goQueryStudentScoreAll() {
-		return "scoreList";
-	}
-	@RequestMapping(value = "/queryStudentScoreAll")
-	@ResponseBody
-	public PageInfo<Clazz> queryStudentScoreAll(SearchInfo searchInfo) {
-		
-		PageInfo<Clazz> pageInfo = cs.queryStudentScoreAll(searchInfo.getCurrentPage());
-		return pageInfo;	
-	}
 }
