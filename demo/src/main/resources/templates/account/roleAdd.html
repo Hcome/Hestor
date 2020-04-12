@@ -1,0 +1,31 @@
+<div id="roleAddModal" class="modal fade" tabindex="-1" th:fragment="roleAdd">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="collegeAddLabel"
+					style="font-size: 18px; font-weight: 500;">Role Add</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group row">
+						<label class="control-label col-md-3">Role Name</label>
+						<div class="col-md-8">
+							<input id="roleNameForAddPage" class="form-control" 
+								type="text" placeholder="Enter full name">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<!-- data-dismiss="modal"关闭模态框 -->
+				<a class="btn btn-secondary" href="#" data-dismiss="modal">
+					<i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel
+				</a>
+				<button name="collegeAddBtn" data-dismiss="modal" 
+					class="btn btn-primary" type="button" onclick="addRole();">
+					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
+				</button>
+			</div>
+		</div>
+	</div><!-- /.modal-dialog -->
+</div>

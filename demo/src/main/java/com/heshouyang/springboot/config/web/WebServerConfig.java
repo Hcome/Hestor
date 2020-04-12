@@ -1,4 +1,4 @@
-package com.heshouyang.springboot.config;
+package com.heshouyang.springboot.config.web;
 
 import org.apache.catalina.connector.Connector;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;

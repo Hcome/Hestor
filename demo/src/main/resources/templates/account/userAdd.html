@@ -1,0 +1,43 @@
+<div id="userAddModal" class="modal fade" tabindex="-1" th:fragment="userAdd">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="collegeAddLabel"
+					style="font-size: 18px; font-weight: 500;">User Add</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal">
+					<div class="form-group row">
+						<label class="control-label col-md-3">User Name</label>
+						<div class="col-md-8">
+							<input id="userNameForAddPage" class="form-control" 
+								type="text" placeholder="Enter full name">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="control-label col-md-3">User Password</label>
+						<div class="col-md-8">
+							<input id="passwordForAddPage" class="form-control" 
+								type="text" placeholder="Enter full name">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="control-label col-md-3">User role</label>
+						<div class="col-md-8" id="rolesForUserAdd">
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<!-- data-dismiss="modal"关闭模态框 -->
+				<a class="btn btn-secondary" href="#" data-dismiss="modal">
+					<i class="fa fa-fw fa-lg fa-times-circle"></i>Cancel
+				</a>
+				<button name="collegeAddBtn" data-dismiss="modal" 
+					class="btn btn-primary" type="button" onclick="addUser();">
+					<i class="fa fa-fw fa-lg fa-check-circle"></i>Submit
+				</button>
+			</div>
+		</div>
+	</div><!-- /.modal-dialog -->
+</div>

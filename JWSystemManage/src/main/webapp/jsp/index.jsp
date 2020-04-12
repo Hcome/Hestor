@@ -118,7 +118,7 @@ $(function(){
 </script>
 <ul class="bread">
   <li><a href="<%=basePath%>jsp/index.jsp" target="right" class="icon-home"> 首页</a></li>
-  <li><a href="<%=basePath%>jsp/info.jsp" id="a_leader_txt">网站信息</a></li>
+  <li><a href="<%=basePath%>jsp/info.jsp" id="a_leader_txt">考试须知</a></li>
   	  <li><b>当前语言：</b><span style="color:red;">中文</php></span>
   	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user">&nbsp;&nbsp;当前用户：&nbsp;&nbsp;欢迎你：&nbsp;&nbsp;${sessionScope.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user"><c:forEach items="${sessionScope.roles}" var="item">角色：&nbsp;&nbsp;${item.getRoleDesc()}</c:forEach></span></li>
 

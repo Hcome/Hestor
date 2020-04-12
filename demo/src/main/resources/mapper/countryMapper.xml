@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Configuration 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="com.thornBird.springBootDemo.modules.test.dao.CountryDao">
+    <select id="getCountryById2" parameterType="java.lang.Integer" resultType="Country">
+        select * from m_country where country_id = #{countryId}
+    </select>
+</mapper>
