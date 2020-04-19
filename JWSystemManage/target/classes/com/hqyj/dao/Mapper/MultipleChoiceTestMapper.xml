@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.MultipleChoiceTestMapper">
+
+	<!--查询试题结果集  -->
+	<resultMap type="com.hqyj.entity.MultipleChoiceTest" id="findTestById">
+		<id column="test_id" property="testId"/>
+		<result column="test_question" property="testQuestion"/>
+		<result column="test_answerA" property="testAnswerA"/>
+		<result column="test_answerB" property="testAnswerB"/>
+		<result column="test_answerC" property="testAnswerC"/>
+		<result column="test_answerD" property="testAnswerD"/>
+		<result column="test_rightanswer" property="testRightAnswer"/>
+		<result column="test_type" property="testType"/>
+		<result column="test_isdifficulty" property="testIsDifficulty"/>
+		<result column="test_uploaddate" property="testUpLoadDate"/>
+		<result column="fk_user_name" property="fkUserName"/>
+	</resultMap>
+	<sql id="column_all">
+		test_id,test_question,test_answerA,test_answerB,
+		test_answerC,test_answerD,test_rightanswer,test_type,test_isdifficulty,
+		test_uploaddate,fk_user_name
+	</sql>
+	<!-- 查询试题的信息 -->
+	<select id="" parameterType="java.lang.Integer" resultMap="findTestById">
+		select 
+		<include refid="column_all"></include>
+		from t_test 
+		where test_id=#{testId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="selectTestById" resultMap="findTestById">
+		select * from t_multiplechoice
+	</select>
+	<insert id="insertMultipleChoiceTest" parameterType="com.hqyj.entity.MultipleChoiceTest">
+		insert into t_multiplechoice set test_question=#{testQuestion},test_answerA=#{testAnswerA},test_answerB=#{testAnswerB},test_answerC=#{testAnswerC},
+		test_answerD=#{testAnswerD},test_rightanswer=#{testRightAnswer},test_type=#{testType},test_isdifficulty=#{testIsDifficulty},test_uploaddate=#{testUpLoadDate},
+		fk_user_name=#{fkUserName}
+	</insert>
+</mapper>

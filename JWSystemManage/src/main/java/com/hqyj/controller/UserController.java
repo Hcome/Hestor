@@ -116,7 +116,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value="/addAdminAndTeacher",method=RequestMethod.POST)
-	public String addAdminAndTeacher(Teacher teacher,Admin admin,HttpServletRequest request) {
+	public String addAdminAndTeacher(Admin admin,HttpServletRequest request) {
 		
 		int userid = (int) request.getSession().getAttribute("userId");
 		String[] role = (String[]) request.getSession().getAttribute("roleId");
@@ -129,15 +129,21 @@ public class UserController {
 				admin.setFkUserId(userid);
 				int num2 = as.insertAdmin(admin);
 				System.out.println("受影响的行数："+num2);
-			}else if (roleId == 1&&roleId == 2) {
-				admin.setFkUserId(userid);
-				int num1 = as.insertAdmin(admin);
-				teacher.setFkUserId(userid);
+			}else if (roleId == 2) {
+				Teacher teacher = new Teacher();
+				teacher.setTeacherId(admin.getAdminId());
+				teacher.setFkUserId(admin.getFkUserId());
+				teacher.setTeacherAge(admin.getAdminAge());
+				teacher.setTeacherEmail(admin.getAdminEmail());
+				teacher.setTeacherGender(admin.getAdminGender());
+				teacher.setTeacherName(admin.getAdminName());
+				teacher.setTeacherNum(admin.getAdminNum());
+				teacher.setTeacherTel(admin.getAdminTel());
 				int num2 = ts.insertTeacher(teacher);
-				System.out.println("受影响的行数："+num1+num2);
+				System.out.println("受影响的行数："+num2);
 			}
 		}
-		return "addAdmin";	
+		return "adminList";	
 	}
 	/**
 	 * 添加老师功能
@@ -160,10 +166,10 @@ public class UserController {
 				System.out.println("受影响的行数："+num1);
 			}
 		}
-		return "addTeacher";	
+		return "teacherList";	
 	}
 	/**
-	 * 添加老师功能
+	 * 添加学生功能
 	 * @param student
 	 * @param request
 	 * @return
@@ -183,7 +189,7 @@ public class UserController {
 				System.out.println("受影响的行数："+num1);
 			}
 		}
-		return "addStudent";	
+		return "studentList";	
 	}
 	//查询所用用户以及对应的角色
 	@RequestMapping(value = "/goQueryUsersAndRoles")

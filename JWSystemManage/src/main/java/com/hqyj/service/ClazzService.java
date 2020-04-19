@@ -7,5 +7,4 @@ public interface ClazzService {
 
 	PageInfo<Clazz> selectClazzAll(int pageNum);
 	
-
 }

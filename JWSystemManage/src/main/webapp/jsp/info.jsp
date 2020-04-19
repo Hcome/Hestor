@@ -14,9 +14,9 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 
 </head>
 <body>
-	<form action="<%=basePath%>jsp/startExam.jsp" method="post">
+	<form action="<%=basePath%>test/selectById" method="post">
 		<div>
-			<span><h1>欢迎来到英语网络考试首页</h1></span>
+			<span><h1>XXX学校期末英语考试</h1></span>
 		</div>
 		<div class="row-fluid">
 			<div class="span7" ontablet="span12" ondesktop="span7">

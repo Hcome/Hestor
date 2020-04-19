@@ -28,7 +28,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
           <label>老师教工号：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="${teacher.teacherNum}" name="teacherNum" disabled="disabled"/>
+          <input type="text" class="input w50" value="${teacher.teacherNum}" name="teacherNum" readonly="readonly"/>
           <div class="tips"></div>
         </div>
       </div>

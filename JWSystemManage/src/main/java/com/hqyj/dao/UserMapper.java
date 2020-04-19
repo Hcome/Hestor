@@ -89,6 +89,4 @@ public interface UserMapper {
 	 * @return
 	 */
 	List<UserAndRole> queryRole();
-	
-	
 }

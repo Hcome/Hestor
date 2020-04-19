@@ -10,4 +10,9 @@ public interface ClazzMapper {
 	 * @return
 	 */
 	List<Clazz> queryClazzsAll();
+	/**
+	 * 查询所有班级的所有学生
+	 * @return
+	 */
+	List<Clazz> queryStudents();
 }

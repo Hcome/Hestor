@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.heshouyang.springboot.Modules.account.service.UserService;
 
 /**
- * @Description: 
- * @author: HymanHu
- * @date: 2020年4月8日
+ * 
+ * @author Administrator
+ *
  */
 @Controller
 @RequestMapping("/account")
@@ -20,7 +20,7 @@ public class AccountController {
 	private UserService userService;
 	
 	/**
-	 * 127.0.0.1:8085/account/login
+	 * 127.0.0.1:8088/account/login
 	 */
 	@RequestMapping("/login")
 	public String loginPage() {
@@ -34,7 +34,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * 127.0.0.1:8085/account/dashboard
+	 * 127.0.0.1:8088/account/dashboard
 	 */
 	@RequestMapping("/dashboard")
 	public String dashboardPage() {
@@ -42,7 +42,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * 127.0.0.1:8085/account/users
+	 * 127.0.0.1:8088/account/users
 	 */
 	@RequestMapping("/users")
 	public String usersPage() {
@@ -50,7 +50,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * 127.0.0.1:8085/account/roles
+	 * 127.0.0.1:8088/account/roles
 	 */
 	@RequestMapping("/roles")
 	public String rolesPage() {
@@ -58,7 +58,7 @@ public class AccountController {
 	}
 	
 	/**
-	 * 127.0.0.1:8085/account/resources
+	 * 127.0.0.1:8088/account/resources
 	 */
 	@RequestMapping("/resources")
 	public String resourcesPage() {

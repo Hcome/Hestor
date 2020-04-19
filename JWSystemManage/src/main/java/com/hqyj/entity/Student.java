@@ -22,8 +22,18 @@ public class Student {
     
     private Integer fkClassId;
     
+    private String fkClassName;
+    
     private Score score;
     
+	public String getFkClassName() {
+		return fkClassName;
+	}
+
+	public void setFkClassName(String fkClassName) {
+		this.fkClassName = fkClassName;
+	}
+
 	public Score getScore() {
 		return score;
 	}

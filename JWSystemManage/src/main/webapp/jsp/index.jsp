@@ -14,7 +14,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="renderer" content="webkit">
-    <title>英语考试系统后台管理中心</title>  
+    <title>英语网络考试系统</title>  
     <link rel="stylesheet" href="<%=basePath%>static/css/pintuer.css">
     <link rel="stylesheet" href="<%=basePath%>static/css/admin.css">
     <script src="<%=basePath%>static/js/jquery.js"></script>   
@@ -61,8 +61,8 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>老师列表</a></li>
   	</shiro:hasAnyRoles>   
-  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>已修改试卷</a></li>
-    <li><a href="add.html" target="right"><span class="icon-caret-right"></span>未修改试卷</a></li>                   
+  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>已考试学生试卷</a></li>
+                       
   </ul>
   </shiro:hasAnyRoles>
   
@@ -97,9 +97,8 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   <ul>
   	<!-- 给查看学生赋予权限 -->
   	<shiro:hasAnyRoles name="admin,teacher">
-  		<li><a href="<%=basePath%>student/goQueryStudent" target="right"><span class="icon-caret-right"></span>试题中心</a></li> 
+  		<li><a href="<%=basePath%>jsp/Test.jsp" target="right"><span class="icon-caret-right"></span>试题中心</a></li> 
   	</shiro:hasAnyRoles>
-  	<li><a href="add.html" target="right"><span class="icon-caret-right"></span>试卷中心</a></li> 
   </ul> 
   </shiro:hasAnyRoles>
 </div>
@@ -118,10 +117,11 @@ $(function(){
 </script>
 <ul class="bread">
   <li><a href="<%=basePath%>jsp/index.jsp" target="right" class="icon-home"> 首页</a></li>
-  <li><a href="<%=basePath%>jsp/info.jsp" id="a_leader_txt">考试须知</a></li>
+  <shiro:hasAnyRoles name="admin,teacher,student">
+  	<li><a href="<%=basePath%>jsp/info.jsp" id="a_leader_txt">考试须知</a></li>
   	  <li><b>当前语言：</b><span style="color:red;">中文</php></span>
-  	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user">&nbsp;&nbsp;当前用户：&nbsp;&nbsp;欢迎你：&nbsp;&nbsp;${sessionScope.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user"><c:forEach items="${sessionScope.roles}" var="item">角色：&nbsp;&nbsp;${item.getRoleDesc()}</c:forEach></span></li>
-
+  	  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;切换语言：<a href="##">中文</a> &nbsp;&nbsp;<a href="##">英文</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user">&nbsp;&nbsp;当前用户：&nbsp;&nbsp;欢迎你：&nbsp;&nbsp;${sessionScope.userName}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="icon-user">角色：<c:forEach items="${sessionScope.roles}" var="item">&nbsp;&nbsp;${item.getRoleDesc()}/</c:forEach></span></li>
+  </shiro:hasAnyRoles>
 </ul>
 <div class="admin">
   <iframe scrolling="auto" rameborder="0" src="<%=basePath%>jsp/info.jsp" name="right" width="100%" height="100%"></iframe>

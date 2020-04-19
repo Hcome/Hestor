@@ -38,7 +38,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
           <label>你的身份：</label>
         </div>
         <div class="field">
-           <c:forEach items="${list}" var="item">
+           <c:forEach items="${roles}" var="item" begin="0" end="1">
           	  ${item.getRoleDesc()}
            </c:forEach>
           <div class="tips"></div>

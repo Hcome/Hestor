@@ -29,5 +29,5 @@ public class ClazzController {
 		PageInfo<Clazz> clazzAll = cs.selectClazzAll(searchInfo.getCurrentPage());
 		return clazzAll;
 	}
-	
+
 }

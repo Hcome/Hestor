@@ -3,18 +3,47 @@ package com.hqyj.entity;
  * 试卷
  */
 import java.util.Date;
+import java.util.List;
 
 public class ExamPaper {
 	
 	private int examPaperId;
-	//试卷的内容
-	private String examPaperText;
-	//试卷的难易程度
-	private String examPaperType;
+	//试卷的名称
+	private String examPaperName;
 	//试卷生成的日期
 	private Date examPaperUpLoadDate;
 	
-	private int fkTeacherId;
+	private Integer fkStudentId;
+	
+	private List<GenerateChoice> tests;
+	
+	private List<GenerateFill> fills;
+	
+	private List<GenerateArticle> articles;
+	
+	public List<GenerateChoice> getTests() {
+		return tests;
+	}
+
+	public void setTests(List<GenerateChoice> tests) {
+		this.tests = tests;
+	}
+
+	public List<GenerateFill> getFills() {
+		return fills;
+	}
+
+	public void setFills(List<GenerateFill> fills) {
+		this.fills = fills;
+	}
+
+	public List<GenerateArticle> getArticles() {
+		return articles;
+	}
+
+	public void setArticles(List<GenerateArticle> articles) {
+		this.articles = articles;
+	}
 
 	public int getExamPaperId() {
 		return examPaperId;
@@ -24,20 +53,12 @@ public class ExamPaper {
 		this.examPaperId = examPaperId;
 	}
 
-	public String getExamPaperText() {
-		return examPaperText;
+	public String getExamPaperName() {
+		return examPaperName;
 	}
 
-	public void setExamPaperText(String examPaperText) {
-		this.examPaperText = examPaperText;
-	}
-
-	public String getExamPaperType() {
-		return examPaperType;
-	}
-
-	public void setExamPaperType(String examPaperType) {
-		this.examPaperType = examPaperType;
+	public void setExamPaperName(String examPaperName) {
+		this.examPaperName = examPaperName;
 	}
 
 	public Date getExamPaperUpLoadDate() {
@@ -48,12 +69,12 @@ public class ExamPaper {
 		this.examPaperUpLoadDate = examPaperUpLoadDate;
 	}
 
-	public int getFkTeacherId() {
-		return fkTeacherId;
+	public Integer getFkStudentId() {
+		return fkStudentId;
 	}
 
-	public void setFkTeacherId(int fkTeacherId) {
-		this.fkTeacherId = fkTeacherId;
+	public void setFkStudentId(Integer fkStudentId) {
+		this.fkStudentId = fkStudentId;
 	}
-	
+
 }

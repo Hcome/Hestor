@@ -32,6 +32,7 @@ public class SystemController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Result login(@RequestBody User user,HttpServletRequest request) {
+		
 		//将用户名存入session中
 		HttpSession session = request.getSession();
 		session.setAttribute("userName", user.getUserName());
@@ -76,45 +77,35 @@ public class SystemController {
 	 */
 	@RequestMapping("/goQueryUserIsAdminInfo")
 	public String queryUserIsAdmin(HttpServletRequest request) {
+		
 		String userName = (String) request.getSession().getAttribute("userName");
-		User user = us.selectUserByUserByName(userName);
-		List<Role> roles = user.getRoles();
+		List<Role> roles = (List<Role>) request.getSession().getAttribute("roles");
+		
+		if (!roles.isEmpty()) {
+			for (Role role : roles) {
+				if ("admin".equals(role.getRoleName())) {
+					User admin = us.selectUserIsAdminAllInfo(userName);
+					request.getSession().setAttribute("adminUser", admin);
+					return "selectAdmin";
+				}
+			}
+		}
+		
 		for (Role role : roles) {
 			if ("admin".equals(role.getRoleName())) {
 				User admin = us.selectUserIsAdminAllInfo(userName);
-				//由于一个用户可能有多个角色，所以将多个角色放入List集合当中去
-				List<Role> list = admin.getRoles();
-				request.getSession().setAttribute("list", list);
-				
 				request.getSession().setAttribute("adminUser", admin);
 				return "selectAdmin";
 			}else if ("teacher".equals(role.getRoleName())) {
 				User teacher = us.selectUserIsTeacherAllInfo(userName);
-				//由于一个用户可能有多个角色，所以将多个角色放入List集合当中去
-				List<Role> list = teacher.getRoles();
-				request.getSession().setAttribute("list", list);
-				
 				request.getSession().setAttribute("teacherUser", teacher);
 				return "selectStudent";
 			}else if ("student".equals(role.getRoleName())) {
 				User student = us.selectUserIsStudentAllInfo(userName);
-				//由于一个用户可能有多个角色，所以将多个角色放入List集合当中去
-				List<Role> list = student.getRoles();
-				request.getSession().setAttribute("list", list);
-				
 				request.getSession().setAttribute("studentUser", student);
 				return "selectStudent";
 			}
-			//判断这个user是否存在有多个身份
-			else if ("admin".equals(role.getRoleName())&&"teacher".equals(role.getRoleName())) {
-				User adminAndTeacher = us.selectUserIsAdminAllInfo(userName);
-				//由于一个用户可能有多个角色，所以将多个角色放入List集合当中去
-				List<Role> list = adminAndTeacher.getRoles();
-				request.getSession().setAttribute("list", list);
-				
-				request.getSession().setAttribute("adminAndTeacher", adminAndTeacher);
-				return "selectAdminAndTeacher";
-			}
+			break;
 		}
 		return null;
 	}

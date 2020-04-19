@@ -55,8 +55,8 @@ public interface UserDao {
 			@Result(column="user_id", property="userId"),
 			@Result(column="user_id",property="roles",
 					javaType=List.class,
-					many=@Many(select="com.thornBird.springBootDemo.modules.account.dao."
-							+ "UserRoleDao.getRolesByUserId"))
+					many=@Many(select="com.heshouyang.springboot.Modules."
+							+ "account.dao.UserRoleDao.getRolesByUserId"))
 		})
 	User getUserById(int userId);
 	

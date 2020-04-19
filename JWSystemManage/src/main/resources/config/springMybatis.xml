@@ -32,7 +32,7 @@
 			</array>
 		</property>
    	</bean>
-   		<!-- 接口开发,扫描 com.hqyj.dao包 ，写在此包下的接口即可被扫描到 -->
+   	<!-- 接口开发,扫描 com.hqyj.dao包 ，写在此包下的接口即可被扫描到 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
 		<property name="basePackage" value="com.hqyj.dao" />
 	</bean>

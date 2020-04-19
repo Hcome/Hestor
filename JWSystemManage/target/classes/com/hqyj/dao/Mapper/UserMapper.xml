@@ -165,7 +165,6 @@
   <select id="queryRole" resultMap="queryUserAndRole">
   	select *from t_user_role
   </select>
-  
   <resultMap type="com.hqyj.model.vo.UserAndRole" id="queryUserAndRole">
   	<id column="user_role_id" jdbcType="INTEGER" property="userRoleId" />  
     <result column="fk_user_id"  property="userId" />

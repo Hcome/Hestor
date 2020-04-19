@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hqyj.dao.GenerateFillMapper">
+
+	<resultMap type="com.hqyj.entity.GenerateFill" id="findBlanksAll">
+		<id column="generatefill_id" property="generateFillId"/>
+		<result column="generatefill_question" property="generateFillQuestion"/>
+		<result column="generatefill_answer" property="generateFillAnswer"/>
+		<result column="generatefill_type" property="generateFillType"/>
+	</resultMap>
+	
+	<select id="" resultMap="findBlanksAll">
+	
+	</select>
+	
+	<insert id="insertFill" parameterType="com.hqyj.entity.GenerateFill">
+		insert into t_generatefill set generatefill_question=#{generateFillQuestion},generatefill_answer=#{generateFillAnswer},
+		generatefill_type=#{generateFillType}
+	</insert>
+	
+</mapper>

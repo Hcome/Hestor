@@ -1,6 +1,5 @@
  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+
@@ -21,85 +20,67 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 </head>
 <body>
 <div class="panel admin-panel">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>你的基本信息</strong></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加选择题</strong></div>
   <div class="body-content">
-    <form method="post" class="form-x" action="<%=basePath%>sys/selectAdminAndTeacher">
+    <form method="post" class="form-x" action="<%=basePath%>test/addMultipleChoiceTest">  
       <div class="form-group">
         <div class="label">
-          <label>你的用户名：</label>
+          <label>请设置问题：</label>
         </div>
         <div class="field">
-          ${adminAndTeacher.getUserName()}
+          <input type="text" class="input w50" value="" name="fillblanksQuestion" />
           <div class="tips"></div>
         </div>
       </div>
       <div class="form-group">
         <div class="label">
-          <label>你的角色：</label>
+          <label>答案：</label>
         </div>
         <div class="field">
-           <c:forEach items="${list}" var="item">
-          	${item.getRoleDesc()}
-          </c:forEach>
+          <input type="text" class="input w50" value="" name="fillblanksAnswer"  />
           <div class="tips"></div>
         </div>
-      </div>    
+      </div>     
       <div class="form-group">
-        <div class="label">
-          <label>你的账号：</label>
+        <div class="label" >
+          <label>题目难易程度：</label>
         </div>
-        <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminNum()}
+        <div class="field" style="display: inline;">
+          <input type="text" class="input w50" th:field="*{input}" placeholder="请选择题目难易程度"  list="listItem" name="fillblanksIsDifficulty"/>
+          <datalist id="listItem">
+	        <option>容易</option>
+	        <option>一般</option>
+	        <option>困难</option>
+		</datalist> 
           <div class="tips"></div>
         </div>
       </div>
-      <div class="form-group">
+	  <div class="form-group">
         <div class="label">
-          <label>你的姓名：</label>
+          <label>出题时间：</label>
         </div>
         <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminName()}
-          <div class="tips"></div>
-        </div>
-      </div>     
-      
-       <div class="form-group">
-        <div class="label">
-          <label>你的年龄：</label>
-        </div>
-        <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminAge()}
-          <div class="tips"></div>
-        </div>
-      </div>     
-       <div class="form-group">
-        <div class="label">
-          <label>你的电话：</label>
-        </div>
-        <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminTel()}
-          <div class="tips"></div>
-        </div>
-      </div>     
-       <div class="form-group">
-        <div class="label">
-          <label>你的性别：</label>
-        </div>
-        <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminGender()}
-          <div class="tips"></div>
-        </div>
-      </div>     
-     
-       <div class="form-group">
-        <div class="label">
-          <label>你的邮箱：</label>
-        </div>
-        <div class="field">
-          ${adminAndTeacher.getAdmin().getAdminEmail()}
+          <input type="date" class="input w50" value="testUpLoadDate" name="fillblanksUpLoadDate"/>
           <div class="tips"></div>
         </div>
       </div>  
+      <div class="form-group">
+        <div class="label">
+          <label>操作人：</label>
+        </div>
+        <div class="field">
+          <input type="text" class="input w50" value="${userName}" name="fkUserName"/>
+          <div class="tips"></div>
+        </div>
+      </div>  
+      <div class="form-group">
+        <div class="label">
+          <label></label>
+        </div>
+        <div class="field">
+          <button class="button bg-main icon-check-square-o" type="submit">增加</button>
+        </div>
+      </div>
     </form>
   </div>
 </div>

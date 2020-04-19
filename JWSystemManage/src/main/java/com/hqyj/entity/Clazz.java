@@ -12,6 +12,7 @@ public class Clazz {
 	private int clazzId;
 	private String clazzNema;
 	private String fkTeacherId;
+	private Teacher teacher;
 	private List<Student> students;
 	
 	public List<Student> getStudents() {
@@ -44,5 +45,12 @@ public class Clazz {
 	
 	public void setFkTeacherId(String fkTeacherId) {
 		this.fkTeacherId = fkTeacherId;
+	}
+	public Teacher getTeacher() {
+		return teacher;
+	}
+
+	public void setTeacher(Teacher teacher) {
+		this.teacher = teacher;
 	}
 }

@@ -7,31 +7,62 @@
 		<TITLE>SpringDemo</TITLE>
 		<META name="description" content="THORNBIRD.COM"/>
 		
-		<!-- 引入外部js或css -->
-	    <script th:src="@{http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js}"></script>  
-	    <script th:src="@{http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js}"></script>
-	    <script th:src="${'/js/sbDemo.js'}" type="text/javascript"></script>
+		<!-- 引入css -->
+		<!-- <link th:href="@{http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css}" rel="stylesheet" > -->
+		<link th:href="${'/css/bootstrap.min.css'}" rel="stylesheet" />
+		<link th:href="${'/font-awesome/4.5.0/css/font-awesome.min.css'}" rel="stylesheet" />
+		<link th:href="${'/css/fonts.googleapis.com.css'}" rel="stylesheet" />
+		<link th:href="${'/css/ace.min.css'}" rel="stylesheet" />
+		<link th:href="${'/css/ace-skins.min.css'}" rel="stylesheet" />
+		<link th:href="${'/css/ace-rtl.min.css'}" rel="stylesheet" />
+		
+		<!-- 引入js -->
+	    <script th:src="${'/js/jquery-2.1.4.min.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/bootstrap.min.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/ace.min.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/ace-elements.min.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/ace-extra.min.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/bootstrap-datepicker.min.js'}" type="text/javascript"></script>
+	    <script th:src="@{https://cdn.bootcss.com/layer/2.1/layer.js}" type="text/javascript"></script>
+	    <script th:src="${'/js/bootbox.js'}" type="text/javascript"></script>
+	    <script th:src="${'/js/main.js'}" type="text/javascript"></script>
 	    
-		<link th:href="@{http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css}" rel="stylesheet" >
-		<link th:href="${'/css/sbDemo.css'}" rel="stylesheet" />
 	</head>
-	<!-- An error happened during template parsing (template: "class path resource [templates/index.html]")
-		一般这种错误都是前端页面出错，与后端Java代码执行无关
-	 -->
-	<body>
+	<body class="no-skin">
+		<!--header-->
+		<div th:replace="fragments/header :: header"></div>
+		
 		<!-- body -->
-		<div id="wrapper">
-			<!--header-->
-			<div th:replace="fragments/header :: header"></div>
+		<div class="main-container ace-save-state" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.loadState('main-container')}catch(e){}
+			</script>
+			<div th:replace="fragments/left :: left"></div>
 			
-			<!-- body -->
-			<div class='mainBody' style="margin-top: 50px; margin-bottom: 53px;">
-				<div th:if="${template}">
-					<div th:replace="${template}"></div>
-			    </div>
+			<div class="main-content">
+				<div class="main-content-inner">
+					<div th:if="${template}">
+						<div th:replace="${template}"></div>
+				    </div>
+				</div>
 			</div>
+			
+			<!-- footer -->
+			<div th:replace="fragments/footer :: footer"></div>
 		</div>
-		<!-- footer -->
-		<div th:replace="fragments/footer::footer"></div>	
 	</body>
-	</html>
+</html>
+<script type="text/javascript">
+	jQuery(function($) {
+		$('.nav-list li').each(function(){  
+			$(this).removeClass('active');  
+			$(this).removeClass('open');  
+		});
+		$('.nav-list li a').each(function(){  
+			if($($(this))[0].href==String(window.location)) {
+				$(this).parent().parent().parent().addClass('open active');
+				$(this).parent().addClass("active");
+			}
+		});
+	});
+</script>

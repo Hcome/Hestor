@@ -27,6 +27,5 @@ public class ClassroomController {
 		
 		PageInfo<ClassRoom> info = cs.queryClassRoomAll(searchInfo.getCurrentPage());
 		return info;
-		
 	}
 }

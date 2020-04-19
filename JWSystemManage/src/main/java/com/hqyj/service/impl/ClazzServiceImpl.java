@@ -26,4 +26,5 @@ public class ClazzServiceImpl implements ClazzService{
 		PageInfo<Clazz> info = new PageInfo<Clazz>(list);
 		return info;
 	}
+
 }

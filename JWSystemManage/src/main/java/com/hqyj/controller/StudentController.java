@@ -54,7 +54,6 @@ public class StudentController {
 	@RequestMapping(value = "/queryStudentById")
 	public String queryStudentById(Integer id,HttpServletRequest request) {
 		Student student = ss.selectByPrimaryKey(id);
-		System.out.println(student+"+++++++++++++++++++++++++++++");
 		request.getSession().setAttribute("student", student);
 		return "updateStudent";
 	}

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.ArticleTestMapper">
+
+	<resultMap type="com.hqyj.entity.ArticleTest" id="findArticleTestAll">
+		<id column="article_id" property="articleId"/>
+		<result column="article_title" property="articleTitle"/>
+		<result column="article_text" property="articleText"/>
+		<result column="article_questionone" property="articleQuestionOne"/>
+		<result column="article_answerA" property="articleAnswerA"/>
+		<result column="article_answerB" property="articleAnswerB"/>
+		<result column="article_answerC" property="articleAnswerC"/>
+		<result column="article_answerD" property="articleAnswerD"/>
+		<result column="article_answeroneright" property="articleAnsweroneRight"/>
+		<result column="article_questiontwo" property="articleQuestionTwo"/>
+		<result column="article_answertwoA" property="articleAnswerTwoA"/>
+		<result column="article_answertwoB" property="articleAnswerTwoB"/>
+		<result column="article_answertwoC" property="articleAnswerTwoC"/>
+		<result column="article_answertwoD" property="articleAnswerTwoD"/>
+		<result column="article_answertworight" property="articleAnswerTwoRight"/>
+		<result column="article_questionthree" property="articleQuestionThree"/>
+		<result column="article_answerthreeA" property="articleAnswerThreeA"/>
+		<result column="article_answerthreeB" property="articleAnswerThreeB"/>
+		<result column="article_answerthreeC" property="articleAnswerThreeC"/>
+		<result column="article_answerthreeD" property="articleAnswerThreeD"/>
+		<result column="article_answerthreeright" property="articleAnswerThreeright"/>
+		<result column="article_questionfour" property="articleQuestionFour"/>
+		<result column="article_answerfourA" property="articleAnswerFourA"/>
+		<result column="article_answerfourB" property="articleAnswerFourB"/>
+		<result column="article_answerfourC" property="articleAnswerFourC"/>
+		<result column="article_answerfourD" property="articleAnswerFourD"/>
+		<result column="article_answerfourright" property="articleAnswerFourRight"/>
+		<result column="article_type" property="articleType"/>
+		<result column="article_isdifficulty" property="articleIsDifficulty"/>
+		<result column="article_uploaddate" property="articleUpLoadDate"/>
+		<result column="fk_user_name" property="fkUserName"/>
+	</resultMap>
+
+	<select id="selectArticleTest" resultMap="findArticleTestAll">
+		select *from t_article
+	</select>
+		
+	<insert id="insertArticleTest" parameterType="com.hqyj.entity.ArticleTest">
+		insert into t_article set article_title=#{articleTitle},article_text=#{articleText},article_questionone=#{articleQuestionOne},article_answerA=#{articleAnswerA},
+		article_answerB=#{articleAnswerB},article_answerC=#{articleAnswerC},article_answerD=#{articleAnswerD},article_answeroneright=#{articleAnsweroneRight},
+		article_questiontwo=#{articleQuestionTwo},article_answertwoA=#{articleTitle},article_answertwoB=#{articleAnswerTwoB},article_answertwoC=#{articleAnswerTwoC},
+		article_answertwoD=#{articleAnswerTwoD},article_answertworight=#{articleAnswerTwoRight},article_questionthree=#{articleQuestionThree},article_answerthreeA=#{articleAnswerThreeA},
+		article_answerthreeB=#{articleAnswerThreeB},article_answerthreeC=#{articleAnswerThreeC},article_answerthreeD=#{articleAnswerThreeD},article_answerthreeright=#{articleAnswerThreeright},
+		article_questionfour=#{articleQuestionFour},article_answerfourA=#{articleAnswerFourA},article_answerfourB=#{articleAnswerFourB},article_answerfourC=#{articleAnswerFourC},
+		article_answerfourD=#{articleAnswerFourD},article_answerfourright=#{articleAnswerFourRight},article_type=#{articleType},article_isdifficulty=#{articleIsDifficulty},
+		article_uploaddate=#{articleUpLoadDate},fk_user_name=#{fkUserName}
+	</insert>
+</mapper>

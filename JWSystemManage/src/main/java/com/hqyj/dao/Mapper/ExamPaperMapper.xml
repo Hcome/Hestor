@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hqyj.dao.ExamPaperMapper"> 
+ 	
+ 	<resultMap type="com.hqyj.entity.ExamPaper" id="">
+ 		<id column="exampaper_id" property="examPaperId"/>
+ 		<result column="exampaper_name" property="examPaperName"/>
+ 		<result column="exanpaper_uploaddate" property="examPaperUpLoadDate"/>
+ 		<result column="fk_student_id" property="fkStudentId"/>
+ 	</resultMap>
+ 	
+ 	<!--添加试卷  -->
+	<insert id="insertExampaper" parameterType="com.hqyj.entity.ExamPaper">
+	 	insert into t_exampaper set 
+	</insert>
+
+</mapper>

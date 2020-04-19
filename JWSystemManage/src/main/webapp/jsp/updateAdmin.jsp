@@ -28,7 +28,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
           <label>管理员工号：</label>
         </div>
         <div class="field">
-          <input type="text" class="input w50" value="${admin.getAdminNum()}" name="adminNum" disabled="disabled"/>
+          <input type="text" class="input w50" value="${admin.getAdminNum()}" name="adminNum" readonly="readonly"/>
           <div class="tips"></div>
         </div>
       </div>

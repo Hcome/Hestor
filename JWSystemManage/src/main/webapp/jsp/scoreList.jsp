@@ -37,10 +37,12 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <thead>
       <tr>
         <th width="10%" style="text-align:left; padding-left:20px;">编号</th>
+        <th width="20%">学号</th>
         <th width="20%">学生姓名</th>
-        <th width="20%">分数</th>
-        <th width="20%">班级</th>
-        <th width="30%">操作</th>
+        <th width="10%">分数</th>
+        <th width="10%">是否通过</th>
+        <th width="10%">班级</th>
+        <th width="20%">操作</th>
       </tr>
       </thead>
       <tbody id="scores"></tbody>
@@ -103,9 +105,12 @@ function showPage(n) {
 					var str = "";
 					str+="<tr>";
 					str+="<td>"+n+"</td>"
+					str+="<td>"+val.studentNum+"</td>"
 					str+="<td>"+val.studentName+"</td>"
 					str+="<td>"+val.score.scoreNunber+"</td>"
-				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
+					str+="<td>"+val.score.isPass+"</td>"
+					str+="<td>"+val.fkClassName+"</td>"
+				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>score/selectScoreById?id=" + val.score.scoreId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.studentId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#scores").append(str);
 				})
@@ -132,10 +137,10 @@ function del(id){
 			type : "POST",
 			async:false,
 			data : {
-				userId:id
+				studentId:id
 			},
 			dataType : "text",
-			url : "<%=basePath%>/user/deleteUser",
+			url : "<%=basePath%>/student/deleteByPrimaryKey",
 			success : function(data) {
 				var result = eval("(" + data + ")");
     			if (result.status == 200) {

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.hqyj.dao.GeneratearticleMapper">
+	  <resultMap type="com.hqyj.entity.GenerateArticle" id="findarticleTestAll">
+		<id column="generatearticle_id" property="generatearticleId"/>
+		<result column="generatearticle_title" property="generatearticleTitle"/>
+		<result column="generatearticle_text" property="generatearticleText"/>
+		<result column="generatearticle_questionone" property="generatearticleQuestionOne"/>
+		<result column="generatearticle_answerA" property="generatearticleAnswerA"/>
+		<result column="generatearticle_answerB" property="generatearticleAnswerB"/>
+		<result column="generatearticle_answerC" property="generatearticleAnswerC"/>
+		<result column="generatearticle_answerD" property="generatearticleAnswerD"/>
+		<result column="generatearticle_studentanswerone" property="generatearticleStudentAnswerOne"/>
+		<result column="generatearticle_questiontwo" property="generatearticleQuestionTwo"/>
+		<result column="generatearticle_answertwoA" property="generatearticleAnswerTwoA"/>
+		<result column="generatearticle_answertwoB" property="generatearticleAnswerTwoB"/>
+		<result column="generatearticle_answertwoC" property="generatearticleAnswerTwoC"/>
+		<result column="generatearticle_answertwoD" property="generatearticleAnswerTwoD"/>
+		<result column="generatearticle_studentanswertwo" property="generatearticleStudentAnswerTwo"/>
+		<result column="generatearticle_questionthree" property="generatearticleQuestionThree"/>
+		<result column="generatearticle_answerthreeA" property="generatearticleAnswerThreeA"/>
+		<result column="generatearticle_answerthreeB" property="generatearticleAnswerThreeB"/>
+		<result column="generatearticle_answerthreeC" property="generatearticleAnswerThreeC"/>
+		<result column="generatearticle_answerthreeD" property="generatearticleAnswerThreeD"/>
+		<result column="generatearticle_studentanswerthree" property="generatearticleStudentAnswerThree"/>
+		<result column="generatearticle_questionfour" property="generatearticleQuestionFour"/>
+		<result column="generatearticle_answerfourA" property="generatearticleAnswerFourA"/>
+		<result column="generatearticle_answerfourB" property="generatearticleAnswerFourB"/>
+		<result column="generatearticle_answerfourC" property="generatearticleAnswerFourC"/>
+		<result column="generatearticle_answerfourD" property="generatearticleAnswerFourD"/>
+		<result column="generatearticle_studentanswerfour" property="generatearticleStudentAnswerFour"/>
+		<result column="generatearticle_type" property="generatearticleType"/>
+	</resultMap>
+
+	<select id="selectArticleALl" resultMap="findarticleTestAll">
+	
+	</select>
+	<insert id="inserArticle" parameterType="com.hqyj.entity.GenerateArticle">
+		insert into t_generatearticle set generatearticle_title=#{generatearticleTitle},generatearticle_text=#{generatearticleText},
+		generatearticle_questionone=#{generatearticleQuestionOne},generatearticle_answerA=#{generatearticleAnswerA},
+		generatearticle_answerB=#{generatearticleAnswerB},generatearticle_answerC=#{generatearticleAnswerC},
+		generatearticle_answerD=#{generatearticleAnswerD},generatearticle_studentanswerone=#{generatearticleStudentAnswerOne},
+		generatearticle_questiontwo=#{generatearticleQuestionTwo},generatearticle_answertwoA=#{generatearticleAnswerTwoA},
+		generatearticle_answertwoB=#{generatearticleAnswerTwoB},generatearticle_answertwoC=#{generatearticleAnswerTwoC},
+		generatearticle_answertwoD=#{generatearticleAnswerTwoD},generatearticle_studentanswertwo=#{generatearticleStudentAnswerTwo},
+		generatearticle_questionthree=#{generatearticleQuestionThree},generatearticle_answerthreeA=#{generatearticleAnswerThreeA},
+		generatearticle_answerthreeB=#{generatearticleAnswerThreeB},generatearticle_answerthreeC=#{generatearticleAnswerThreeC},
+		generatearticle_answerthreeD=#{generatearticleAnswerThreeD},generatearticle_studentanswerthree=#{generatearticleStudentAnswerThree},
+		generatearticle_questionfour=#{generatearticleQuestionFour},generatearticle_answerfourA=#{generatearticleAnswerFourA},
+		generatearticle_answerfourB=#{generatearticleAnswerFourB},generatearticle_answerfourA=#{generatearticleAnswerFourC},
+		generatearticle_answerfourD=#{generatearticleAnswerFourD},generatearticle_studentanswerfour=#{generatearticleStudentAnswerFour},
+		generatearticle_type=#{generatearticleType}
+	</insert>
+</mapper>

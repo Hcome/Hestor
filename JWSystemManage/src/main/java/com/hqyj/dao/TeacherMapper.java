@@ -29,7 +29,6 @@ public interface TeacherMapper {
      */
     Teacher selectByPrimaryKey(Integer teacherId);
 
-    int updateByPrimaryKeySelective(Teacher record);
     /**
      * 更新老师信息
      * @param record

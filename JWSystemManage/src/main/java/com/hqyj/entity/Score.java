@@ -7,7 +7,7 @@ public class Score {
     //是否及格
     private String isPass;
     
-    private String fkStudentId;
+    private Integer fkStudentId;
 
 	public Integer getScoreId() {
 		return scoreId;
@@ -33,11 +33,11 @@ public class Score {
 		this.isPass = isPass;
 	}
 
-	public String getFkStudentId() {
+	public Integer getFkStudentId() {
 		return fkStudentId;
 	}
 
-	public void setFkStudentId(String fkStudentId) {
+	public void setFkStudentId(Integer fkStudentId) {
 		this.fkStudentId = fkStudentId;
 	}
 

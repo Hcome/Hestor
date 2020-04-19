@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hqyj.dao.FillBlanksTestMapper">
+
+	<resultMap type="com.hqyj.entity.FillBlanksTest" id="findBlanksAll">
+		<id column="fillblanks_id" property="fillblanksId"/>
+		<result column="fillblanks_question" property="fillblanksQuestion"/>
+		<result column="fillblanks_answer" property="fillblanksAnswer"/>
+		<result column="fillblanks_type" property="fillblanksType"/>
+		<result column="fillblanks_isdifficulty" property="fillblanksIsDifficulty"/>
+		<result column="fillblanks_uploaddate" property="fillblanksUpLoadDate"/>
+		<result column="fk_user_name" property="fkUserName"/>
+	</resultMap>
+	<!-- 查询全部的填空题 -->
+	<select id="selectFillBlanksTestAll" resultMap="findBlanksAll">
+		select * from t_fillblanks
+	</select>
+	<insert id="insertFillBlanksTest" parameterType="com.hqyj.entity.FillBlanksTest">
+		insert into t_fillblanks set fillblanks_question=#{fillblanksQuestion},fillblanks_answer=#{fillblanksAnswer},
+		fillblanks_type=#{fillblanksType},fillblanks_isdifficulty=#{fillblanksIsDifficulty},fillblanks_uploaddate=#{fillblanksUpLoadDate},
+		fk_user_name=#{fkUserName}
+	</insert>
+</mapper>

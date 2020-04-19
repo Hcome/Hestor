@@ -6,11 +6,26 @@
 		<id column="t_classid" property="clazzId"/>
 		<result column="t_classname" property="clazzNema"/>
 		<result column="fk_teacher_id" property="fkTeacherId"/>
+		<collection property="teacher" ofType="com.hqyj.entity.Teacher">
+			<id column="teacher_id" jdbcType="INTEGER" property="teacherId" />
+		    <result column="teacher_num" jdbcType="INTEGER" property="teacherNum" />
+		    <result column="teacher_name" jdbcType="VARCHAR" property="teacherName" />
+		    <result column="teacher_age" jdbcType="INTEGER" property="teacherAge" />
+		    <result column="teacher_tel" jdbcType="VARCHAR" property="teacherTel" />
+		    <result column="teacher_gender" jdbcType="VARCHAR" property="teacherGender" />
+		    <result column="teacher_email" jdbcType="VARCHAR" property="teacherEmail" />
+		</collection>
 	</resultMap>
-	
+
 	<!--查询全部班级  -->
 	<select id="queryClazzsAll" resultMap="findClazzAll">
-		SELECT *FROM t_class 
+		SELECT * FROM t_teacher t,t_class c WHERE t.teacher_id = c.fk_teacher_id 
 	</select>
+	
+	<!-- 查询所有班级的所有学生的成绩-->
+	<!-- <select id="queryStudents" resultMap="findStudentInClassAll">
+		SELECT *FROM t_student s,t_class c,t_score sc
+		WHERE t_classid = s.fk_class_id AND sc.fk_student_id = s.student_id
+	</select> -->
 	
 </mapper>
