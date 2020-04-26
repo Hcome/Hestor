@@ -1,6 +1,6 @@
 package com.hqyj.service.impl;
 
-import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,9 +16,9 @@ public class ArticleTestServiceImpl implements ArticleTestService{
 	private ArticleTestMapper atm;
 	
 	@Override
-	public HashSet<ArticleTest> selectArticleTest() {
+	public List<ArticleTest> selectArticleTest() {
 		
-		HashSet<ArticleTest> set = atm.selectArticleTest();
+		List<ArticleTest> set = atm.selectArticleTest();
 		return set;
 	}
 

@@ -1,6 +1,7 @@
 package com.hqyj.dao;
 
-import java.util.HashSet;
+import java.util.List;
+
 import com.hqyj.entity.MultipleChoiceTest;
 
 public interface MultipleChoiceTestMapper {
@@ -10,7 +11,7 @@ public interface MultipleChoiceTestMapper {
 	 * @param id
 	 * @return
 	 */
-	HashSet<MultipleChoiceTest> selectTestById();
+	List<MultipleChoiceTest> selectTestById();
 	/**
 	 * 添加选择题
 	 * @param test

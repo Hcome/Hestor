@@ -77,14 +77,6 @@
 				/sys/register=anon
 				/sys/goregister=anon
 				/sys/loginOut=logout
-				/user/addStu=anon
-				/user/addTeacher=anon
-				/user/addAdminAndTeacher=anon
-				/student/goAdd=anon
-				/student/goQueryStudent=anon
-				/student/queryStudent=anon
-				/teacher/goQueryTeacher=anon
-				/teacher/queryTeacher=anon
 				/static/**=anon
 				<!-- user表示身份认证通过或通过记住我认证通过的可以访问 -->
 				/**=user
@@ -93,5 +85,4 @@
 			</value>
 		</property>
 	</bean>
-   	
 </beans>

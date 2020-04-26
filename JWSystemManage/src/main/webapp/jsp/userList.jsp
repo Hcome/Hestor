@@ -35,7 +35,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
     <table class="table table-hover text-center">
     	<thead>
       <tr>
-        <th width="100" style="text-align:left; padding-left:20px;">编号</th>
+        <th width="100" >编号</th>
         <th width="10%">用户名</th>
         <th width="310">操作</th>
       </tr>

@@ -1,6 +1,5 @@
 package com.hqyj.service.impl;
 
-import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +16,8 @@ public class TestServiceImpl implements TestService{
 	private MultipleChoiceTestMapper tm;
 	
 	@Override
-	public HashSet<MultipleChoiceTest> selectTestById() {
-		HashSet<MultipleChoiceTest> list = tm.selectTestById();
+	public List<MultipleChoiceTest> selectTestById() {
+		List<MultipleChoiceTest> list = tm.selectTestById();
 		return list;
 	}
 

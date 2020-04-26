@@ -1,6 +1,6 @@
 package com.hqyj.dao;
 
-import java.util.HashSet;
+import java.util.List;
 
 import com.hqyj.entity.FillBlanksTest;
 
@@ -15,7 +15,7 @@ public interface FillBlanksTestMapper {
 	 * 查询全部的填空题
 	 * @return
 	 */
-	HashSet<FillBlanksTest> selectFillBlanksTestAll();
+	List<FillBlanksTest> selectFillBlanksTestAll();
 	/**
 	 * 添加填空题
 	 * @param test

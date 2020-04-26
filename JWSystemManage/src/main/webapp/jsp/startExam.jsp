@@ -12,7 +12,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 <meta http-equiv="content-type" content="text/html;charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>在线英语考试系统</title>
+<title>正在考试</title>
 <link href="<%=basePath%>/static/css/main.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>/static/css/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="<%=basePath%>/static/css/test.css" rel="stylesheet" type="text/css" />
@@ -56,7 +56,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 
 						<div class="test_content_nr">
 							<ul>
-								<c:forEach items="${choiceSet}" var="test" begin="0" end="9"
+								<c:forEach items="${choiceList}" var="test" begin="0" end="9"
 									varStatus="status">
 									<li id="qu_0_${status.index}">
 										<div class="test_content_nr_tt">
@@ -103,7 +103,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 									</p>
 								</div>
 							</div>
-							<c:forEach items="${fillSet}" var="fill" begin="0" end="9" varStatus="status">
+							<c:forEach items="${fillList}" var="fill" begin="0" end="9" varStatus="status">
 								<div class="test_content_nr" name="answer${status.index+1}">
 									<ul>
 										<li id="qu_1_${status.index}">
@@ -126,7 +126,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 						<div class="test_content_nr">
 							<ul>
 								<li >
-									<c:forEach items="${articleSet}" var="article" begin="0" end="3" varStatus="status">
+									<c:forEach items="${articleList}" var="article" begin="0" end="3" varStatus="status">
 										<div class="test_content_nr_tt">
 											<div align="center">
 												<i>${status.index+1}</i><h2 >${article.articleTitle }</h2><b><class="icon iconfont">&#xe881;</b>

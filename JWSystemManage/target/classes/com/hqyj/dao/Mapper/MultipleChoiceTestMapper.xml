@@ -28,9 +28,9 @@
 		from t_test 
 		where test_id=#{testId,jdbcType=INTEGER}
 	</select>
-	
+	<!-- 随机查询十条数据 -->
 	<select id="selectTestById" resultMap="findTestById">
-		select * from t_multiplechoice
+		SELECT * FROM t_multiplechoice  ORDER BY  RAND() LIMIT 10
 	</select>
 	<insert id="insertMultipleChoiceTest" parameterType="com.hqyj.entity.MultipleChoiceTest">
 		insert into t_multiplechoice set test_question=#{testQuestion},test_answerA=#{testAnswerA},test_answerB=#{testAnswerB},test_answerC=#{testAnswerC},

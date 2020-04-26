@@ -15,4 +15,5 @@ public interface ClazzMapper {
 	 * @return
 	 */
 	List<Clazz> queryStudents();
+	
 }

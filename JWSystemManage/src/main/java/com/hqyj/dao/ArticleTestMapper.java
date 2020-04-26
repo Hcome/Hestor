@@ -1,6 +1,6 @@
 package com.hqyj.dao;
 
-import java.util.HashSet;
+import java.util.List;
 
 import com.hqyj.entity.ArticleTest;
 
@@ -9,7 +9,7 @@ public interface ArticleTestMapper {
 	 * 阅读理解四篇
 	 * @return
 	 */
-	HashSet<ArticleTest> selectArticleTest();
+	List<ArticleTest> selectArticleTest();
 	/**
 	 * 增加阅读题
 	 * @param test

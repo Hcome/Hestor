@@ -1,6 +1,6 @@
 package com.hqyj.service.impl;
 
-import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +17,8 @@ public class FillBlanksTestServiceImpl implements FillBlanksTestService{
 	private FillBlanksTestMapper ftm;
 
 	@Override
-	public HashSet<FillBlanksTest> selectFillBlanksTestAll() {
-		HashSet<FillBlanksTest> set = ftm.selectFillBlanksTestAll();
+	public List<FillBlanksTest> selectFillBlanksTestAll() {
+		List<FillBlanksTest> set = ftm.selectFillBlanksTestAll();
 		return set;
 	}
 

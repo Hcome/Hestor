@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqyj.dao.StudentMapper;
-import com.hqyj.entity.Clazz;
 import com.hqyj.entity.Student;
 import com.hqyj.model.vo.Result;
 import com.hqyj.service.StudentService;
@@ -59,7 +58,17 @@ public class StudentServiceImpl implements StudentService{
 		System.out.println("受影响的行数"+num);
 		return num;
 	}
-
+	
+	@Override
+	public PageInfo<Student> queryClassHasStudents(String className,Integer pageNum) {
+		PageHelper pageHelper = new PageHelper();
+		pageHelper.startPage(pageNum,3);
+		
+		List<Student> list = sm.queryClassHasStudents(className);
+		PageInfo<Student> info = new PageInfo<Student>(list);
+		return info;
+	}
+	
 	@Override
 	public Result deleteByPrimaryKey(Integer studentId) {
 		

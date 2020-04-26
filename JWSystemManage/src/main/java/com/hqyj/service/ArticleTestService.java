@@ -1,12 +1,12 @@
 package com.hqyj.service;
 
-import java.util.HashSet;
+import java.util.List;
 
 import com.hqyj.entity.ArticleTest;
 
 public interface ArticleTestService {
 
-	HashSet<ArticleTest> selectArticleTest();
+	List<ArticleTest> selectArticleTest();
 	
 	int insertArticleTest(ArticleTest test);
 }

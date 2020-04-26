@@ -9,7 +9,6 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hqyj.dao.ClazzMapper;
 import com.hqyj.entity.Clazz;
-import com.hqyj.entity.Student;
 import com.hqyj.service.ClazzService;
 @Service
 public class ClazzServiceImpl implements ClazzService{

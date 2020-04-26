@@ -1,9 +1,7 @@
 package com.hqyj.controller;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hqyj.entity.ArticleTest;
 import com.hqyj.entity.FillBlanksTest;
-import com.hqyj.entity.GenerateChoice;
 import com.hqyj.entity.MultipleChoiceTest;
-import com.hqyj.entity.Teacher;
-import com.hqyj.service.AdminService;
 import com.hqyj.service.ArticleTestService;
 import com.hqyj.service.FillBlanksTestService;
 import com.hqyj.service.GenerateChoiceService;
-import com.hqyj.service.TeacherService;
 import com.hqyj.service.TestService;
-import com.mchange.lang.StringUtils;
 
 @Controller
 @RequestMapping("/test")
@@ -40,13 +33,13 @@ public class TestController {
 	@RequestMapping(value = "/selectById")
 	public String selectTestById(HttpServletRequest request) {
 		
-		HashSet<MultipleChoiceTest> choiceSet = ts.selectTestById();
-		HashSet<FillBlanksTest> fillSet = fts.selectFillBlanksTestAll();
-		HashSet<ArticleTest> articleSet = ats.selectArticleTest();
+		List<MultipleChoiceTest> choiceList = ts.selectTestById();
+		List<FillBlanksTest> fillList = fts.selectFillBlanksTestAll();
+		List<ArticleTest> list = ats.selectArticleTest();
 		
-		request.getSession().setAttribute("choiceSet", choiceSet);
-		request.getSession().setAttribute("fillSet", fillSet);
-		request.getSession().setAttribute("articleSet", articleSet);
+		request.getSession().setAttribute("choiceList", choiceList);
+		request.getSession().setAttribute("fillList", fillList);
+		request.getSession().setAttribute("articleList", list);
 		return "startExam";
 		
 	}
@@ -85,29 +78,116 @@ public class TestController {
 	}
 	/**
 	 * 用于接收考生完成测试的题目模块
+	 * 考试完成后提交试卷就会提交成绩
 	 * @return
 	 */
 	@RequestMapping(value = "/finishTest")
 	public String finishTest(HttpServletRequest request) {
-		GenerateChoice choice = new GenerateChoice();
-		HashSet<MultipleChoiceTest> set = (HashSet<MultipleChoiceTest>) request.getSession().getAttribute("choiceSet");
-		String[] values = request.getParameterValues("answer1");
-
-		for (String string : values) {
-			choice.setGenerateStudentAnswer(string);
-			int num = gcs.insertChoice(choice); 
-			System.out.println("影响的行数"+num++); 
+		
+		
+		int score = 0;
+		int j = 0;
+		List<String> list = new ArrayList<String>();
+		
+		//GenerateChoice choice = new GenerateChoice();
+		
+		//获取选择题的正确选项
+		@SuppressWarnings("unchecked")
+		List<MultipleChoiceTest> listChoiceTests = (List<MultipleChoiceTest>) request.getSession().getAttribute("choiceList");
+		if (listChoiceTests != null) {
+			for (MultipleChoiceTest multipleChoiceTest : listChoiceTests) {
+				String answer = multipleChoiceTest.getTestRightAnswer();
+				list.add(answer);
+			}
 		}
+		//获取选择题的学生的选项
+		String[] choices = request.getParameterValues("answer1");
+		//计算选择题的总分
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).equals(choices[j++])) {
+				score = score+3;
+			}
+		}
+		
+		//获取随机的填空的答案
+		list.clear();
+		@SuppressWarnings("unchecked")
+		List<FillBlanksTest> fillList = (List<FillBlanksTest>) request.getSession().getAttribute("fillList");
+		for (FillBlanksTest fillBlanksTest : fillList) {
+			String answer = fillBlanksTest.getFillblanksAnswer();
+			list.add(answer);
+		}
+		//获取考生填空题的答案
+		String[] fills = request.getParameterValues("answer2");
+		//计算填空题的答案
+		for (int i = 0; i < list.size(); i++) {
+			j = 0;
+			if (list.get(i).equals(fills[j++])) {
+				score = score + 3;
+			}
+		}
+		
+		/**
+		 * 下面是计算阅读题的总分数，由于一个题目有多个答案，所以在这里分开计算
+		 */
+		@SuppressWarnings("unchecked")
+		List<ArticleTest> strArticle = (List<ArticleTest>) request.getSession().getAttribute("articleList");
+		//计算选择题第一小题的得分
+		list.clear();
+		for (ArticleTest articleTest : strArticle) {
+			list.add(articleTest.getArticleAnsweroneRight());
+		}
+		String[] articleOne = request.getParameterValues("answer3");
+		for (int i = 0; i < list.size(); i++) {
+			j = 0;
+			if (list.get(i).equals(articleOne[j++])) {
+				score = score + 5;
+			}
+		}
+		
+		//计算选择器第二小题的得分
+		list.clear();
+		for (ArticleTest articleTest : strArticle) {
+			list.add(articleTest.getArticleAnswerTwoRight());
+		}
+		String[] articleTwo = request.getParameterValues("answer4");
+		for (int i = 0; i < list.size(); i++) {
+			j = 0;
+			if (list.get(i).equals(articleTwo[j++])) {
+				score = score + 5;
+			}
+		}
+		
+		//计算选择题第三小题的得分
+		list.clear();
+		for (ArticleTest articleTest : strArticle) {
+			list.add(articleTest.getArticleAnswerThreeright());
+		}
+		String[] articleThree = request.getParameterValues("answer5");
+		for (int i = 0; i < list.size(); i++) {
+			j = 0;
+			if (list.get(i).equals(articleThree[j++])) {
+				score = score + 5;
+			}
+		}
+		
+		//计算选择题第四小题的得分
+		list.clear();
+		for (ArticleTest articleTest : strArticle) {
+			list.add(articleTest.getArticleAnswerFourRight());
+		}
+		String[] articleFour = request.getParameterValues("answer6");
+		for (int i = 0; i < list.size(); i++) {
+			j = 0;
+			if (list.get(i).equals(articleFour[j++])) {
+				score = score + 5;
+			}
+		}
+		
+		System.out.println("这位同学的总分是："+score);
 		/*
-		 * for (int i = 0; i < 10; i++) { MultipleChoiceTest test =
-		 * set.iterator().next(); if (!set.isEmpty()) {
-		 * choice.setGenerateChoiceQuestion(test.getTestQuestion());
-		 * choice.setGenerateChoiceAnswerA(test.getTestAnswerA());
-		 * choice.setGenerateChoiceAnswerB(test.getTestAnswerB());
-		 * choice.setGenerateChoiceAnswerC(test.getTestAnswerC());
-		 * choice.setGenerateChoiceAnswerD(test.getTestAnswerD()); }
-		 * 
-		 * int num = gcs.insertChoice(choice); System.out.println("影响的行数"+num++); }
+		 * for (String string : values) { choice.setGenerateStudentAnswer(string); int
+		 * num = gcs.insertChoice(choice); System.out.println("影响的行数"+num++); }
 		 */
 		return "startExam";	
 	}

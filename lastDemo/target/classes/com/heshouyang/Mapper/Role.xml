@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.heshouyang.dao.RoleMapper">
+	<resultMap type="com.heshouyang.entity.Role" id="findRolesByUserName">
+		<id column="t_roleid" property="roleId"/>
+		<result column="t_rolename" property="roleName"/>
+		<result column="t_roledesc" property="roleDes"/>
+	
+	</resultMap>
+	
+	<!-- 根据用户名查询角色 -->
+	<select id="selectRoles" parameterType="java.lang.String" resultMap="findRolesByUserName">
+		SELECT r.t_roleid,r.t_rolename,r.t_roledesc
+		FROM t_user u,t_role r,t_user_role ro
+		WHERE u.t_useid = ro.fk_user_id AND r.t_roleid=ro.fk_role_id
+		AND u.t_username=#{userName}
+	</select>
+
+</mapper>

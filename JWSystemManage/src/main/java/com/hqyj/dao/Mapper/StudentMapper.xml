@@ -12,6 +12,19 @@
     <result column="student_departclass" jdbcType="VARCHAR" property="studentDepartClass" />
     <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
     <result column="fk_class_id" jdbcType="INTEGER" property="fkClassId" />
+    <result column="fk_class_name" jdbcType="INTEGER" property="fkClassName" />
+  </resultMap>
+  
+  <resultMap type="com.hqyj.entity.Student" id="baseResultMap">
+  	<id column="student_id" jdbcType="INTEGER" property="studentId" />
+    <result column="student_num" jdbcType="INTEGER" property="studentNum" />
+    <result column="student_name" jdbcType="VARCHAR" property="studentName" />
+    <result column="student_gender" jdbcType="VARCHAR" property="studentGender" />
+    <result column="student_age" jdbcType="INTEGER" property="studentAge" />
+    <result column="student_tel" jdbcType="VARCHAR" property="studentTel" />
+    <result column="student_email" jdbcType="VARCHAR" property="studentEmail" />
+    <result column="student_departclass" jdbcType="VARCHAR" property="studentDepartClass" />
+    <result column="fk_class_name" jdbcType="INTEGER" property="fkClassName" />
   </resultMap>
   
   <resultMap type="com.hqyj.entity.Student" id="findAllStudentScore">
@@ -64,6 +77,13 @@
     where student_id = #{studentId,jdbcType=INTEGER}
   </delete>
   
+  <!--通过班级的名称去查询该班的全部学生信息  -->
+  <select id="queryClassHasStudents" resultMap="baseResultMap" parameterType="java.lang.String">
+	SELECT s.student_id,s.student_num,s.student_name,s.student_gender,s.student_age,s.student_tel
+	,s.student_email,s.student_departclass
+	from t_class c,t_student s 
+	WHERE c.t_classname = s.fk_class_name AND s.fk_class_name=#{fkClassName}
+  </select>
   <update id="updateByPrimaryKey" parameterType="com.hqyj.entity.Student">
     update t_student
     set student_num = #{studentNum,jdbcType=INTEGER},

@@ -13,7 +13,7 @@
 	</resultMap>
 	<!-- 查询全部的填空题 -->
 	<select id="selectFillBlanksTestAll" resultMap="findBlanksAll">
-		select * from t_fillblanks
+		SELECT *FROM t_fillblanks ORDER BY RAND() LIMIT 10
 	</select>
 	<insert id="insertFillBlanksTest" parameterType="com.hqyj.entity.FillBlanksTest">
 		insert into t_fillblanks set fillblanks_question=#{fillblanksQuestion},fillblanks_answer=#{fillblanksAnswer},

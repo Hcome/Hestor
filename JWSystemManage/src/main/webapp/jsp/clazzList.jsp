@@ -101,7 +101,7 @@ function showPage(n) {
 				    str+="<td>"+n+"</td>"
 				    str+="<td>"+val.clazzNema+"</td>"
 				    str+="<td>"+val.teacher.teacherName+"</td>"
-				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>user/queryUserById?userId=" + val.userId + "'><span class='icon-edit'></span>修改</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
+				    str+="<td><div class='button-group'><a class='button border-main' href='<%=basePath%>student/byClassNameQueryStudent?className="+ val.clazzNema + "'><span class='icon-edit'></span>班级详情</a><a class='button border-red' href='javascript:void(0)' onclick='del(" + val.userId + ")'><span class='icon-trash-o'></span>删除</a></div></td>"
 				    str+="</tr>";
 					$("#clazzs").append(str);
 				})

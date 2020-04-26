@@ -65,7 +65,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 			                </div>
 			                <div class="form-group" style="padding:10px;">
 								<label for="rememberMe" style="font-weight:100;">
-									<input type="checkbox" name="rememberMe"> Remember Me
+									<input type="checkbox" name="rememberMe"> 记住密码
 								</label>
 								<div style="float:right;"><a href="<%=basePath%>sys/goregister">注册</a></div>
 							</div>
@@ -121,7 +121,11 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 		        	var user = {};
 		        	user.userName = $("[name='userName']").val();//获取输入的账号
 		        	user.userPassword = $("[name='userPassword']").val();//获取输入的密码
-		        	/* user.rememberMe = $("[name='rememberMe']").prop('checked'); */
+		        	/* user.rememberMe = $("[name='rememberMe']").prop('checked'); //获取记住密码的状态
+		        	user.rememberMe = "NO"
+		        	if(user.rememberMe){
+		        		user.rememberMe = "YES"
+		        	} */
 		        	$.ajax({
 		        		url : "<%=basePath%>sys/login",
 		        		type : "post",

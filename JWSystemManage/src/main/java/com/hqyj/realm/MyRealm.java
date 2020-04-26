@@ -44,7 +44,6 @@ public class MyRealm extends AuthorizingRealm {
 		if (user == null) {
 			roleNames.add("");
 		} else {
-			System.out.println(user + "&&&&&&&&&&&&&&");
 			// 查询出该用户所拥有的角色
 			List<Role> roles = user.getRoles();
 			for (Role role : roles) {

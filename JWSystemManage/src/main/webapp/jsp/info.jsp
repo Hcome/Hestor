@@ -11,10 +11,10 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 <head>
 <meta charset="UTF-8">
 <title>首页</title>
-
+<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
 </head>
 <body>
-	<form action="<%=basePath%>test/selectById" method="post">
+	<form action="" method="post">
 		<div>
 			<span><h1>XXX学校期末英语考试</h1></span>
 		</div>
@@ -37,8 +37,22 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 			</div>
 		</div>
 		<div style="text-align: center;">
-			<button type="submit" style="width: 100px;height: 30px;text-align: center; ">开始考试</button>
+			<button type="submit" id="submit" onclick="dk()">开始考试</button>
 		</div>
 	</form>
+	<style>
+		#submit{
+			style=width: 100px;
+			height: 30px;
+			text-align: center;
+		
+		}
+	
+	</style>
+	<script type="text/javascript">
+		$("#submit").click(function () {
+			window.open('<%=basePath%>test/selectById', '_blank')
+		});
+	</script>
 </body>
 </html>

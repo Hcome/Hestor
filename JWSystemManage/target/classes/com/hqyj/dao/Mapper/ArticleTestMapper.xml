@@ -37,7 +37,7 @@
 	</resultMap>
 
 	<select id="selectArticleTest" resultMap="findArticleTestAll">
-		select *from t_article
+		SELECT *FROM t_article ORDER BY RAND() LIMIT 4
 	</select>
 		
 	<insert id="insertArticleTest" parameterType="com.hqyj.entity.ArticleTest">

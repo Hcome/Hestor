@@ -28,4 +28,6 @@ public interface StudentService {
 	int updateStudent(Student student);
 	
 	Result deleteByPrimaryKey(Integer studentId);
+	
+	PageInfo<Student>  queryClassHasStudents(String className,Integer pageNum);
 }

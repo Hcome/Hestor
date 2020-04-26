@@ -1,0 +1,30 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-4.3.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+    http://www.springframework.org/schema/tx 
+    http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+    
+    <!-- 开启注解扫描 -->
+    <context:component-scan base-package="com.heshouyang.controller"></context:component-scan>
+    <context:component-scan base-package="com.heshouyang.service.impl"></context:component-scan>
+  	
+  	<!--配置spring整合mybatis框架  -->
+  	<!--用数据源连接数据库好处：连接复用(道理和线程池差不多,线程复用)  -->
+		<!--配置用数据源连接库  将ComboPooledDataSource类的单例对象注入到ioc容器  -->
+  	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+  		<property name="driverClass" value="com.mysql.jdbc.Driver"></property>
+  		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/test?userUnicode=true&amp;characterEncoding=UTF-8"></property>
+  		<property name="user" value="root"></property>
+  		<property name="password" value="123456"></property>
+  	</bean>
+  	
+    <!-- 导入其他的配置文件 -->
+   	<import resource="springMybatis.xml"/>
+   	<import resource="spring-shiro.xml"/>
+ </beans>

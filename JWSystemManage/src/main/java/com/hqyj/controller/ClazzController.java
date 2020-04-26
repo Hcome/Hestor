@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
 import com.hqyj.entity.Clazz;
-import com.hqyj.entity.Student;
 import com.hqyj.model.vo.SearchInfo;
 import com.hqyj.service.ClazzService;
 

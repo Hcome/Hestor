@@ -5,16 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageInfo;
-import com.hqyj.entity.Clazz;
 import com.hqyj.entity.Student;
 import com.hqyj.model.vo.Result;
 import com.hqyj.model.vo.SearchInfo;
 import com.hqyj.service.StudentService;
-import com.hqyj.service.UserService;
 
 @Controller
 @RequestMapping("/student")
@@ -71,5 +68,21 @@ public class StudentController {
 	public Result deleteByPrimaryKey(Student student) {
 		Result result = ss.deleteByPrimaryKey(student.getStudentId());
 		return result;
+	}
+	
+	/**
+	 * 查询班级对应的学生
+	 */
+	@RequestMapping(value="/byClassNameQueryStudent")
+	public String byClassNameQueryStudent(String className,HttpServletRequest request) {
+		request.getSession().setAttribute("className", className);
+		return "studentList2";
+	}
+	@RequestMapping("/queryClassHasStudents")
+	@ResponseBody
+	public PageInfo<Student> queryClassHasStudents(SearchInfo searchInfo,HttpServletRequest request) {
+		String className = (String) request.getSession().getAttribute("className");
+		PageInfo<Student> info = ss.queryClassHasStudents(className, searchInfo.getCurrentPage());
+		return info;
 	}
 }

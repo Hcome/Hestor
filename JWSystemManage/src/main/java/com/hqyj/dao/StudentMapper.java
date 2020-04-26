@@ -34,7 +34,14 @@ public interface StudentMapper {
      * @return
      */
     Student selectByPrimaryKey(Integer studentId);
-
+    
+    /**
+	 * 通过班级名称去查询学生信息
+	 * @param className
+	 * @return
+	 */
+	List<Student> queryClassHasStudents(String className);
+	
     int updateByPrimaryKeySelective(Student record);
     /**
      * 更新学生信息

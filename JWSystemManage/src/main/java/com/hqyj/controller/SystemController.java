@@ -36,6 +36,7 @@ public class SystemController {
 		//将用户名存入session中
 		HttpSession session = request.getSession();
 		session.setAttribute("userName", user.getUserName());
+		
 		User user2 = us.selectUserByUserByName(user.getUserName());
 		List<Role> roles = user2.getRoles();
 		session.setAttribute("roles", roles);
