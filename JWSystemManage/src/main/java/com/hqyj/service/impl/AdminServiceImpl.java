@@ -21,6 +21,7 @@ public class AdminServiceImpl implements AdminService{
 		// TODO Auto-generated method stub
 		return am.insertAdmin(admin);
 	}
+	@SuppressWarnings("static-access")
 	@Override
 	public PageInfo<Admin> selectAdminAll(int pageNum) {
 		

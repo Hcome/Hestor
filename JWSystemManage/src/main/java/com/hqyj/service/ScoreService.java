@@ -8,4 +8,7 @@ public interface ScoreService {
 	
 	int updateScoreById(Score score);
 
+	int insertScore(Score score);
+	
+	Integer selectScoreByUserName(String userName);
 }

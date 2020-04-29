@@ -20,6 +20,18 @@
    		<property name="configLocation" value="classpath:config/mybatis-config.xml"></property>
    		<!-- 扫描实现了mapper层接口的所有xml文件的位置 -->
    		<property name="mapperLocations" value="classpath:com/heshouyang/Mapper/*.xml"></property>
+   		<!-- 分页插件 -->
+		<!-- 注意其他配置 -->
+		<property name="plugins">
+			<array>
+				<bean class="com.github.pagehelper.PageInterceptor">
+					<property name="properties">
+						<!--使用下面的方式配置参数，一行配置一个 -->
+						<value>helperDialect=mysql</value>												
+					</property>
+				</bean>
+			</array>
+		</property>
    	</bean>
    	<!-- 接口开发,配置实体类的位置 -->
    	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">

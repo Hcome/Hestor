@@ -10,7 +10,7 @@ public class SearchInfo {
 	}
 
 	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize == null ? 3 : pageSize;
+		this.pageSize = pageSize == null ? 4 : pageSize;
 	}
 
 	public Integer getCurrentPage() {

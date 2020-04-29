@@ -20,12 +20,20 @@ public class Student {
     
     private Integer fkUserId;
     
-    private Integer fkClassId;
-    
     private String fkClassName;
+    
+    private Integer fkClassroomId;
     
     private Score score;
     
+	public Integer getFkClassroomId() {
+		return fkClassroomId;
+	}
+
+	public void setFkClassroomId(Integer fkClassroomId) {
+		this.fkClassroomId = fkClassroomId;
+	}
+
 	public String getFkClassName() {
 		return fkClassName;
 	}
@@ -114,13 +122,4 @@ public class Student {
         this.fkUserId = fkUserId;
     }
 
-	public Integer getFkClassId() {
-		return fkClassId;
-	}
-
-	public void setFkClassId(Integer fkClassId) {
-		this.fkClassId = fkClassId;
-	}
-
-	
 }

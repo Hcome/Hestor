@@ -14,5 +14,31 @@
 	<select id="queryClassRoomAll" resultMap="findClazzAll">
 		SELECT *FROM t_classroom 
 	</select>
-
+		<!-- 添加教室 -->
+	<insert id="insertClass" parameterType="com.hqyj.entity.ClassRoom">
+	 INSERT into t_classroom
+	 SET t_classroomname=#{classRoomName},
+	 t_classroomnumber=#{classRoomNumber},
+	 t_classroomstutas=#{classRoomStutas}
+	</insert>
+	<!-- 修改教室信息 -->
+	<update id="updateClassroom" parameterType="com.hqyj.entity.ClassRoom">
+      update t_classroom 
+      set t_classroomname=#{classRoomName},
+	  t_classroomnumber=#{classRoomNumber},
+	  t_classroomstutas=#{classRoomStutas} 
+	  where t_classroomid=#{classRoomId}
+	</update>
+	<!--根据id查询教室信息 -->
+	<select id="queryClassroomByClassroomId" parameterType="java.lang.Integer" resultMap="findClazzAll">
+		select *from t_classroom where t_classroomid=#{classRoomId}
+	</select>
+	<!-- 删除学生信息 -->
+	<delete id="deleteClassroomByClassroomId" parameterType="java.lang.Integer">
+		delete from t_classroom where t_classroomid=#{classRoomId}
+	</delete>
+	<!-- 查询所有的空闲状态的教室 -->
+	<select id="seleClassRoomsIsNull" resultMap="findClazzAll">
+		SELECT *FROM t_classroom where t_classroomstutas ="空闲"
+	</select>
 </mapper>

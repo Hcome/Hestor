@@ -10,6 +10,15 @@
   <sql id="Base_Column_List">
     score_id, score_number,score_ispass,fk_student_id
   </sql>
+  
+  <!-- 插入成绩 -->
+  <insert id="insertScore" parameterType="com.hqyj.entity.Score">
+  	INSERT into t_score 
+	SET
+	score_number=#{scoreNunber},
+	score_ispass=#{isPass},
+	fk_student_id=#{fkStudentId}
+  </insert>
   <select id="queryScoreById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -27,4 +36,12 @@
     score_ispass=#{isPass}
     where score_id=#{scoreId}
   </update>
+  <!-- 根据用户名去查询学生的成绩 -->
+  <select id="selectScoreByUserName" parameterType="java.lang.String">
+	SELECT s.score_number
+	FROM t_user u,t_student stu,t_score s
+	WHERE u.user_id=stu.fk_user_id 
+	AND s.fk_student_id = stu.student_id
+	AND u.user_name=#{userName}  
+  </select>
 </mapper>

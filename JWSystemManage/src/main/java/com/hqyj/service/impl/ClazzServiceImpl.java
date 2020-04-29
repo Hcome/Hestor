@@ -16,6 +16,7 @@ public class ClazzServiceImpl implements ClazzService{
 	@Autowired
 	private ClazzMapper cm;
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public PageInfo<Clazz> selectClazzAll(int pageNum) {
 		PageHelper pageHelper = new PageHelper();
@@ -25,5 +26,4 @@ public class ClazzServiceImpl implements ClazzService{
 		PageInfo<Clazz> info = new PageInfo<Clazz>(list);
 		return info;
 	}
-
 }

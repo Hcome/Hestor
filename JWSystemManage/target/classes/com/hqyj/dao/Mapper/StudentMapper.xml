@@ -11,8 +11,8 @@
     <result column="student_email" jdbcType="VARCHAR" property="studentEmail" />
     <result column="student_departclass" jdbcType="VARCHAR" property="studentDepartClass" />
     <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
-    <result column="fk_class_id" jdbcType="INTEGER" property="fkClassId" />
     <result column="fk_class_name" jdbcType="INTEGER" property="fkClassName" />
+    <result column="fk_classroom_id" jdbcType="INTEGER" property="fkClassroomId" />
   </resultMap>
   
   <resultMap type="com.hqyj.entity.Student" id="baseResultMap">
@@ -49,14 +49,20 @@
   
   <sql id="Base_Column_List">
     student_id, student_num, student_name, student_gender, student_age, student_tel, 
-    student_email, fk_user_id, fk_division_id
+    student_email,student_departclass, fk_user_id,fk_class_name,fk_classroom_id
   </sql>
   <!-- 增加学生信息 -->
   <insert id="insertStudent" parameterType="com.hqyj.entity.Student">
   	INSERT INTO t_student(student_id,student_num,student_name,student_gender,student_age,student_tel,student_email,student_departclass,fk_user_id)
 	VALUES(null,#{studentNum},#{studentName},#{studentGender},#{studentAge},#{studentTel},#{studentEmail},#{studentDepartClass},#{fkUserId}) 
   </insert>
-  
+  <!-- 通过用户名去查询学生的id -->
+  <select id="queryStudentIdByUserName" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	SELECT s.student_id
+	FROM t_student s,t_user u
+	WHERE s.fk_user_id=u.user_id
+	and u.user_name=#{userName}
+  </select>
   <!-- 查询学生信息 --> 
   <select id="queryStudentAll" resultMap="BaseResultMap">
   	select *from t_student
@@ -65,11 +71,28 @@
   <!-- 查询全部学生的成绩 -->
   <select id="queryStudentScoreAll" resultMap="findAllStudentScore">
   	SELECT *FROM t_student s,t_class c,t_score sc
-	WHERE t_classid = s.fk_class_id AND sc.fk_student_id = s.student_id
+	WHERE t_classname = s.fk_class_name AND sc.fk_student_id = s.student_id
   </select>
-  <!-- 根据id查询 -->
+  <!--查询未分配班级的学生的全部信息,根据判断fk_class_name是否为空的去查询-->
+  <select id="queryStudents" resultMap="BaseResultMap">
+  	SELECT *FROM t_student WHERE fk_class_name IS NULL
+  </select>
+  <!--查询所有已经分班的学生并且没有分配考场的学生  -->
+  <select id="queryStudentsHasClass" resultMap="BaseResultMap">
+  	SELECT *FROM t_student WHERE fk_class_name IS not NULL AND fk_classroom_id IS NULL
+  </select>
+  <!-- 根据id查询学生-->
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
   	SELECT *FROM t_student WHERE student_id=#{studentId}
+  </select>
+  <!-- 通过考场的id去查询这个考场的所有信息 -->
+  <select id="queryStudentsByClassroomId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	SELECT student_id, student_num, student_name, 
+			 student_gender, student_age, student_tel, 
+			 student_email,student_departclass, fk_user_id,fk_class_name,fk_classroom_id
+			 FROM t_student s,t_classroom c
+			 WHERE s.fk_classroom_id=c.t_classroomid
+			 AND c.t_classroomid=#{classroomId}
   </select>
   <!-- 删除学生信息 -->
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
@@ -92,7 +115,9 @@
       student_age = #{studentAge,jdbcType=INTEGER},
       student_tel = #{studentTel,jdbcType=VARCHAR},
       student_email = #{studentEmail,jdbcType=VARCHAR},
-      student_departclass = #{studentDepartClass,jdbcType=VARCHAR}
+      student_departclass = #{studentDepartClass,jdbcType=VARCHAR},
+      fk_class_name = #{fkClassName,jdbcType=VARCHAR},
+      fk_classroom_id=#{fkClassroomId,jdbcType=INTEGER}
     where student_id = #{studentId,jdbcType=INTEGER}
   </update>
 </mapper>

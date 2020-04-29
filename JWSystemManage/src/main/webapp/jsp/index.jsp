@@ -50,7 +50,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
   	<shiro:hasAnyRoles name="admin,teacher,student">
   		<li><a href="<%=basePath%>admin/goQueryAdmin" target="right"><span class="icon-caret-right"></span>管理员列表</a></li>
   	</shiro:hasAnyRoles>
-  	<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>考试配置</a></li>
+  	<li><a href="<%=basePath%>classroom/goFindAllClassroomIsNull" target="right"><span class="icon-caret-right"></span>考试配置</a></li>
   	<li><a href="<%=basePath%>teacher/goQueryTeacher" target="right"><span class="icon-caret-right"></span>考场管理</a></li>       
   </ul>
   </shiro:hasAnyRoles>

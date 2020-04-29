@@ -90,7 +90,7 @@ public class UserServiceImpl implements UserService {
 	public PageInfo<User> selectUserAll(int pageNum) {
 		System.out.println(pageNum);
 		PageHelper ph = new PageHelper();
-		ph.startPage(pageNum, 3);
+		ph.startPage(pageNum, 4);
 		List<User> users = um.queryUserAll();
 
 		PageInfo<User> info = new PageInfo<>(users);
@@ -162,7 +162,7 @@ public class UserServiceImpl implements UserService {
 	public PageInfo<User> queryUsersAndRoles(int pageNum) {
 		PageHelper pageHelper = new PageHelper();
 		List<User> list = new ArrayList<User>();
-		pageHelper.startPage(pageNum,3);
+		pageHelper.startPage(pageNum,4);
 		List<UserAndRole> role = um.queryRole();
 		//遍历的时候没有不会去执行
 		for (UserAndRole userAndRole : role) {

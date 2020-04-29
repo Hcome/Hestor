@@ -37,7 +37,7 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 			</div>
 		</div>
 		<div style="text-align: center;">
-			<button type="submit" id="submit" onclick="dk()">开始考试</button>
+			<button type="submit" id="submit">开始考试</button>
 		</div>
 	</form>
 	<style>
@@ -45,7 +45,6 @@ request.getServerName()+":"+request.getServerPort()+path+"/";
 			style=width: 100px;
 			height: 30px;
 			text-align: center;
-		
 		}
 	
 	</style>

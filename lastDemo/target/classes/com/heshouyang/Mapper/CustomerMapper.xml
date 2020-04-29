@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heshouyang.dao.CustomerMapper">
+  <resultMap id="BaseResultMap" type="com.heshouyang.entity.Customer">
+    <id column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="customer_name" jdbcType="VARCHAR" property="customerName" />
+    <result column="customer_sex" jdbcType="VARCHAR" property="customerSex" />
+    <result column="customer_age" jdbcType="VARCHAR" property="customerAge" />
+    <result column="customer_phone" jdbcType="VARCHAR" property="customerPhone" />
+    <result column="customer_address" jdbcType="VARCHAR" property="customerAddress" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    customer_id, customer_name, customer_sex, customer_age, customer_phone, customer_address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_customer
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heshouyang.entity.Customer">
+    update t_customer
+    <set>
+      <if test="customerName != null">
+        customer_name = #{customerName,jdbcType=VARCHAR},
+      </if>
+      <if test="customerSex != null">
+        customer_sex = #{customerSex,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAge != null">
+        customer_age = #{customerAge,jdbcType=VARCHAR},
+      </if>
+      <if test="customerPhone != null">
+        customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="customerAddress != null">
+        customer_address = #{customerAddress,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heshouyang.entity.Customer">
+    update t_customer
+    set customer_name = #{customerName,jdbcType=VARCHAR},
+      customer_sex = #{customerSex,jdbcType=VARCHAR},
+      customer_age = #{customerAge,jdbcType=VARCHAR},
+      customer_phone = #{customerPhone,jdbcType=VARCHAR},
+      customer_address = #{customerAddress,jdbcType=VARCHAR}
+    where customer_id = #{customerId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -11,9 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hqyj.entity.ArticleTest;
 import com.hqyj.entity.FillBlanksTest;
 import com.hqyj.entity.MultipleChoiceTest;
+import com.hqyj.entity.Score;
+import com.hqyj.entity.Student;
 import com.hqyj.service.ArticleTestService;
 import com.hqyj.service.FillBlanksTestService;
 import com.hqyj.service.GenerateChoiceService;
+import com.hqyj.service.ScoreService;
+import com.hqyj.service.StudentService;
 import com.hqyj.service.TestService;
 
 @Controller
@@ -26,6 +30,10 @@ public class TestController {
 	private FillBlanksTestService fts;
 	@Autowired
 	private ArticleTestService ats;
+	@Autowired
+	private StudentService ss;
+	@Autowired
+	private ScoreService scores;
 	@Autowired
 	private GenerateChoiceService gcs;
 	
@@ -185,6 +193,24 @@ public class TestController {
 		}
 		
 		System.out.println("这位同学的总分是："+score);
+		
+		String userName = (String) request.getSession().getAttribute("userName");
+		System.out.println(userName+"+++++++++++++++++++++++");
+		
+		
+		//执行对成绩表的插入操作
+		Score score2 = new Score();
+		score2.setScoreNunber(score);
+		score2.setFkStudentId(ss.queryStudentIdByUserName(userName));
+		//对学生的分数进行判断
+		if (score >= 0&&score < 60) {
+			score2.setIsPass("不及格");
+		}else if(score >= 60 && score <= 100){
+			score2.setIsPass("通过");
+		}
+		//添加成绩
+		int num = scores.insertScore(score2);
+		System.out.println("影响的行数"+num);
 		/*
 		 * for (String string : values) { choice.setGenerateStudentAnswer(string); int
 		 * num = gcs.insertChoice(choice); System.out.println("影响的行数"+num++); }

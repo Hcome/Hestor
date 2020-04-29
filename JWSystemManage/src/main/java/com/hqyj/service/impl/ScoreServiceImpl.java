@@ -22,4 +22,16 @@ public class ScoreServiceImpl implements ScoreService{
 		
 		return sm.updateScoreById(score);
 	}
+
+	@Override
+	public int insertScore(Score score) {
+
+		return sm.insertScore(score);
+	}
+
+	@Override
+	public Integer selectScoreByUserName(String userName) {
+		
+		return sm.selectScoreByUserName(userName);
+	}
 }

@@ -36,6 +36,8 @@ public class SystemController {
 		//将用户名存入session中
 		HttpSession session = request.getSession();
 		session.setAttribute("userName", user.getUserName());
+		//将用户名存放在cookie当中
+		
 		
 		User user2 = us.selectUserByUserByName(user.getUserName());
 		List<Role> roles = user2.getRoles();

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heshouyang.dao.MenuMapper">
+  <resultMap id="BaseResultMap" type="com.heshouyang.entity.Menu">
+    <id column="t_menuid" jdbcType="INTEGER" property="tMenuid" />
+    <result column="t_menuname" jdbcType="VARCHAR" property="tMenuname" />
+    <result column="t_memudesc" jdbcType="VARCHAR" property="tMemudesc" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    t_menuid, t_menuname, t_memudesc
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu
+    where t_menuid = #{tMenuid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_menu
+    where t_menuid = #{tMenuid,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heshouyang.entity.Menu">
+    update t_menu
+    <set>
+      <if test="tMenuname != null">
+        t_menuname = #{tMenuname,jdbcType=VARCHAR},
+      </if>
+      <if test="tMemudesc != null">
+        t_memudesc = #{tMemudesc,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where t_menuid = #{tMenuid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heshouyang.entity.Menu">
+    update t_menu
+    set t_menuname = #{tMenuname,jdbcType=VARCHAR},
+      t_memudesc = #{tMemudesc,jdbcType=VARCHAR}
+    where t_menuid = #{tMenuid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -15,8 +15,6 @@ public class UserController {
 	
 	@RequestMapping(value = "/userLists.do")
 	public String goUserList() {
-		
 		return "userList";
-		
 	}
 }

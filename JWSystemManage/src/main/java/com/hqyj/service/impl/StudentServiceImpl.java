@@ -25,6 +25,7 @@ public class StudentServiceImpl implements StudentService{
 		return num;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public PageInfo<Student> selectStudentAll(int pageNum) {
 		//创建一个开启分页的对象
@@ -37,6 +38,7 @@ public class StudentServiceImpl implements StudentService{
 		return pageInfo;
 	}
 
+	@SuppressWarnings("static-access")
 	@Override
 	public PageInfo<Student> queryStudentScoreAll(int pageNum) {
 		PageHelper pageHelper = new PageHelper();
@@ -59,6 +61,7 @@ public class StudentServiceImpl implements StudentService{
 		return num;
 	}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public PageInfo<Student> queryClassHasStudents(String className,Integer pageNum) {
 		PageHelper pageHelper = new PageHelper();
@@ -78,5 +81,44 @@ public class StudentServiceImpl implements StudentService{
 		}else {
 			return new Result("500", "删除失败");
 		}
+	}
+
+	@SuppressWarnings("static-access")
+	@Override
+	public PageInfo<Student> queryStudentsIsNotClass(Integer pageNum) {
+		PageHelper pageHelper = new PageHelper();
+		pageHelper.startPage(pageNum,3);
+		
+		List<Student> list = sm.queryStudents();
+		PageInfo<Student> info = new PageInfo<>(list);
+		return info;
+	}
+
+	@Override
+	public Integer queryStudentIdByUserName(String userName) {
+		// TODO Auto-generated method stub
+		return sm.queryStudentIdByUserName(userName);
+	}
+
+	@SuppressWarnings("static-access")
+	@Override
+	public PageInfo<Student> queryStudentsHasClass(int pageNum) {
+		PageHelper pageHelper = new PageHelper();
+		pageHelper.startPage(pageNum,3);
+		
+		List<Student> list = sm.queryStudentsHasClass();
+		PageInfo<Student> info = new PageInfo<>(list);
+		return info;
+	}
+
+	@SuppressWarnings("static-access")
+	@Override
+	public PageInfo<Student> queryStudentsByClassroomId(int pageNum, Integer classroomId) {
+		PageHelper pageHelper = new PageHelper();
+		pageHelper.startPage(pageNum,3);
+		
+		List<Student> list = sm.queryStudentsByClassroomId(classroomId);
+		PageInfo<Student> info = new PageInfo<>(list);
+		return info;
 	}
 }

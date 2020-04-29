@@ -49,5 +49,4 @@
 		from t_class c,t_student s 
 		WHERE c.t_classname = s.fk_class_name AND c.t_classname=#{clazzNema}
 	</select>
-	
 </mapper>

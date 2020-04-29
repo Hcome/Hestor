@@ -42,7 +42,6 @@ public class AdminController {
 	@RequestMapping(value = "/queryAdminById")
 	public String queryAdminById(Integer id,HttpServletRequest request) {
 		Admin admin = as.queryAdminById(id);
-		System.out.println(admin+"+++++++++++++++++++++++++++++++++++");
 		request.getSession().setAttribute("admin", admin);
 		return "updateAdmin";
 	}

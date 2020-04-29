@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heshouyang.dao.SellerMapper">
+  <resultMap id="BaseResultMap" type="com.heshouyang.entity.Seller">
+    <id column="seller_id" jdbcType="INTEGER" property="sellerId" />
+    <result column="seller_num" jdbcType="INTEGER" property="sellerNum" />
+    <result column="seller_allprise" jdbcType="INTEGER" property="sellerAllprise" />
+    <result column="fk_customer_id" jdbcType="INTEGER" property="fkCustomerId" />
+    <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
+    <result column="seller_date" jdbcType="TIMESTAMP" property="sellerDate" />
+    <result column="seller_stutas" jdbcType="VARCHAR" property="sellerStutas" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    seller_id, seller_num, seller_allprise, fk_customer_id, fk_user_id, seller_date, 
+    seller_stutas
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_seller
+    where seller_id = #{sellerId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_seller
+    where seller_id = #{sellerId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heshouyang.entity.Seller">
+    update t_seller
+    <set>
+      <if test="sellerNum != null">
+        seller_num = #{sellerNum,jdbcType=INTEGER},
+      </if>
+      <if test="sellerAllprise != null">
+        seller_allprise = #{sellerAllprise,jdbcType=INTEGER},
+      </if>
+      <if test="fkCustomerId != null">
+        fk_customer_id = #{fkCustomerId,jdbcType=INTEGER},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=INTEGER},
+      </if>
+      <if test="sellerDate != null">
+        seller_date = #{sellerDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerStutas != null">
+        seller_stutas = #{sellerStutas,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seller_id = #{sellerId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heshouyang.entity.Seller">
+    update t_seller
+    set seller_num = #{sellerNum,jdbcType=INTEGER},
+      seller_allprise = #{sellerAllprise,jdbcType=INTEGER},
+      fk_customer_id = #{fkCustomerId,jdbcType=INTEGER},
+      fk_user_id = #{fkUserId,jdbcType=INTEGER},
+      seller_date = #{sellerDate,jdbcType=TIMESTAMP},
+      seller_stutas = #{sellerStutas,jdbcType=VARCHAR}
+    where seller_id = #{sellerId,jdbcType=INTEGER}
+  </update>
+</mapper>

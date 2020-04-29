@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heshouyang.dao.inventoryMapper">
+  <resultMap id="BaseResultMap" type="com.heshouyang.entity.inventory">
+    <id column="inventory_id" jdbcType="INTEGER" property="inventoryId" />
+    <result column="fk_goods_id" jdbcType="INTEGER" property="fkGoodsId" />
+    <result column="inventory_num" jdbcType="INTEGER" property="inventoryNum" />
+    <result column="fk_supplier_id" jdbcType="INTEGER" property="fkSupplierId" />
+    <result column="fk_user_id" jdbcType="INTEGER" property="fkUserId" />
+    <result column="inventory_date" jdbcType="TIMESTAMP" property="inventoryDate" />
+    <result column="inventory_stutas" jdbcType="VARCHAR" property="inventoryStutas" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    inventory_id, fk_goods_id, inventory_num, fk_supplier_id, fk_user_id, inventory_date, 
+    inventory_stutas
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_inventory
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_inventory
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heshouyang.entity.inventory">
+    update t_inventory
+    <set>
+      <if test="fkGoodsId != null">
+        fk_goods_id = #{fkGoodsId,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryNum != null">
+        inventory_num = #{inventoryNum,jdbcType=INTEGER},
+      </if>
+      <if test="fkSupplierId != null">
+        fk_supplier_id = #{fkSupplierId,jdbcType=INTEGER},
+      </if>
+      <if test="fkUserId != null">
+        fk_user_id = #{fkUserId,jdbcType=INTEGER},
+      </if>
+      <if test="inventoryDate != null">
+        inventory_date = #{inventoryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inventoryStutas != null">
+        inventory_stutas = #{inventoryStutas,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heshouyang.entity.inventory">
+    update t_inventory
+    set fk_goods_id = #{fkGoodsId,jdbcType=INTEGER},
+      inventory_num = #{inventoryNum,jdbcType=INTEGER},
+      fk_supplier_id = #{fkSupplierId,jdbcType=INTEGER},
+      fk_user_id = #{fkUserId,jdbcType=INTEGER},
+      inventory_date = #{inventoryDate,jdbcType=TIMESTAMP},
+      inventory_stutas = #{inventoryStutas,jdbcType=VARCHAR}
+    where inventory_id = #{inventoryId,jdbcType=INTEGER}
+  </update>
+</mapper>
