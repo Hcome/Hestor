@@ -1,7 +1,14 @@
 package com.heshouyang.entity;
 
-public class Goods {
-    private Integer goodsId;
+import java.io.Serializable;
+
+public class Goods implements Serializable{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private Integer goodsId;
 
     private String goodsName;
 
@@ -40,4 +47,24 @@ public class Goods {
     public void setGoodsPrice(String goodsPrice) {
         this.goodsPrice = goodsPrice == null ? null : goodsPrice.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Goods [goodsId=" + goodsId + ", goodsName=" + goodsName + ", goodsSpec=" + goodsSpec + ", goodsPrice="
+				+ goodsPrice + "]";
+	}
+
+	public Goods(Integer goodsId, String goodsName, String goodsSpec, String goodsPrice) {
+		super();
+		this.goodsId = goodsId;
+		this.goodsName = goodsName;
+		this.goodsSpec = goodsSpec;
+		this.goodsPrice = goodsPrice;
+	}
+
+	public Goods() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+    
 }

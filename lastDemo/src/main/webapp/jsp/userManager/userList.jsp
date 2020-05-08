@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -39,7 +39,7 @@
           <div class="layui-input-inline">
             <select id="userDepart">
               <option value="">员工所在部门</option>
-              <c:forEach items="${departs}" var="depart">
+              <c:forEach items="" var="depart">
               		<option value="${depart.departId }">${depart.departName} </option>
               </c:forEach>
               
@@ -70,20 +70,22 @@
       <table class="layui-table">
         <thead>
           <tr>
-            <th>姓名</th>
-            <th>所属部门</th>
-            <th>职位</th>
-            <th>加入时间</th>
-            <th>出生日期</th>
-            <th>联系方式</th>
-            <th>邮箱</th>
-            <th >操作</th>
+            <th style="width: 6%">工号</th>
+            <th style="width: 6%">姓名</th>
+            <th style="width: 11%">电话</th>
+            <th style="width: 3%">性别</th>
+            <th style="width: 4%">年龄</th>
+            <th style="width: 13%">生日</th>
+            <th style="width: 9%">部门</th>
+            <th style="width: 11%">开户行</th>
+            <th style="width: 16%">账号</th>
+            <th style="width: 16%">操作</th>
             </tr>
         </thead>
         <tbody id="users">
           <tr>
           
-            <td colspan=8> 加载中<i class="layui-icon" >&#xe63e;</i></td>
+            <td colspan=10> 加载中<i class="layui-icon" >&#xe63e;</i></td>
           </tr>
         </tbody>
       </table>
@@ -155,7 +157,7 @@ layui.use(['form', 'laypage', 'laydate'], function(){
 });
 
  
-//自定义验证规则
+/* //自定义验证规则
 form.verify({
     title: function(value){
       if(value.length < 5){
@@ -166,10 +168,10 @@ form.verify({
     ,content: function(value){
       layedit.sync(editIndex);
     }
-});
-//
+}); */
+/* //
   form.on('submit(sreach)', function(data){
-      console.log(data);
+      console.log("-----"+data);
       userDepart=$("#userDepart").val();
       birthRange=$("#birthRange").val();
        userName=$("#userName").val();
@@ -179,20 +181,20 @@ form.verify({
        laypage.render({
     		  elem: 'test1'
     		  ,count: total //数据总数，从服务端得到
-    		  ,limit:1
+    		  ,limit:3
     		  ,jump: function(obj, first){
     		    //obj包含了当前分页的所有参数，比如：
-    		    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
-    		    console.log(obj.limit); //得到每页显示的条数
+    		    console.log("当前页："+obj.currentPage); //得到当前页，以便向服务端请求对应页的数据。
+    		    console.log("每页总数："+obj.limit); //得到每页显示的条数
     		    //首次不执行
     		    if(!first){
-    		    	showPage(obj.curr);
+    		    	showPage(obj.currentPage);
     		    }
     		  }
     		});
       return false;
     });
-  
+   */
   //监听提交
   form.on('submit(demo1)', function(data){
     layer.alert(JSON.stringify(data.field), {
@@ -211,12 +213,12 @@ form.verify({
 			EntryEnd:EntryEnd,
 			birthRange:birthRange,
 			userName:userName,
-			index:n
+			currentPage:n
 		},
 		dataType : "text",
-		url : "manageEmeController//getUsersDB.ajax",
+		url : "<%=basePath%>personal/all.ajax",
 		success : function(result) {
-			console.log(result);
+			console.log("结果:"+result);
 			var tl = eval("(" + result + ")");
 			if(n==-1){
 				total=tl.total;
@@ -224,19 +226,19 @@ form.verify({
 			}
 			$("#users").html("");
 			//json遍历
-			if(tl.data.length>0){
-				$.each(tl.data, function(n,val){
-					console.log(val.userEntrytime);
-					console.log(typeof(val.userEntrytime));
+			if(tl.list.length>0){
+				$.each(tl.list, function(n,val){
 					var str="";
 				    str+="<tr>";
-				    str+="<td>"+val.userName+"</td>"
-				    str+="<td>"+val.userDepartement+"</td>"
-				    str+="<td>"+val.userPosition+"</td>"
-				    str+="<td>"+new Date(val.userEntrytime).format("yyyy-MM-dd hh:mm")+"</td>"
-				    str+="<td>"+new Date(val.userBirthday).format("yyyy-MM-dd hh:mm")+"</td>"
-				    str+="<td>"+val.userTelephone+"</td>"
-				    str+="<td>"+val.userEmail+"</td>"
+				    str+="<td>"+val.personalNum+"</td>"
+				    str+="<td>"+val.personalName+"</td>"
+				    str+="<td>"+val.personalTel+"</td>"
+				    str+="<td>"+val.personalSex+"</td>"
+				    str+="<td>"+val.personalAge+"</td>"
+				    str+="<td>"+new Date(val.birthday).format("yyyy-MM-dd hh:mm")+"</td>"
+				    str+="<td>"+val.department+"</td>"
+				    str+="<td>"+val.bankname+"</td>"
+				    str+="<td>"+val.bankid+"</td>"
 				    str+="<td><a class=\"layui-btn  layui-btn-mini\" onclick=\"x_admin_show('修改','manageEmeController/toUserEdit.do?userId="+val.userId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delUser('"+val.userId+"')\" class=\"layui-btn  layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
 				    str+="</tr>";
 					$("#users").append(str);

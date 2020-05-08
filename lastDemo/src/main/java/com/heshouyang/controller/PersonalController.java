@@ -17,11 +17,19 @@ public class PersonalController {
 	@Autowired
 	private PersonalService ps;
 	
-	@RequestMapping("/all")
+	@RequestMapping("/goFindAllPersonal.ajax")
+	public String goFindAllPersonal() {
+		return "userList";
+	}
+	@RequestMapping("/all.ajax")
 	@ResponseBody
 	public PageInfo<Personal> findAllPersnal(SearchInfo searchInfo) {
-		PageInfo<Personal> info = ps.selectPersonalAll(searchInfo.getCurrentPage(), searchInfo.getPageSize());
+		PageInfo<Personal> info = ps.selectPersonalAll(searchInfo.getCurrentPage());
+		System.out.println(info);
 		return info;
-		
+	}
+	@RequestMapping("/organization.do")
+	public String goOrganization() {
+		return "organization/organization-list";
 	}
 }

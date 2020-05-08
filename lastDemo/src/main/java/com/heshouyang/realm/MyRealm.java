@@ -35,7 +35,6 @@ public class MyRealm extends AuthorizingRealm{
 		// shiro的回调函数，每一步操作都会去执行,这个方法执行的流程是当前一个用户执行登录验证之后
 		//如果用户的某个模块需要某个权限的时候他就会根据权限的name属性去查询这个用户所对应的角色名称
 		//有多少个角色模块他就会执行多少次，
-		System.out.println("+++++++++++++++");
 		Set<String> sets = new HashSet<>();
 		List<Role> list = rm.selectRoles((String)(principals.getPrimaryPrincipal()));
 		for (Role role : list) {

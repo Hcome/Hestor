@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM" />
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		
+		<!-- 引入内部js或css -->
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+	</head>
+<body>
+	<div class="x-nav">
+		<span class="layui-breadcrumb"> <a href="">组织管理</a> <a> <cite>职位信息</cite></a>
+		</span> <a class="layui-btn layui-btn-small"
+			style="line-height: 1.6em; margin-top: 3px; float: right"
+			href="javascript:location.replace(location.href);" title="刷新"> <i
+			class="layui-icon" style="line-height: 30px">ဂ</i></a>
+	</div>
+	<div class="x-body">
+		<xblock>
+		<button class="layui-btn"
+			onclick="x_admin_show('添加职位','/organization/addPositionPage')">
+			<i class="layui-icon"></i>职位添加
+		</button>
+		<span class="x-right" style="line-height: 40px">共有数据：<a
+			id="total">0</a> 条
+		</span> </xblock>
+		<table class="layui-table">
+			<thead>
+				<tr>
+					<th>职位名称</th>
+					<th>职位描述</th>
+					<th>所属部门</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody id="positions">
+				<tr>
+					<td colspan=8>加载中<i class="layui-icon">&#xe63e;</i></td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="pageDiv" style="text-align: center"></div>
+	</div>
+</body>
+<script type="text/javascript">
+	function deletePosition(positionId){
+		layer.confirm('你确定要删除吗?', {icon: 3, title:'提示'}, function(index){
+			$.ajax({
+				type : "POST",
+				async:false,
+				data : {
+					positionId:positionId
+				},
+				dataType : "text",
+				url : "/organization/deletePosition",
+				success : function(data) {
+					console.log(data);
+					var result = eval("(" + data + ")");
+	    			if (result.status == 200) {
+						console.log(result);
+						layer.msg("删除职位成功",{
+							icon : 1,
+							time: 500,
+						},function () {
+							location.replace(location.href);
+						});
+					} else {
+						layer.msg(result.message, {icon: 0});
+					}
+				},
+				error : function() {
+					layer.msg('无法连接服务器', {icon: 2});
+				}
+			});
+		    layer.close(index);
+		});
+	}
+	
+	layui.use(['form', 'laypage', 'laydate'], function(){
+		var form = layui.form,
+		layer = layui.layer,
+		laypage = layui.laypage;
+		
+		//分页的ajax
+		function showPage(n) {
+			$.ajax({
+				type : "POST",
+				async:false,
+				data : {
+					currentPage:n
+				},
+				dataType : "text",
+				url : "/organization/positions",
+				success : function(data) {
+					console.log(data);
+					var result = eval("(" + data + ")");
+					if(n==-1){
+						total=result.total;
+						$("#total").text(total);
+					}
+					$("#positions").html("");
+					//json遍历
+					if(result.list.length>0){
+						$.each(result.list, function(n,val){
+							console.log(n);
+							var str="";
+						    str+="<tr>";
+						    str+="<td>"+val.positionName+"</td>"
+						    str+="<td>"+val.positionDescription+"</td>"
+						    str+="<td>"+val.departName+"</td>"
+						    str+="<td><a class=\"layui-btn layui-btn-mini\" onclick=\"x_admin_show('修改','/organization/editPositionPage?positionId="+val.positionId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"deletePosition('"+val.positionId+"')\" class=\"layui-btn layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+						    str+="</tr>";
+							$("#positions").append(str);
+						})
+					}else{
+						$("#positions").append("<tr><td colspan=8 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+					}
+				},
+				error : function() {
+					layer.msg('无法连接服务器', {icon: 2});
+				}
+			});
+		}
+		
+		showPage(-1);
+		laypage.render({
+			elem: 'pageDiv',
+			count: total,
+			limit:4,
+			jump: function(obj, first){
+			    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+			    console.log(obj.limit); //得到每页显示的条数
+			    //首次不执行
+			    if(!first){
+			    	showPage(obj.curr);
+			    }
+			}
+		});
+	});
+</script>
+</html>

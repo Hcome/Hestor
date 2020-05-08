@@ -23,7 +23,7 @@ public class SearchInfo implements Serializable{
 	}
 
 	public void setCurrentPage(Integer currentPage) {
-		this.currentPage = currentPage;
+		this.currentPage = currentPage > 0 ? currentPage : 1;
 	}
 
 	public Integer getPageSize() {
@@ -31,7 +31,7 @@ public class SearchInfo implements Serializable{
 	}
 
 	public void setPageSize(Integer pageSize) {
-		this.pageSize = pageSize;
+		this.pageSize = pageSize == null ? 4:pageSize;
 	}
 
 	public SearchInfo(Integer currentPage, Integer pageSize) {

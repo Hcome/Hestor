@@ -10,8 +10,18 @@ public class Supplier {
     private String supplierPhonenumber;
 
     private String supplierEmail;
+    
+    private Goods goods;
 
-    public Integer getSupplierId() {
+    public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+
+	public Integer getSupplierId() {
         return supplierId;
     }
 

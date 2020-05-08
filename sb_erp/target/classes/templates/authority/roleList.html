@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"  
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM"/>
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		
+		<!-- 引入内部js或css -->
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+		<link th:href="${'/css/bootstrap.css'}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="x-nav">
+			<span class="layui-breadcrumb"> <a>权限管理</a> <a> <cite>角色管理</cite></a>
+			</span> <a class="layui-btn layui-btn-small"
+				style="line-height: 1.6em; margin-top: 3px; float: right"
+				href="javascript:location.replace(location.href);" title="刷新"> <i
+				class="layui-icon" style="line-height: 30px">ဂ</i></a>
+		</div>
+		<div class="x-body">
+			<div class="row">
+				<div class="col-md-4"  th:each="role : ${roles}" >
+					<div class="panel panel-default">
+					<div class="panel-heading">
+						<span th:text="${role.roleName}"></span>
+						<input type="hidden" th:value="${role.roleId}"/>
+						<div style="float: right;">
+						<a><i th:onclick="x_admin_show('修改','/authority/editRolePage?roleId=[[${role.roleId}]]')" class="layui-icon">&#xe642;</i></a>
+						<a th:onclick="del([[${role.roleId}]],[[${role.roleName}]])" name="close" ><i class="layui-icon">&#xe640;</i></a>
+					</div>
+					</div>
+						<div class="panel-body"  style="height: 110px;">
+						<span class="message-title"><span th:text="${role.roleDesc}"></span></span>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-md-4 layui-anim layui-anim-scale" id="add">
+					<div class="panel panel-default">
+						<div class="panel-heading">添加新的角色</div>
+						<div class="panel-body" style="height: 110px;">
+								<div style="text-align: center;cursor: pointer;" onclick="x_admin_show('添加新角色','/authority/addRolePage')">
+									<i class="layui-icon" style="font-size: 80px; color: #1E9FFF;">&#xe61f;</i>  
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		function del(id,name){
+			layer.confirm('你确定要删除吗?', {icon: 3, title:'提示'}, function(index){
+				$.ajax({
+					type : "POST",
+					async:false,
+					data : {
+						roleId:id
+					},
+					dataType : "text",
+					url : "/authority/deleteRole",
+					success : function(data) {
+						var result = eval("(" + data + ")");
+		    			if (result.status == 200) {
+							console.log(result);
+							layer.msg(name+"已删除",{
+								icon : 1,
+								time: 500,
+							},function () {
+								location.replace(location.href);
+							});
+						} else {
+							layer.msg(result.message, {icon: 0});
+						}
+					},
+					error : function() {
+						layer.msg('无法连接服务器', {icon: 2});
+					}
+				});
+			    layer.close(index);
+			});
+		}
+		
+		function addNewPannel(){
+			var str="<div class=\"col-md-4 layui-anim layui-anim-scale \"><div class=\"panel panel-default\" >"
+				str+="<div class=\"panel-heading\">后勤服务部 <a  onclick=\"removeNode(this,6666)\" style=\"float: right;\">删除</a></div>"
+				str+="<div class=\"panel-body\">"
+				str+="<span class=\"message-title\">服务于公司的后勤</span><hr />"
+				str+="<table>"
+				str+="<tr><th width=\"100px\">部门权限 </th><td>xx管理、xx管理</td></tr>"
+				str+="</table>"	
+				str+="</div></div></div>"			
+				$("#add").before(str);
+		}
+		
+		$(function(){
+			$("a[name='xclose']").click(function(){
+    		$(this).parent().parent().remove();
+    		console.log($(this).text())
+			});
+		})
+		
+		function removeNode(obj,id){
+			//it.parent.parent.remove();
+			var parent=$(obj).parent().parent().parent();
+			console.log(id)
+			parent.remove();
+			
+		}
+	</script>
+</html>

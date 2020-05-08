@@ -12,7 +12,6 @@ import com.hqyj.entity.ArticleTest;
 import com.hqyj.entity.FillBlanksTest;
 import com.hqyj.entity.MultipleChoiceTest;
 import com.hqyj.entity.Score;
-import com.hqyj.entity.Student;
 import com.hqyj.service.ArticleTestService;
 import com.hqyj.service.FillBlanksTestService;
 import com.hqyj.service.GenerateChoiceService;
@@ -192,12 +191,8 @@ public class TestController {
 			}
 		}
 		
-		System.out.println("这位同学的总分是："+score);
-		
 		String userName = (String) request.getSession().getAttribute("userName");
-		System.out.println(userName+"+++++++++++++++++++++++");
-		
-		
+	
 		//执行对成绩表的插入操作
 		Score score2 = new Score();
 		score2.setScoreNunber(score);

@@ -1,7 +1,11 @@
 package com.heshouyang.entity;
 
 import java.util.Date;
-
+/**
+ * 库存实体类
+ * @author Administrator
+ *
+ */
 public class inventory {
     private Integer inventoryId;
 

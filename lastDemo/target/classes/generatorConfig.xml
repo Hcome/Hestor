@@ -38,7 +38,7 @@
 			<property name="enableSubPackages" value="false" />
 		</javaClientGenerator>
 		<!-- 指定数据库表 -->
-		<table schema="" tableName="t_customer" domainObjectName="Customer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+		<!-- <table schema="" tableName="t_customer" domainObjectName="Customer" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" enableInsert="false">
                <property name="useActualColumnNames" value="false"/>
 		</table>
@@ -67,6 +67,10 @@
                <property name="useActualColumnNames" value="false"/>
 		</table>
 		<table schema="" tableName="t_supplier" domainObjectName="Supplier" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+               enableSelectByExample="false" selectByExampleQueryId="false" enableInsert="false">
+               <property name="useActualColumnNames" value="false"/>
+		</table> -->
+		<table schema="" tableName="t_account" domainObjectName="Account" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" enableInsert="false">
                <property name="useActualColumnNames" value="false"/>
 		</table>

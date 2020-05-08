@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"  
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM"/>
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		
+		<!-- 引入内部js或css -->
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="x-nav">
+			<span class="layui-breadcrumb">
+				<a>资产管理</a>
+				<a> <cite>我的申请</cite></a>
+			</span>
+			<a class="layui-btn layui-btn-small"
+				style="line-height: 1.6em; margin-top: 3px; float: right"
+				href="/flow/applyListPage" title="刷新"> <i
+				class="layui-icon" style="line-height: 30px">ဂ</i></a>
+		</div>
+		<div class="x-body">
+			<div class="layui-row">
+				<form id="form1" class="layui-form layui-col-md12 x-so">
+					<input type="hidden" th:value="${user.userId}" name="userId"/>
+					<span>快速查询：</span>
+					<div class="layui-input-inline">
+						<select name="applyType" lay-filter="myselect2">
+							<option value="">申请类型</option>
+							<option th:each="applyType : ${applyTypes}" 
+								th:value="${applyType}" th:text="${applyType}">
+							</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<select name="propertyType" lay-filter="myselect2">
+							<option value="">资产类型</option>
+							<option th:each="propertyType : ${propertyTypes}" 
+								th:value="${propertyType}" th:text="${propertyType}">
+							</option>
+						</select>
+					</div>
+					<div class="layui-input-inline">
+						<input type="text" name="propertyModel" placeholder="资产型号"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div class="layui-input-inline">
+						<input type="text" name="propertyName" placeholder="资产名称"
+							autocomplete="off" class="layui-input">
+					</div>
+					<button type="submit" class="layui-btn" lay-submit="sreach()"
+						lay-filter="sreach">
+						<i class="layui-icon">&#xe615;</i>
+					</button>
+	
+				</form>
+			</div>
+	
+			<xblock>
+				<button class="layui-btn"
+					onclick="x_admin_show('添加用户','/flow/addApplyPage')">
+					<i class="layui-icon"></i>添加申请
+				</button>
+				<span class="x-right" style="line-height: 40px">共有数据：<a id="total">88</a> 条</span>
+			</xblock>
+			<table class="layui-table">
+				<thead>
+					<tr>
+						<th>申请类别</th>
+						<th>资产名称</th>
+						<th>资产类型</th>
+						<th>资产型号</th>
+						<th>资产数量</th>
+						<th>申请状态</th>
+						<th>申请人</th>
+						<th>申请时间</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody id="applies">
+					<tr>
+						<td colspan=8>加载中<i class="layui-icon">&#xe63e;</i></td>
+					</tr>
+				</tbody>
+			</table>
+			<div align="center" id="pageDiv"></div>
+		</div>
+	</body>
+	<script type="text/javascript">
+		var applyType=null;
+		var propertyType=null;
+		var propertyModel=null;
+		var propertyName=null;
+		var userId=0;
+		var total=0;
+		var limit=0;
+		
+		//删除操作
+		function delApply(applyId){
+			layer.confirm('你确定要删除吗?', {icon: 3, title:'提示'}, function(index){
+				$.ajax({
+					type : "POST",
+					async:false,
+					data : {
+						applyId:applyId
+					},
+					dataType : "text",
+					url : "/flow/deleteApply",
+					success : function(data) {
+						var result = eval("(" + data + ")");
+		    			if (result.status == 200) {
+							layer.msg("修改成功",{
+								icon : 1,
+								time: 500,
+							},function () {
+								location.replace(location.href)
+							});
+						} else {
+							layer.msg(result.message, {icon: 0});
+						}
+					},
+					error : function() {
+						layer.msg('无法连接服务器', {icon: 2});
+					}
+				});
+			    layer.close(index);
+			});
+		}
+		
+		layui.use(['form', 'laypage', 'laydate'], function(){
+			var form = layui.form,
+			layer = layui.layer,
+			laypage = layui.laypage,
+			laydate = layui.laydate;
+			
+			form.on('submit(sreach)', function(data){
+				console.log(data);
+				
+				applyType=$("[name=applyType]").val();
+				propertyType=$("[name=propertyType]").val();
+				propertyModel=$("[name=propertyModel]").val();
+				propertyName=$("[name=propertyName]").val();
+				userId=$("[name=userId]").val();
+				
+				showPage(-1);
+				laypage.render({
+					elem: 'pageDiv',
+					count: total,
+					limit: limit,
+					jump: function(obj, first){
+						console.log(obj.curr);
+						console.log(obj.limit);
+						if(!first){
+							showPage(obj.curr);
+						}
+					}
+				});
+				return false;
+		    });
+			
+			//分页的ajax
+			function showPage(n) {
+				$.ajax({
+					type : "POST",
+					async:false,
+					data : {
+						applyType:applyType,
+						propertyType:propertyType,
+						propertyModel:propertyModel,
+						propertyName:propertyName,
+						userId:$("[name=userId]").val(),
+						currentPage:n
+					},
+					dataType : "text",
+					url : "/flow/applies",
+					success : function(result) {
+						console.log(result);
+						var tl = eval("(" + result + ")");
+						if(n==-1){
+							total=tl.total;
+							limit=tl.pageSize;
+							$("#total").text(total);
+						}
+						$("#applies").html("");
+						//json遍历
+						if(tl.list.length>0){
+							$.each(tl.list, function(n,val){
+								console.log(n);
+								var str="";
+							    str+="<tr>";
+							    str+="<td>"+val.applyType+"</td>"
+							    str+="<td>"+val.propertyName+"</td>"
+							    str+="<td>"+val.propertyType+"</td>"
+							    str+="<td>"+val.propertyModel+"</td>"
+							    str+="<td>"+val.propertyNum+"</td>"
+							    if (val.applyStatus == "批准") {
+							    	str+="<td class='td-status'><span class='layui-btn layui-btn-normal layui-btn-mini'>"
+							    		+val.applyStatus+"</span></td>"
+							    } else {
+							    	str+="<td class='td-status'><span class='layui-btn layui-btn-normal layui-btn-mini layui-btn-disabled'>"
+							    		+val.applyStatus+"</span></td>"
+							    }
+							    var applyUserName = "";
+							    if (val.applyUserName != 'null') {
+							    	applyUserName = val.applyUserName;
+							    }
+							    str+="<td>"+applyUserName+"</td>"
+							    str+="<td>"+new Date(val.applyDate).format("yyyy-MM-dd")+"</td>"
+							    if (val.applyStatus == '审核中') {
+								    str+="<td><a class=\"layui-btn layui-btn-mini\" onclick=\"x_admin_show('修改','/flow/editApplyPage?applyId="+val.applyId+"')\" ><i class=\"layui-icon\">&#xe642;</i>编辑</a> <button onclick=\"delApply('"+val.applyId+"')\" class=\"layui-btn layui-btn-mini layui-btn-danger\"><i class=\"layui-icon\">&#xe640;</i>删除</button></td>"
+							    } else {
+								    str+="<td>该申请已完结</td>"
+							    }
+							    str+="</tr>";
+								$("#applies").append(str);
+							})
+						}else{
+							$("#applies").append("<tr><td colspan=9 align=\"center\">暂时没有数据哦，快去添加一条吧</td></tr>");
+						}
+						
+					},
+					error : function() {
+						layer.msg('无法连接服务器', {icon: 2});
+					}
+				});
+			}
+			
+			//分页
+			showPage(-1);
+			laypage.render({
+				elem: 'pageDiv',
+				count: total,
+				limit: limit,
+				jump: function(obj, first){
+					//obj包含了当前分页的所有参数，比如：
+					console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+					console.log(obj.limit); //得到每页显示的条数
+			    
+					//首次不执行
+					if(!first){
+						showPage(obj.curr);
+					}
+				}
+			});
+		});
+	</script>
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"  
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM"/>
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		<!-- <script th:src="@{http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js}"></script> -->
+		
+		<!-- 引入内部js或css -->
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+		<script th:src="${'/js/kkpager.min.js'}" type="text/javascript"></script>
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+		<link th:href="${'/css/kkpager_orange.css'}" rel="stylesheet">
+		<link th:href="${'/lib/layui/css/layui.css'}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="x-body">
+			<form id="form1" class="layui-form layui-form-pane">
+				<div class="layui-form-item">
+					<label for="propertyType" class="layui-form-label"><span
+						class="x-red">*</span>资产类别</label>
+					<div class="layui-input-inline">
+						<select name="propertyType" id="quiz3">
+							<option th:each="propertyType : ${propertyTypes}" 
+								th:value="${propertyType}" th:text="${propertyType}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="propertyName" class="layui-form-label"> <span
+						class="x-red">*</span>资产名称
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" name="propertyName"
+							required="" lay-verify="required" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="propertyModel" class="layui-form-label"> <span
+						class="x-red">*</span>资产型号
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" name="propertyModel"
+							required="" lay-verify="required" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="propertyNum" class="layui-form-label"> <span
+						class="x-red">*</span>资产数量
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" name="propertyNum"
+							required="" lay-verify="required|number" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="unitPrice" class="layui-form-label"> <span
+						class="x-red">*</span>资产单价
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" name="unitPrice"
+							required="" lay-verify="required|number" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+	
+				<div class="layui-form-item" style="text-align: center;">
+					<a class="layui-btn" lay-filter="add" lay-submit=""> 确定 </a> <a
+						class="layui-btn layui-btn-normal"
+						onclick="javascript:history.go(-1);" style="text-align: center">返回</a>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		layui.use(['form', 'layedit', 'laydate'], function(){
+			var form = layui.form,
+			layer = layui.layer,
+			layedit = layui.layedit,
+			laydate = layui.laydate;
+			
+			form.verify({
+			    repeat:function(value){
+					if(value.length < 3){
+						return '至少三个字啊';
+					}else if(isRepeat){
+						return '名称已存在';  
+					}
+			    },number:[/(^$)|^\d+$/,'只能填写数字']
+			});
+			
+			//监听提交
+			form.on('submit(add)', function(data){
+				console.log(data);
+				$.ajax({
+		       		url :"/property/doPropertyAdd",
+					type : "POST",
+					dataType : "text",
+		       		data : $('#form1').serialize(),
+		       		success : function(result) {
+		    			if (result.status == 200) {
+							layer.msg("添加成功",{
+								icon : 1,
+								time: 500,
+							},function () {
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.location.reload();
+								parent.layer.close(index);
+							});
+						} else {
+							layer.msg(result.message, {icon: 0});
+						}
+		       		},
+		       		error : function() {
+		       			layer.msg('无法连接服务器', {icon: 2});
+		       		}
+		       	});   
+				return false;
+			});
+		});
+	</script>
+</html>

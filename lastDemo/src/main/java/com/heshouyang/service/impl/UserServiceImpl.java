@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService{
 	
 		return um.selectUserById(id);
 	}
-
+	@Override
 	public String checkLogin(String userName, String passWord, String checkbox,HttpServletRequest request,
 			HttpServletResponse response) {
 		//获取当前用户

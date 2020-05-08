@@ -143,7 +143,6 @@ public class StudentController {
 		//是用来获取空闲教室的
 		List<Integer> list1 = new ArrayList<Integer>();
 		Random random = new Random();
-		System.out.println(id+"+++++++++++++++++++=");
 		Student student = ss.selectByPrimaryKey(id);
 		//获取所有的空教室的id，并存在集合当中
 		List<ClassRoom> list = cs.findClassRoomIsNull();

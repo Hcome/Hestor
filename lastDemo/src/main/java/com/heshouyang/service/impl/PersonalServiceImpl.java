@@ -19,14 +19,15 @@ public class PersonalServiceImpl implements PersonalService{
 	private PersonalMapper pm;
 	@Override
 	//实现后端分页
-	public PageInfo<Personal> selectPersonalAll(int pageNum,int pageSize) {
+	public PageInfo<Personal> selectPersonalAll(int pageNum) {
 		@SuppressWarnings("unused")
 		//实现后端的分页，避免大量的数据影响查询性能
 		PageHelper pageHelper = new PageHelper();
-		PageMethod.startPage(pageNum, pageSize);
+		PageMethod.startPage(pageNum, 3);
 		
 		List<Personal> list = pm.selectPersonalAll();
 		PageInfo<Personal> info = new PageInfo<>(list);
+		System.out.println(info);
 		return info;
 	}
 }

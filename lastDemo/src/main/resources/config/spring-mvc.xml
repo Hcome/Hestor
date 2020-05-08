@@ -17,7 +17,7 @@
     <!-- 开启包扫描 -->
    	<context:component-scan base-package="com.heshouyang.controller"></context:component-scan>
     <!--开启mvc注解驱动  -->
-  	<mvc:annotation-driven></mvc:annotation-driven>
+  	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
   	<!-- 配置静态资源 -->
   	<mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
     <!-- 配置视图解析器 -->
@@ -25,4 +25,13 @@
     	<property name="prefix" value="/jsp/"></property>
     	<property name="suffix" value=".jsp"></property>
     </bean>
+    <!-- 配置全局的时间变量，同时注意驱动的设置-->
+	<bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<!--源码中属性converters是被集合Set类型，所以配置的时候使用set去接收  -->
+		<property name="converters">
+			<set>
+				<bean class="com.heshouyang.utils.MyDateConverter"></bean>
+			</set>
+		</property>
+	</bean>
 </beans>

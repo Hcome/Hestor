@@ -5,5 +5,5 @@ import com.heshouyang.entity.Personal;
 
 public interface PersonalService {
 
-	PageInfo<Personal> selectPersonalAll(int currentPage,int pageSize);
+	PageInfo<Personal> selectPersonalAll(int currentPage);
 }

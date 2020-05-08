@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heshouyang.dao.AccountMapper">
+  <resultMap id="BaseResultMap" type="com.heshouyang.entity.Account">
+    <id column="account_id" jdbcType="INTEGER" property="accountId" />
+    <result column="makect_name" jdbcType="INTEGER" property="makectName" />
+    <result column="account_alluse" jdbcType="INTEGER" property="accountAlluse" />
+    <result column="account_acoding" jdbcType="VARCHAR" property="accountAcoding" />
+    <result column="account_oper" jdbcType="VARCHAR" property="accountOper" />
+    <result column="account_date" jdbcType="TIMESTAMP" property="accountDate" />
+    <result column="fk_goods_id" jdbcType="INTEGER" property="fkGoodsId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    account_id, account_alluse, account_acoding, account_oper, account_date, fk_goods_id
+  </sql>
+  <!--增加商场账户的流动记录  -->
+  <insert id="addAccountReCoding" parameterType="com.heshouyang.entity.Account">
+	
+  </insert>
+  
+  <!-- 通过商场的名称去查询当前的最新流动资产 -->
+  <select id="accountAllIsUseByMakectName" parameterType="java.lang.String" resultType="java.lang.Integer">
+  	select account_alluse from t_account where makect_name=#{makectName}
+  </select>
+  <!--查询商场所有的流动记录  -->
+  <select id="queryAccounts" resultMap="BaseResultMap">
+  	select *from t_account
+  </select>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_account
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_account
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </delete>
+  <update id="updateByPrimaryKeySelective" parameterType="com.heshouyang.entity.Account">
+    update t_account
+    <set>
+      <if test="accountAlluse != null">
+        account_alluse = #{accountAlluse,jdbcType=INTEGER},
+      </if>
+      <if test="accountAcoding != null">
+        account_acoding = #{accountAcoding,jdbcType=VARCHAR},
+      </if>
+      <if test="accountOper != null">
+        account_oper = #{accountOper,jdbcType=VARCHAR},
+      </if>
+      <if test="accountDate != null">
+        account_date = #{accountDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fkGoodsId != null">
+        fk_goods_id = #{fkGoodsId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.heshouyang.entity.Account">
+    update t_account
+    set account_alluse = #{accountAlluse,jdbcType=INTEGER},
+      account_acoding = #{accountAcoding,jdbcType=VARCHAR},
+      account_oper = #{accountOper,jdbcType=VARCHAR},
+      account_date = #{accountDate,jdbcType=TIMESTAMP},
+      fk_goods_id = #{fkGoodsId,jdbcType=INTEGER}
+    where account_id = #{accountId,jdbcType=INTEGER}
+  </update>
+</mapper>

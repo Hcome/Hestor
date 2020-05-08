@@ -7,9 +7,20 @@
     <result column="goods_spec" jdbcType="VARCHAR" property="goodsSpec" />
     <result column="goods_price" jdbcType="VARCHAR" property="goodsPrice" />
   </resultMap>
+  <resultMap type="String" id="findName">
+  	<result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+  </resultMap>
   <sql id="Base_Column_List">
     goods_id, goods_name, goods_spec, goods_price
   </sql>
+  <!-- 查询所有的商品的名字实现二级联动 -->
+  <select id="queryGoodsName" resultMap="findName">
+  	select goods_name from t_goods
+  </select>
+  <!--查询所有的商品  -->
+  <select id="queryGoods" resultMap="BaseResultMap">
+  	select *from t_goods
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

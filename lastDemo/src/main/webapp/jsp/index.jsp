@@ -96,7 +96,7 @@
 		<div id="side-nav">
 			<ul id="nav">
 				<!-- 示例：这是一个下拉菜单 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<shiro:hasAnyRoles name="admin">
 				<li><img  src=""><a href="javascript:;"> <i class="iconfont">&#xe6b8;</i> <cite>职工管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
@@ -106,17 +106,14 @@
 								class="iconfont">&#xe6a7;</i> <cite>用户管理</cite>
 						</a></li>
 						<!-- 按钮结束 -->
-						<li><a _href="ztree.jsp"> <i
+						<li><a _href="<%=basePath%>personal/organization.do"> <i
 								class="iconfont">&#xe6a7;</i> <cite>组织结构</cite>
 						</a></li>
-						<li><a _href="manageEmeController/toDepartList.do"> <i
-								class="iconfont">&#xe6a7;</i> <cite>部门管理</cite>
-						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 这组下拉菜单结束 -->
 				<!-- 这是另一组菜单示例 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<shiro:hasAnyRoles name="admin">
 				<li><a href="javascript:;"> <i class="iconfont">&#xe629;</i> 
 				<cite>权限管理</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
@@ -124,32 +121,30 @@
 					<ul class="sub-menu">
 						<li><a _href="roleController/toUserRole.do"> <i class="iconfont">&#xe6a7;</i> <cite>职工权限分配</cite>
 						</a></li>
-						<li><a _href="roleController/toDepart.do"> <i class="iconfont">&#xe6a7;</i> <cite>部门权限分配</cite>
-						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 示例结束 -->
 				
 				<!-- 这是另一组菜单示例 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<shiro:hasAnyRoles name="admin">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe607;</i> 
-				<cite>我的资产</cite> <i
+				<cite>公司资产</cite> <i
 						class="iconfont nav_right">&#xe697;</i>
 				</a>
 					<ul class="sub-menu">
-						<li><a _href="applyController/showApplyByUserName.do"> <i class="iconfont">&#xe6a7;</i> <cite>在用资产</cite>
+						<li><a _href="<%=basePath%>account/goAccountAllUse.do"> <i class="iconfont">&#xe6a7;</i> <cite>在用资产</cite>
 						</a></li>
-						<li><a _href="applyController/addApply.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产申请</cite>
+						<li><a _href="<%=basePath%>purchase/purchaseThing.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购资产申请</cite>
 						</a></li>
 						<li><a _href="porchaseController/showPorchaseByUserName.do"> <i class="iconfont">&#xe6a7;</i> <cite>采购资产</cite>
 						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 示例结束 -->
 				
 				<!-- 这是另一组菜单示例 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<shiro:hasAnyRoles name="admin">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe602;</i> 
 				 <cite>流程管理</cite> <i
@@ -163,11 +158,11 @@
 						<li><a _href="maintainController/showallmaintain.do"> <i class="iconfont">&#xe6a7;</i> <cite>申请报废批准</cite>
 						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 示例结束 -->
 				
 					<!-- 这是另一组菜单示例 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<shiro:hasAnyRoles name="admin">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe68f;</i> 
 				 <cite>资金核算</cite> <i
@@ -177,12 +172,10 @@
 						<li><a _href="view/porchase/quary_bill.jsp"> <i class="iconfont">&#xe6a7;</i> <cite>采购核算</cite>
 						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 示例结束 -->
-				
-				
-					<!-- 这是另一组菜单示例 -->
-				<%-- <shiro:hasAnyRoles name="admin"> --%>
+				<!-- 这是另一组菜单示例 -->
+				<shiro:hasAnyRoles name="admin">
 				<li><a href="javascript:;"> 
 				<i class="iconfont">&#xe613;</i> 
 				<cite>库存管理</cite> <i
@@ -191,10 +184,10 @@
 					<ul class="sub-menu">
 						<li><a _href="propertyController/showAllProperty.do"> <i class="iconfont">&#xe6a7;</i> <cite>库存资产</cite>
 						</a></li>
-						<li><a _href="propertyController/showBorrowreturn.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
+						<li><a _href="<%=basePath%>account/goAssetsRecording.do"> <i class="iconfont">&#xe6a7;</i> <cite>资产流动记录</cite>
 						</a></li>
 					</ul></li>
-				<%-- </shiro:hasAnyRoles> --%>
+				</shiro:hasAnyRoles>
 				<!-- 示例结束 -->
 
 			</ul>
