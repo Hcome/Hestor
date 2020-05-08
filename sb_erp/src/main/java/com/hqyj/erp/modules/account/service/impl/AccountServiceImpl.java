@@ -80,6 +80,7 @@ public class AccountServiceImpl implements AccountService {
 	public Result getUserResult(User user) {
 		Subject subject = SecurityUtils.getSubject();
 		try {
+			LOGGER.debug(user.getPassword());
 			UsernamePasswordToken usernamePasswordToken = 
 					new UsernamePasswordToken(user.getAccount(), MD5Util.getMD5(user.getPassword()));
 			usernamePasswordToken.setRememberMe(user.getRememberMe());

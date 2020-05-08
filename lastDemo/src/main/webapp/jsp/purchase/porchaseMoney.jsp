@@ -42,12 +42,13 @@
 				</label>
 				<div class="layui-input-inline">
 					<input name="goodsName" type="text" value="" id="L_id" autocomplete="off"
-						class="layui-input" list="list">
+						class="layui-input" list="list" placeholder="请选择：">
 					<datalist id="list">
 						<c:forEach items="${set}" var="set" varStatus="status">
 							<option>${set}</option>
 						</c:forEach>
 					</datalist>
+					
 				</div>
 			</div>
 			<div class="layui-form-item">
@@ -56,7 +57,7 @@
 				</label>
 				<div class="layui-input-inline">
 					<input name="type" type="text" value="" id="L_repass"
-						autocomplete="off" class="layui-input" list="list1">
+						autocomplete="off" class="layui-input" list="list1" placeholder="请选择：">
 					<datalist id="list1">
 						<c:forEach items="${list}" var="list">
 							<option>${list.goodsSpec}</option>
@@ -66,13 +67,21 @@
 			</div>
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label"> <span
-					class="x-red">*</span>数量
+					class="x-red">*</span>单价
 				</label>
 				<div class="layui-input-inline">
 					<input name="propertyNum" type="text" value="${porchase.propertyNum }"  id="L_pass"
 						autocomplete="off" class="layui-input">
 				</div>
-				<div class="layui-form-mid layui-word-aux">1到10个字符</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="L_pass" class="layui-form-label"> <span
+					class="x-red">*</span>数量
+				</label>
+				<div class="layui-input-inline">
+					<input name="propertyNum" type="text" value="${porchase.propertyNum }"  id="L_pass"
+						autocomplete="off" class="layui-input" placeholder="请输入你要购买的数量：">
+				</div>
 			</div>
 			<div class="layui-form-item">
 				<label for="L_pass" class="layui-form-label"> <span
@@ -80,7 +89,7 @@
 				</label>
 				<div class="layui-input-inline">
 					<input name="propertyNum" type="text" value="${porchase.propertyNum }"  id="L_pass"
-						autocomplete="off" class="layui-input">
+						autocomplete="off" class="layui-input" >
 				</div>
 			</div>
 			<div class="layui-form-item">
