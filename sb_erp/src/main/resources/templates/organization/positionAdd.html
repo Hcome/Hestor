@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM" />
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		<!-- <script th:src="@{http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js}"></script> -->
+		
+		<!-- 引入内部js或css -->
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+		<link th:href="${'/css/cutsom-style.css'}" rel="stylesheet">
+	</head>
+<body>
+	<div class="x-body">
+		<form id="form1" class="layui-form layui-form-pane">
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label"> <span
+					class="x-red">*</span>职位名称
+				</label>
+				<div class="layui-input-inline">
+					<input id="positionName" type="text" name="positionName"
+						required="" lay-verify="required|repeat" autocomplete="off"
+						class="layui-input">
+				</div>
+				<div id="info" class="layui-form-mid layui-word-aux">
+					至少3个字符</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label"> <span
+					class="x-red">*</span>职位描述
+				</label>
+				<div class="layui-input-inline">
+					<input type="text" name="positionDescription"
+						required="" lay-verify="required" autocomplete="off"
+						class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label for="name" class="layui-form-label"> <span
+					class="x-red">*</span>所属部门
+				</label>
+				<div class="layui-input-inline">
+					<select name="departId">
+						<option th:each="department,departmentStatus : ${departments}" 
+							th:value="${department.departId}" th:text="${department.departName}"></option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item" style="text-align: center;">
+				<a class="layui-btn" lay-filter="add" lay-submit=""> 确定 </a> <a
+					class="layui-btn layui-btn-normal"
+					onclick="x_admin_close();" style="text-align: center">返回</a>
+			</div>
+		</form>
+	</div>
+</body>
+<script type="text/javascript">
+	layui.use(['form', 'layedit', 'laydate'], function(){
+		var form = layui.form,
+		layer = layui.layer,
+		layedit = layui.layedit,
+		laydate = layui.laydate;
+	  
+		//创建一个编辑器
+		var editIndex = layedit.build('LAY_demo_editor');
+	 
+		//自定义验证规则
+		form.verify({
+			title: function(value){
+				if(value.length < 2){
+					return '标题至少得2个字符啊';
+				}
+			},
+			repeat:function(value){
+				if(value.length < 2){
+					return '至少两个字啊';
+				}
+			},
+			content: function(value){
+				layedit.sync(editIndex);
+			}
+		});
+		
+		//监听提交
+		form.on('submit(add)', function(data){
+	           console.log(data);
+	           $.ajax({
+	       		type : "POST",
+	       		data : $('#form1').serialize(),
+	       		dataType : "text",
+	       		url :"/organization/addPosition",
+	       		success : function(data) {
+	       			var result = eval("(" + data + ")");
+	    			if (result.status == 200) {
+						layer.msg("修改成功",{
+							icon : 1,
+							time: 500,
+						},function () {
+							var index = parent.layer.getFrameIndex(window.name);
+							parent.location.reload();
+							parent.layer.close(index);
+						});
+					} else {
+						layer.msg(result.message, {icon: 0});
+					}
+	       		},
+	       		error : function() {
+	       			layer.msg('无法连接服务器', {icon: 2});
+	       		}
+	       	});   
+			return false;
+		});
+	});
+</script>
+</html>

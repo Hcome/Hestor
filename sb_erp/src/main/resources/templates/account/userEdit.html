@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"  
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"  
+      xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+		<TITLE>SpringDemo</TITLE>
+		<META name="description" content="THORNBIRD.COM"/>
+		
+		<!-- 引入外部js或css -->
+		<script th:src="@{https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js}"></script>
+		<!-- 引入内部js或css -->
+		<script th:src="${'/lib/layui/layui.js'}" charset="utf-8"></script>
+		<script th:src="${'/js/xadmin.js'}" type="text/javascript"></script>
+		<link th:href="${'/css/font.css'}" rel="stylesheet">
+		<link th:href="${'/css/xadmin.css'}" rel="stylesheet">
+	</head>
+	<body>
+		<div class="x-body">
+			<form id="form1" class="layui-form" th:object="${user}">
+				<input type="hidden" name="userId" th:value="${user.userId}" />
+				<div class="layui-form-item">
+					<label for="L_username" class="layui-form-label"> <span
+						class="x-red">*</span>上传图片
+					</label>
+					<div class="layui-input-inline">
+						<img name="testImg" alt="" src="">
+						<button type="button" class="layui-btn" id="uploadFile">
+							<i class="layui-icon">&#xe67c;</i>上传图片
+						</button>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="L_username" class="layui-form-label"> <span
+						class="x-red">*</span>账号
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="userAccount" th:value="${user.account}"
+							name="account" required="" readOnly
+							lay-verify="nikename" autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>姓名
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="username" th:value="${user.userName }"
+							name="userName" required="" lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>性别
+					</label>
+					<div class="layui-input-inline">
+						<input name="userSex" type="radio" value="男" lay-skin="primary" title="男" 
+							th:checked="${user.userSex} == 男 " />
+						<input name="userSex" type="radio" value="女" lay-skin="primary" title="女" 
+							th:checked="${user.userSex} == 女" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="phone" class="layui-form-label"> <span
+						class="x-red">*</span>手机
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="phone" th:value="${user.userTelephone}"
+							name="userTelephone" required="" lay-verify="phone"
+							autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="phone" class="layui-form-label"> <span
+						class="x-red">*</span>电子邮箱
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" th:value="${user.userEmail}" name="userEmail"
+							required="" lay-verify="email" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>家庭地址
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" th:value="${user.userAddress}" name="userAddress"
+							required="" lay-verify="required" autocomplete="off"
+							class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>出生日期
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="date1" th:value="${user.userBirthday}"
+							name="userBirthday" required="" lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>入职时间
+					</label>
+					<div class="layui-input-inline">
+						<input type="text" id="date2" th:value="${user.userEntrytime}"
+							name="userEntrytime" required="" lay-verify="required"
+							autocomplete="off" class="layui-input">
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label"> <span
+						class="x-red">*</span>学历
+					</label>
+					<div class="layui-input-inline">
+						<select id="shipping" name="userDiploma" class="valid">
+							<option value="大专" th:selected="${user.userDiploma} == 大专 ">大专</option>
+							<option value="本科" th:selected="${user.userDiploma} == 本科 ">本科</option>
+							<option value="硕士" th:selected="${user.userDiploma} == 硕士 ">硕士</option>
+							<option value="博士" th:selected="${user.userDiploma} == 博士 ">博士</option>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="username" class="layui-form-label">
+						<span class="x-red">*</span>部门安排
+					</label>
+					<div class="layui-input-inline">
+						<select name="departId" lay-filter="departSelect">
+							<option th:each="depart:${departments}" 
+								th:selected="${depart.departId eq user.departId}" 
+								th:value="${depart.departId}" th:text="${depart.departName}"/>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label for="L_email" class="layui-form-label"> <span
+						class="x-red">*</span>职位
+					</label>
+					<div class="layui-input-inline">
+						<select name="positionId" lay-filter="positionSelect">
+							<option th:each="position:${positions}" 
+								th:selected="${position.positionId eq user.positionId}" 
+								th:value="${position.positionId}" th:text="${position.positionName}"/>
+						</select>
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">
+						指定角色
+					</label>
+					<div class="layui-input-block">
+						<input type="checkbox" name="userRoles" lay-skin="primary" 
+							th:each="role,status : ${roles}" 
+							th:checked="${role.selected} == true" 
+							th:title="${role.roleDesc}" th:value="${role.roleId}">
+					</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label for="L_pass" class="layui-form-label"> <span
+						class="x-red">*</span>重置密码
+					</label>
+					<div class="layui-input-inline">
+						<input type="checkbox" name="zzz" lay-filter="filter"
+							lay-skin="switch" lay-text="确定|取消">
+					</div>
+				</div>
+				<div name="pwd" class="layui-form-item">
+					<label for="L_pass" class="layui-form-label"> <span
+						class="x-red">*</span>新密码
+					</label>
+					<div class="layui-input-inline">
+						<input type="password" id="L_pass"
+							autocomplete="off" class="layui-input">
+					</div>
+					<div id="password" class="layui-form-mid layui-word-aux ">
+						至少6个字符</div>
+				</div>
+				<div name="pwd" class="layui-form-item">
+					<label for="L_repass" class="layui-form-label"> <span
+						class="x-red">*</span>确认密码
+					</label>
+					<div class="layui-input-inline">
+						<input onchange="confirm()" type="password" id="L_repass"
+							name="repass" autocomplete="off" class="layui-input">
+					</div>
+					<div id="confire" class="layui-form-mid layui-word-aux ">
+						两次密码必须一致</div>
+				</div>
+				
+				<div class="layui-form-item">
+					<label for="L_repass" class="layui-form-label"> </label>
+					<button id="editUser" class="layui-btn" lay-filter="add" lay-submit="">
+						确定</button>
+					<a class="layui-btn" onclick="x_admin_close()" lay-submit=""> 返回
+					</a>
+				</div>
+			</form>
+		</div>
+	</body>
+	<script type="text/javascript">
+		// 初始化时间
+		$(function(){
+			if($("#date2").val()!=""){
+				$("#date2").val(new Date($("#date2").val()).format("yyyy-MM-dd"));
+			}
+			$("div [name='pwd']").hide();
+			if($("#date1").val()!=""){
+				$("#date1").val(new Date($("#date1").val()).format("yyyy-MM-dd"))	
+			}
+		});
+		
+		//密码输入框事件
+		function safePW(){
+			if($('#L_pass').val().length>5){
+				$("#password").html("<i class=\"layui-icon layui-anim layui-anim-scale \" style=\"color: #1E9FFF;\">&#xe618;</i>")
+			}
+		};
+		
+		//密码确认框事件
+		function confirm(){
+			if($('#L_pass').val()==$('#L_repass').val()){
+                  $("#confire").html("<i class=\"layui-icon layui-anim layui-anim-scale \" style=\"color: #1E9FFF;\">&#xe618;</i>") 
+                }
+		};
+		
+		
+		//layui监听器
+		layui.use(['form','layer','laydate','upload'], function(){
+			$ = layui.jquery;
+			var form = layui.form,
+				layer = layui.layer,
+				laydate=layui.laydate,
+				upload = layui.upload;
+			
+			//上传文件
+			upload.render({
+				elem: '#uploadFile',
+				url: '/account/upload/',
+				done: function(result){
+					//var result = eval("(" + data + ")");
+	    			if (result.status == 200) {
+						layer.msg(result.object, {icon: 0});
+		    			$("[name=testImg]").attr("src", result.object);
+					} else {
+						layer.msg(result.message, {icon: 0});
+					}
+				},
+				error: function(){
+				}
+			});
+			
+			//时间控件
+			laydate.render({
+	    		elem: '#date1',
+	    		trigger: 'click'
+	  		});
+	        laydate.render({
+	    		elem: '#date2',
+	    		trigger: 'click'
+	  		});
+	        
+	        //验证器
+			form.verify({
+				nikename: function(value){
+					if(value.length < 2){
+						return '昵称至少得2个字符啊';
+					}
+				},
+				pass: [/(.+){6,12}$/, '密码必须6到12位'],
+				repass: function(value){
+	                if($('#L_pass').val()!=$('#L_repass').val()){
+	                    return '两次密码不一致';
+	                }
+				}
+			});
+	      
+	        //页面转换开关
+			form.on('switch(filter)', function(data){
+	  			console.log(data.elem.checked);
+	  			if(!data.elem.checked){
+	  				$("#L_pass").removeAttr("lay-verify");
+	  				$("#L_repass").removeAttr("lay-verify");
+	  				$("#L_repass").removeAttr("name");
+	  			}else{
+	  				$("#L_pass").attr("lay-verify","pass");
+	  				$("#L_repass").attr("lay-verify","repass");
+	  				$("#L_repass").attr("name","password");
+	          		console.log("ssss"+$("#L_repass").prop("name")+"///"+$("#L_repass").attr("name"));
+	  			}
+	  			$("div [name='pwd']").toggle(300);
+			});
+	        
+	        //form提交
+			form.on('submit(add)', function(data){
+	            console.log(data);
+	            $.ajax({
+	        		url :"/account/editUser",
+	        		type : "POST",
+	        		data : $('#form1').serialize(),
+	        		dataType : "text",
+	        		success : function(data) {
+	        			var result = eval("(" + data + ")");
+	        			if (result.status == 200) {
+							layer.msg("修改成功",{
+								icon : 1,
+								time: 500,
+							},function () {
+								var index = parent.layer.getFrameIndex(window.name);
+								parent.location.reload();
+								parent.layer.close(index);
+							});
+	    				} else {
+	    					layer.msg(result.message, {icon: 0});
+	    				}
+	        		},
+	        		error : function() {
+	        			layer.msg('无法连接服务器', {icon: 2});
+	        		}
+	        	});   
+	            return false;
+			});
+			
+	        //select变更事件，获取不同部门的职位列表
+			form.on('select(departSelect)', function(data){
+				$.ajax({
+					url : "/organization/positionsByDepart?departId=" + $("[name=departId]").val(),
+					type : "get",
+					contentType: "application/json",
+					success : function (data) {
+						$("[name=positionId]").empty();
+						$.each(data, function(i, item){
+							$("[name=positionId]").append("<option value="+
+									item.positionId+">"+item.positionName+"</option>");
+						});
+						form.render('select');
+					},
+					error : function (data) {
+						layer.msg(data.message, {icon: 0});
+					}
+				});
+			});
+		});
+	</script>
+</html>
